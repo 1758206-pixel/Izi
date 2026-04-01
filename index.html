@@ -418,7 +418,6 @@ const PASSWORDS = {'Idem2000':'malvin','Idem2020':'amaury'};
 
 let log=[], author='malvin', txType='rev', txEntity='us', subCadence='monthly', subPayer='none', eyeOn=false;
 
-// ── TRANSLATIONS ──
 const LANG = {
   en: {
     dash:'DASH', add:'ADD', loans:'LOANS', log:'LOG', co:'CO.',
@@ -443,20 +442,19 @@ const LANG = {
     subsUS:'Subscriptions (US)', subsFR:'Subscriptions (FR)', loansAdv:'Loans advanced', subsPersonallyMo:'Subs paid personally /mo',
     distributableShare:'50% distributable', malvinTakeHome:'→ Malvin take-home', amauryTakeHome:'→ Amaury take-home',
     expFRLabel:'Expenses (FR, deducted from share)',
-    logicTitle:'💡 Logic', logicText:'Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury's share.',
+    logicTitle:'💡 Logic', logicText:'Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury\'s share.',
     editTx:'✏️ Edit Transaction', editSubMsg:'⚠️ The original entry will be kept in the log marked as superseded. The edit is traceable.',
     editEntity:'Entity', reasonLabel:'Reason for edit', reasonPlaceholder:'Correction, wrong amount, typo…', saveEdit:'✓ SAVE EDIT',
     saving:'⟳ Saving…', saved:'✓ Saved', errNetwork:'✕ Network error',
     fillRequired:'⚠ Description and amount required', editFill:'⚠ Fill description & amount',
     editSaved:'✓ Edit saved', loadingTxt:'Loading data…',
     annual:'Annual', monthly:'Monthly', noEntries:'No entries found',
-    supersededBy:'⚠ SUPERSEDED BY EDIT', editedTag:'EDITED',
-    paidBy:'Paid by',
+    supersededBy:'⚠ SUPERSEDED BY EDIT', editedTag:'EDITED', paidBy:'Paid by',
   },
   fr: {
     dash:'TABLEAU', add:'AJOUTER', loans:'PRÊTS', log:'JOURNAL', co:'SOCIÉTÉ',
     revenue:'Revenus', expenses:'Dépenses', loansOut:'Prêts', netShareable:'Net Partageable',
-    entries:'entrées', expCount:'dépenses', priorityFirst:'priorité d'abord', afterExp:'après dép. & prêts',
+    entries:'entrées', expCount:'dépenses', priorityFirst:'priorité d\'abord', afterExp:'après dép. & prêts',
     recurring:'🔄 Récurrents', noSubs:'Aucun abonnement enregistré',
     profitWaterfall:'Cascade de Profits', takeHome:'À percevoir',
     revLabel:'Revenus', expUS:'− Dépenses US (Izinest)', expSubs:'− Abonnements US',
@@ -464,30 +462,39 @@ const LANG = {
     distributable:'= Distribuable', malvinShare:'→ Malvin / Izinest (50%)', amauryShare:'→ Amaury / French Co. (50%)',
     newTx:'Nouvelle Transaction', descPlaceholder:'Paiement client, Facebook Ads, Notion…',
     descLabel:'Description', amountLabel:'Montant', dateLabel:'Date', saveBtn:'ENREGISTRER',
-    entityWho:'Entité (qui paie ?)', whoAdvances:'Qui avance l'argent ?', whoPaysSub:'Qui paie l'abonnement ?', whoPaysExp:'Qui paie la dépense ?',
+    entityWho:'Entité (qui paie ?)', whoAdvances:'Qui avance l\'argent ?', whoPaysSub:'Qui paie l\'abonnement ?', whoPaysExp:'Qui paie la dépense ?',
     cadence:'Fréquence', paidPersonally:'Payé personnellement par', company:'🏢 Société',
     amountByCadence:'Montant (selon la fréquence)',
     loanEntries:'Entrées de prêts', personalSubs:'Abonnements perso', noLoans:'Aucun prêt enregistré', noPersonalSubs:'Aucun abonnement perso',
     totalOwedMalvin:'Total dû à Malvin', totalOwedAmaury:'Total dû à Amaury',
     loansAdvanced:'Prêts avancés', subsPersonally:'Abos payés perso', repaid:'Remboursé (sur revenus)', stillOwed:'Encore dû',
-    immutableNote:'📌 Ce journal est <strong>immuable</strong> — chaque transaction est horodatée (heure Paris) et attribuée à son auteur. Rien ne peut être supprimé. Les modifications créent une nouvelle entrée ; l'original reste visible.',
+    immutableNote:'📌 Ce journal est <strong>immuable</strong> — chaque transaction est horodatée (heure Paris) et attribuée à son auteur. Rien ne peut être supprimé. Les modifications créent une nouvelle entrée ; l\'original reste visible.',
     allTypes:'Tous types', allAuthors:'Tous auteurs',
     expensesLabel:'Dépenses', loansLabel:'Prêts', subsLabel:'Abonnements',
     subsUS:'Abonnements (US)', subsFR:'Abonnements (FR)', loansAdv:'Prêts avancés', subsPersonallyMo:'Abos payés perso /mois',
     distributableShare:'50% distribuable', malvinTakeHome:'→ Malvin à percevoir', amauryTakeHome:'→ Amaury à percevoir',
     expFRLabel:'Dépenses (FR, déduites de la part)',
-    logicTitle:'💡 Logique', logicText:'Revenus − Dépenses US − Abonnements US → Net − Remboursements prêts (priorité) → Reste ÷ 2. Dépenses FR & Abonnements FR déduits uniquement de la part d'Amaury.',
-    editTx:'✏️ Modifier la Transaction', editSub:'⚠️ L'entrée originale restera dans le journal, marquée comme supplantée. La modification est traçable.',
+    logicTitle:'💡 Logique', logicText:'Revenus − Dépenses US − Abonnements US → Net − Remboursements prêts (priorité) → Reste ÷ 2. Dépenses FR & Abonnements FR déduits uniquement de la part d\'Amaury.',
+    editTx:'✏️ Modifier la Transaction', editSubMsg:'⚠️ L\'entrée originale restera dans le journal, marquée comme supplantée. La modification est traçable.',
     editEntity:'Entité', reasonLabel:'Raison de la modification', reasonPlaceholder:'Correction, mauvais montant, faute de frappe…', saveEdit:'✓ ENREGISTRER',
     saving:'⟳ Sauvegarde…', saved:'✓ Sauvegardé', errNetwork:'✕ Erreur réseau',
     fillRequired:'⚠ Description et montant requis', editFill:'⚠ Remplissez description et montant',
     editSaved:'✓ Modification enregistrée', loadingTxt:'Chargement des données…',
     annual:'Annuel', monthly:'Mensuel', noEntries:'Aucune entrée trouvée',
-    supersededBy:'⚠ SUPPLANTÉ PAR MODIFICATION', editedTag:'MODIFIÉ',
-    paidBy:'Payé par',
+    supersededBy:'⚠ SUPPLANTÉ PAR MODIFICATION', editedTag:'MODIFIÉ', paidBy:'Payé par',
   }
 };
 let L = LANG.en;
+
+function showDebug(msg) {
+  document.getElementById('loading').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.body.insertAdjacentHTML('afterbegin',
+    `<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">
+      🚨 ERREUR DEBUG:<br>${msg}
+    </div>`
+  );
+}
 
 // ── LOCK ──
 function unlock(){
@@ -510,13 +517,20 @@ function toggleEye(){
 
 // ── DATA ──
 async function loadData(user){
+  let statusCode = 'unknown';
   try {
-    const r=await fetch(API+'/latest', {
+    const r = await fetch(API+'/latest', {
       headers: {'X-Master-Key': API_KEY, 'X-Bin-Meta': 'false'}
     });
-    const d=await r.json();
-    log=Array.isArray(d.log)?d.log:(Array.isArray(d.record?.log)?d.record.log:[]);
-  } catch(e){ log=[]; }
+    statusCode = r.status;
+    if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + r.statusText);
+    const d = await r.json();
+    log = Array.isArray(d.log) ? d.log : (Array.isArray(d.record?.log) ? d.record.log : []);
+  } catch(e) {
+    log = [];
+    showDebug('Message: ' + e.message + '<br>HTTP Status: ' + statusCode + '<br>BIN_ID: ' + BIN_ID);
+    return;
+  }
   L = user === 'amaury' ? LANG.fr : LANG.en;
   applyLang();
   document.getElementById('loading').style.display='none';
@@ -539,44 +553,28 @@ async function saveData(){
 }
 
 function applyLang(){
-  // Give each tab a data-tab attribute to target them reliably
   const tabs = document.querySelectorAll('.tab');
   if(tabs[0]) tabs[0].innerHTML='<span class="ti">📊</span>'+L.dash;
   if(tabs[1]) tabs[1].innerHTML='<span class="ti">＋</span>'+L.add;
   if(tabs[2]) tabs[2].innerHTML='<span class="ti">💜</span>'+L.loans;
   if(tabs[3]) tabs[3].innerHTML='<span class="ti">📋</span>'+L.log;
   if(tabs[4]) tabs[4].innerHTML='<span class="ti">🏢</span>'+L.co;
-
-  // KPI labels
   const klabels = document.querySelectorAll('.klabel');
   if(klabels[0]) klabels[0].textContent=L.revenue;
   if(klabels[1]) klabels[1].textContent=L.expenses;
   if(klabels[2]) klabels[2].textContent=L.loansOut;
   if(klabels[3]) klabels[3].textContent=L.netShareable;
-
-  // KPI subs
   const ksubs = document.querySelectorAll('.ksub');
   if(ksubs[2]) ksubs[2].textContent=L.priorityFirst;
   if(ksubs[3]) ksubs[3].textContent=L.afterExp;
-
-  // Pcard subs
-  const psubs = document.querySelectorAll('.psub');
-  if(psubs[0]) psubs[0].textContent='50% '+L.distributable.replace('= ','').toLowerCase();
-  if(psubs[1]) psubs[1].textContent='50% − FR exp.';
-
-  // Subscriptions section title
   const subtitle2 = document.querySelector('.subtitle2');
   if(subtitle2) subtitle2.textContent=L.recurring;
-
-  // Section titles (stitle)
   const stitleEls = document.querySelectorAll('.stitle');
   if(stitleEls[0]) stitleEls[0].textContent=L.recurring.replace('🔄 ','');
   if(stitleEls[1]) stitleEls[1].textContent=L.profitWaterfall;
   if(stitleEls[2]) stitleEls[2].textContent=L.takeHome;
   if(stitleEls[3]) stitleEls[3].textContent=L.loanEntries;
   if(stitleEls[4]) stitleEls[4].textContent=L.personalSubs;
-
-  // Waterfall rows
   const wfls = document.querySelectorAll('.wfl');
   if(wfls[0]) wfls[0].textContent=L.revLabel;
   if(wfls[1]) wfls[1].textContent=L.expUS;
@@ -586,25 +584,13 @@ function applyLang(){
   if(wfls[5]) wfls[5].textContent=L.distributable;
   if(wfls[6]) wfls[6].innerHTML=L.malvinShare;
   if(wfls[7]) wfls[7].innerHTML=L.amauryShare;
-
-  // Add form
   const ftitle = document.querySelector('.ftitle');
   if(ftitle) ftitle.textContent=L.newTx;
   const descInp = document.getElementById('inp-desc');
   if(descInp) descInp.placeholder=L.descPlaceholder;
   const addBtn = document.getElementById('add-btn');
   if(addBtn) addBtn.textContent=L.saveBtn;
-  const flabels = document.querySelectorAll('#page-add .flabel');
-  if(flabels[0]) flabels[0].textContent=L.entityWho;
-  if(flabels[2]) flabels[2].textContent=L.cadence;
-  if(flabels[3]) flabels[3].textContent=L.paidPersonally;
-  if(flabels[4]) flabels[4].textContent=L.descLabel;
-  if(flabels[5]) flabels[5].id='amt-label';
   document.getElementById('amt-label').textContent=L.amountLabel;
-  const dateLabelAdd = document.querySelectorAll('#page-add .flabel');
-  if(dateLabelAdd[6]) dateLabelAdd[6].textContent=L.dateLabel;
-
-  // Toggle buttons
   document.getElementById('tt-rev').textContent='📈 '+L.revenue;
   document.getElementById('tt-exp').textContent='📉 '+L.expenses;
   document.getElementById('tt-loan').textContent='💜 '+L.loansOut;
@@ -616,56 +602,20 @@ function applyLang(){
   document.getElementById('pp-none').textContent=L.company;
   document.getElementById('pp-malvin').textContent='👤 Malvin';
   document.getElementById('pp-amaury').textContent='👤 Amaury';
-
-  // Loans page labels
-  const ltrows = document.querySelectorAll('.ltcard .ltk');
-  if(ltrows[0]) ltrows[0].textContent=L.loansAdvanced;
-  if(ltrows[4]) ltrows[4].textContent=L.loansAdvanced;
-  const ltrowAll = document.querySelectorAll('#page-loans .ltk');
-  ltrowAll.forEach((el,i)=>{
-    if(el.textContent.includes('Repaid')||el.textContent.includes('Remboursé')) el.textContent=L.repaid;
-    if(el.textContent.includes('Still owed')||el.textContent.includes('Encore dû')) el.textContent=L.stillOwed;
-    if(el.textContent.includes('Total owed to Malvin')||el.textContent.includes('Total dû à Malvin')) el.innerHTML=L.totalOwedMalvin;
-    if(el.textContent.includes('Total owed to Amaury')||el.textContent.includes('Total dû à Amaury')) el.innerHTML=L.totalOwedAmaury;
-  });
-
-  // History filters
   const flType = document.getElementById('fl-type');
   if(flType){ flType.options[0].text=L.allTypes; flType.options[1].text=L.revenue; flType.options[2].text=L.expensesLabel; flType.options[3].text=L.loansLabel; flType.options[4].text=L.subsLabel; }
   const flAuth = document.getElementById('fl-auth');
   if(flAuth){ flAuth.options[0].text=L.allAuthors; }
-
-  // Immutable note
   const note = document.querySelector('.note');
   if(note) note.innerHTML=L.immutableNote;
-
-  // CO page
-  const coks = document.querySelectorAll('.cok');
-  const coMap = [L.revenue, L.expensesLabel+' (US)', L.subsUS, L.loansAdv, L.subsPersonallyMo, L.distributableShare,
-                 L.expFRLabel, L.subsFR, L.loansAdv, L.subsPersonallyMo, L.distributableShare];
-  coks.forEach((el,i)=>{ if(coMap[i]) el.textContent=coMap[i]; });
-  const coFinals = document.querySelectorAll('.corow .cok[style]');
-  document.querySelectorAll('.corow').forEach(row=>{
-    const span = row.querySelector('.cok');
-    if(span && (span.style.color==='var(--green)'||span.textContent.includes('Malvin'))) span.textContent=L.malvinTakeHome;
-    if(span && (span.style.color==='var(--pink)'||span.textContent.includes('Amaury'))) span.textContent=L.amauryTakeHome;
-  });
-
-  // Logic
-  const logicTitles = document.querySelectorAll('.lttitle');
-  logicTitles.forEach(el=>{ if(el.style.color&&el.style.color.includes('blue')) el.textContent=L.logicTitle; });
   const logicPs = document.querySelectorAll('.cocard p');
   if(logicPs[0]) logicPs[0].textContent=L.logicText;
-
-  // Edit modal
   const editTitle = document.querySelector('.edit-title');
   if(editTitle) editTitle.textContent=L.editTx;
   const editSub = document.querySelector('.edit-sub');
   if(editSub) editSub.textContent=L.editSubMsg;
   const editReason = document.getElementById('edit-reason');
   if(editReason) editReason.placeholder=L.reasonPlaceholder;
-  const editSaveBtn = document.querySelector('#edit-modal .sbtn');
-  if(editSaveBtn) editSaveBtn.textContent=L.saveEdit;
   document.getElementById('ett-rev').textContent='📈 '+L.revenue;
   document.getElementById('ett-exp').textContent='📉 '+L.expenses;
   document.getElementById('ett-loan').textContent='💜 '+L.loansOut;
@@ -677,16 +627,6 @@ function applyLang(){
   document.getElementById('epp-none').textContent=L.company;
   document.getElementById('epp-malvin').textContent='👤 Malvin';
   document.getElementById('epp-amaury').textContent='👤 Amaury';
-  const editFlabels = document.querySelectorAll('#edit-modal .flabel');
-  if(editFlabels[0]) editFlabels[0].textContent=L.editEntity;
-  if(editFlabels[2]) editFlabels[2].textContent=L.cadence;
-  if(editFlabels[3]) editFlabels[3].textContent=L.paidPersonally;
-  if(editFlabels[4]) editFlabels[4].textContent=L.descLabel;
-  if(editFlabels[5]) editFlabels[5].textContent=L.amountLabel;
-  if(editFlabels[6]) editFlabels[6].textContent=L.dateLabel;
-  if(editFlabels[7]) editFlabels[7].textContent=L.reasonLabel;
-
-  // Loading text
   const loadTxt = document.querySelector('.load-txt');
   if(loadTxt) loadTxt.textContent=L.loadingTxt;
 }
@@ -698,7 +638,6 @@ function setSS(s){
   if(s==='saved') setTimeout(()=>{el.className='save-status';},3000);
 }
 
-// ── COMPUTE ──
 function compute(){
   let rev=0,expUS=0,expFR=0,subUS=0,subFR=0,loanUS=0,loanFR=0,revC=0,expC=0,subAdvM=0,subAdvA=0;
   log.filter(e=>!e.superseded).forEach(e=>{
@@ -808,7 +747,7 @@ function itemHTML(e){
   else if(e.type==='sub')tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span><span class="htag ${e.cadence==='annual'?'y':'o'}">${e.cadence==='annual'?L.annual:L.monthly}</span>`;
   else tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span>`;
   tags+=e.author==='malvin'?'<span class="htag" style="background:rgba(0,255,136,.1);color:var(--green)">Malvin</span>':'<span class="htag" style="background:rgba(255,34,102,.1);color:var(--pink)">Amaury</span>';
-  if(isSub&&e.paidBy&&e.paidBy!=='none')tags+=`<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}">'+L.paidBy+' ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>`;
+  if(isSub&&e.paidBy&&e.paidBy!=='none')tags+=`<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}">Paid by ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>`;
   if(e.isEdit)tags+='<span class="htag y">'+L.editedTag+'</span>';
   let extra='';
   if(isSub&&e.cadence==='annual')extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
