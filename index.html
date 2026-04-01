@@ -444,7 +444,7 @@ const LANG = {
     distributableShare:'50% distributable', malvinTakeHome:'→ Malvin take-home', amauryTakeHome:'→ Amaury take-home',
     expFRLabel:'Expenses (FR, deducted from share)',
     logicTitle:'💡 Logic', logicText:'Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury's share.',
-    editTx:'✏️ Edit Transaction', editSub:'⚠️ The original entry will be kept in the log marked as superseded. The edit is traceable.',
+    editTx:'✏️ Edit Transaction', editSubMsg:'⚠️ The original entry will be kept in the log marked as superseded. The edit is traceable.',
     editEntity:'Entity', reasonLabel:'Reason for edit', reasonPlaceholder:'Correction, wrong amount, typo…', saveEdit:'✓ SAVE EDIT',
     saving:'⟳ Saving…', saved:'✓ Saved', errNetwork:'✕ Network error',
     fillRequired:'⚠ Description and amount required', editFill:'⚠ Fill description & amount',
@@ -539,71 +539,156 @@ async function saveData(){
 }
 
 function applyLang(){
-  // Tabs
-  document.querySelectorAll('.tab')[0].childNodes[1].textContent=L.dash;
-  document.querySelectorAll('.tab')[1].childNodes[1].textContent=L.add;
-  document.querySelectorAll('.tab')[2].childNodes[1].textContent=L.loans;
-  document.querySelectorAll('.tab')[3].childNodes[1].textContent=L.log;
-  document.querySelectorAll('.tab')[4].childNodes[1].textContent=L.co;
-  // KPIs
-  document.querySelectorAll('.klabel')[0].textContent=L.revenue;
-  document.querySelectorAll('.klabel')[1].textContent=L.expenses;
-  document.querySelectorAll('.klabel')[2].textContent=L.loansOut;
-  document.querySelectorAll('.klabel')[3].textContent=L.netShareable;
-  // Subs
-  document.querySelector('.subtitle2').textContent=L.recurring;
-  // Waterfall labels
-  const wfl=document.querySelectorAll('.wfl');
-  if(wfl[0])wfl[0].textContent=L.revLabel;
-  if(wfl[1])wfl[1].textContent=L.expUS;
-  if(wfl[2])wfl[2].textContent=L.expSubs;
-  if(wfl[3]){wfl[3].textContent=L.netBefore;wfl[3].className='wfl bold';}
-  if(wfl[4])wfl[4].textContent=L.advances;
-  if(wfl[5]){wfl[5].textContent=L.distributable;wfl[5].className='wfl bold';}
-  if(wfl[6])wfl[6].style.color='var(--green)';
-  if(wfl[7])wfl[7].style.color='var(--pink)';
-  // Stitle
-  const st=document.querySelectorAll('.stitle');
-  if(st[0])st[0].textContent=L.recurring.replace('🔄 ','');
-  if(st[1])st[1].textContent=L.profitWaterfall;
-  if(st[2])st[2].textContent=L.takeHome;
+  // Give each tab a data-tab attribute to target them reliably
+  const tabs = document.querySelectorAll('.tab');
+  if(tabs[0]) tabs[0].innerHTML='<span class="ti">📊</span>'+L.dash;
+  if(tabs[1]) tabs[1].innerHTML='<span class="ti">＋</span>'+L.add;
+  if(tabs[2]) tabs[2].innerHTML='<span class="ti">💜</span>'+L.loans;
+  if(tabs[3]) tabs[3].innerHTML='<span class="ti">📋</span>'+L.log;
+  if(tabs[4]) tabs[4].innerHTML='<span class="ti">🏢</span>'+L.co;
+
+  // KPI labels
+  const klabels = document.querySelectorAll('.klabel');
+  if(klabels[0]) klabels[0].textContent=L.revenue;
+  if(klabels[1]) klabels[1].textContent=L.expenses;
+  if(klabels[2]) klabels[2].textContent=L.loansOut;
+  if(klabels[3]) klabels[3].textContent=L.netShareable;
+
+  // KPI subs
+  const ksubs = document.querySelectorAll('.ksub');
+  if(ksubs[2]) ksubs[2].textContent=L.priorityFirst;
+  if(ksubs[3]) ksubs[3].textContent=L.afterExp;
+
+  // Pcard subs
+  const psubs = document.querySelectorAll('.psub');
+  if(psubs[0]) psubs[0].textContent='50% '+L.distributable.replace('= ','').toLowerCase();
+  if(psubs[1]) psubs[1].textContent='50% − FR exp.';
+
+  // Subscriptions section title
+  const subtitle2 = document.querySelector('.subtitle2');
+  if(subtitle2) subtitle2.textContent=L.recurring;
+
+  // Section titles (stitle)
+  const stitleEls = document.querySelectorAll('.stitle');
+  if(stitleEls[0]) stitleEls[0].textContent=L.recurring.replace('🔄 ','');
+  if(stitleEls[1]) stitleEls[1].textContent=L.profitWaterfall;
+  if(stitleEls[2]) stitleEls[2].textContent=L.takeHome;
+  if(stitleEls[3]) stitleEls[3].textContent=L.loanEntries;
+  if(stitleEls[4]) stitleEls[4].textContent=L.personalSubs;
+
+  // Waterfall rows
+  const wfls = document.querySelectorAll('.wfl');
+  if(wfls[0]) wfls[0].textContent=L.revLabel;
+  if(wfls[1]) wfls[1].textContent=L.expUS;
+  if(wfls[2]) wfls[2].textContent=L.expSubs;
+  if(wfls[3]) wfls[3].textContent=L.netBefore;
+  if(wfls[4]) wfls[4].textContent=L.advances;
+  if(wfls[5]) wfls[5].textContent=L.distributable;
+  if(wfls[6]) wfls[6].innerHTML=L.malvinShare;
+  if(wfls[7]) wfls[7].innerHTML=L.amauryShare;
+
   // Add form
-  document.querySelector('.ftitle').textContent=L.newTx;
-  document.getElementById('inp-desc').placeholder=L.descPlaceholder;
-  document.querySelector('.flabel[for]')&&null;
-  document.getElementById('add-btn').textContent=L.saveBtn;
-  // Immutable note
-  const note=document.querySelector('.note');
-  if(note)note.innerHTML=L.immutableNote;
-  // Loading
-  const lt=document.querySelector('.load-txt');
-  if(lt)lt.textContent=L.loadingTxt;
+  const ftitle = document.querySelector('.ftitle');
+  if(ftitle) ftitle.textContent=L.newTx;
+  const descInp = document.getElementById('inp-desc');
+  if(descInp) descInp.placeholder=L.descPlaceholder;
+  const addBtn = document.getElementById('add-btn');
+  if(addBtn) addBtn.textContent=L.saveBtn;
+  const flabels = document.querySelectorAll('#page-add .flabel');
+  if(flabels[0]) flabels[0].textContent=L.entityWho;
+  if(flabels[2]) flabels[2].textContent=L.cadence;
+  if(flabels[3]) flabels[3].textContent=L.paidPersonally;
+  if(flabels[4]) flabels[4].textContent=L.descLabel;
+  if(flabels[5]) flabels[5].id='amt-label';
+  document.getElementById('amt-label').textContent=L.amountLabel;
+  const dateLabelAdd = document.querySelectorAll('#page-add .flabel');
+  if(dateLabelAdd[6]) dateLabelAdd[6].textContent=L.dateLabel;
+
+  // Toggle buttons
+  document.getElementById('tt-rev').textContent='📈 '+L.revenue;
+  document.getElementById('tt-exp').textContent='📉 '+L.expenses;
+  document.getElementById('tt-loan').textContent='💜 '+L.loansOut;
+  document.getElementById('tt-sub').textContent='🔄 '+L.subsLabel;
+  document.getElementById('et-us').textContent='🇺🇸 Izinest LLC';
+  document.getElementById('et-fr').textContent='🇫🇷 French Company';
+  document.getElementById('sc-monthly').textContent='📅 '+L.monthly;
+  document.getElementById('sc-annual').textContent='📆 '+L.annual;
+  document.getElementById('pp-none').textContent=L.company;
+  document.getElementById('pp-malvin').textContent='👤 Malvin';
+  document.getElementById('pp-amaury').textContent='👤 Amaury';
+
+  // Loans page labels
+  const ltrows = document.querySelectorAll('.ltcard .ltk');
+  if(ltrows[0]) ltrows[0].textContent=L.loansAdvanced;
+  if(ltrows[4]) ltrows[4].textContent=L.loansAdvanced;
+  const ltrowAll = document.querySelectorAll('#page-loans .ltk');
+  ltrowAll.forEach((el,i)=>{
+    if(el.textContent.includes('Repaid')||el.textContent.includes('Remboursé')) el.textContent=L.repaid;
+    if(el.textContent.includes('Still owed')||el.textContent.includes('Encore dû')) el.textContent=L.stillOwed;
+    if(el.textContent.includes('Total owed to Malvin')||el.textContent.includes('Total dû à Malvin')) el.innerHTML=L.totalOwedMalvin;
+    if(el.textContent.includes('Total owed to Amaury')||el.textContent.includes('Total dû à Amaury')) el.innerHTML=L.totalOwedAmaury;
+  });
+
   // History filters
-  const ft=document.getElementById('fl-type');
-  if(ft){ft.options[0].text=L.allTypes;ft.options[1].text=L.revenue;ft.options[2].text=L.expensesLabel;ft.options[3].text=L.loansLabel;ft.options[4].text=L.subsLabel;}
-  const fa=document.getElementById('fl-auth');
-  if(fa){fa.options[0].text=L.allAuthors;}
-  // Co page labels
-  const cok=document.querySelectorAll('.cok');
-  if(cok[2])cok[2].textContent=L.subsUS;
-  if(cok[3])cok[3].textContent=L.loansAdv;
-  if(cok[4])cok[4].textContent=L.subsPersonallyMo;
-  if(cok[5])cok[5].textContent=L.distributableShare;
-  if(cok[7])cok[7].textContent=L.expFRLabel;
-  if(cok[8])cok[8].textContent=L.subsFR;
-  if(cok[9])cok[9].textContent=L.loansAdv;
-  if(cok[10])cok[10].textContent=L.subsPersonallyMo;
-  if(cok[11])cok[11].textContent=L.distributableShare;
-  // Logic card
-  const logicTitle=document.querySelector('.lttitle[style*="blue"]');
-  if(logicTitle)logicTitle.textContent=L.logicTitle;
-  const logicP=logicTitle?.nextElementSibling;
-  if(logicP)logicP.textContent=L.logicText;
+  const flType = document.getElementById('fl-type');
+  if(flType){ flType.options[0].text=L.allTypes; flType.options[1].text=L.revenue; flType.options[2].text=L.expensesLabel; flType.options[3].text=L.loansLabel; flType.options[4].text=L.subsLabel; }
+  const flAuth = document.getElementById('fl-auth');
+  if(flAuth){ flAuth.options[0].text=L.allAuthors; }
+
+  // Immutable note
+  const note = document.querySelector('.note');
+  if(note) note.innerHTML=L.immutableNote;
+
+  // CO page
+  const coks = document.querySelectorAll('.cok');
+  const coMap = [L.revenue, L.expensesLabel+' (US)', L.subsUS, L.loansAdv, L.subsPersonallyMo, L.distributableShare,
+                 L.expFRLabel, L.subsFR, L.loansAdv, L.subsPersonallyMo, L.distributableShare];
+  coks.forEach((el,i)=>{ if(coMap[i]) el.textContent=coMap[i]; });
+  const coFinals = document.querySelectorAll('.corow .cok[style]');
+  document.querySelectorAll('.corow').forEach(row=>{
+    const span = row.querySelector('.cok');
+    if(span && (span.style.color==='var(--green)'||span.textContent.includes('Malvin'))) span.textContent=L.malvinTakeHome;
+    if(span && (span.style.color==='var(--pink)'||span.textContent.includes('Amaury'))) span.textContent=L.amauryTakeHome;
+  });
+
+  // Logic
+  const logicTitles = document.querySelectorAll('.lttitle');
+  logicTitles.forEach(el=>{ if(el.style.color&&el.style.color.includes('blue')) el.textContent=L.logicTitle; });
+  const logicPs = document.querySelectorAll('.cocard p');
+  if(logicPs[0]) logicPs[0].textContent=L.logicText;
+
   // Edit modal
-  document.querySelector('.edit-title').textContent=L.editTx;
-  document.querySelector('.edit-sub').textContent=L.editSub;
-  document.getElementById('edit-reason').placeholder=L.reasonPlaceholder;
-  document.querySelector('#edit-modal .sbtn').textContent=L.saveEdit;
+  const editTitle = document.querySelector('.edit-title');
+  if(editTitle) editTitle.textContent=L.editTx;
+  const editSub = document.querySelector('.edit-sub');
+  if(editSub) editSub.textContent=L.editSubMsg;
+  const editReason = document.getElementById('edit-reason');
+  if(editReason) editReason.placeholder=L.reasonPlaceholder;
+  const editSaveBtn = document.querySelector('#edit-modal .sbtn');
+  if(editSaveBtn) editSaveBtn.textContent=L.saveEdit;
+  document.getElementById('ett-rev').textContent='📈 '+L.revenue;
+  document.getElementById('ett-exp').textContent='📉 '+L.expenses;
+  document.getElementById('ett-loan').textContent='💜 '+L.loansOut;
+  document.getElementById('ett-sub').textContent='🔄 '+L.subsLabel;
+  document.getElementById('eet-us').textContent='🇺🇸 Izinest LLC';
+  document.getElementById('eet-fr').textContent='🇫🇷 French Company';
+  document.getElementById('esc-monthly').textContent='📅 '+L.monthly;
+  document.getElementById('esc-annual').textContent='📆 '+L.annual;
+  document.getElementById('epp-none').textContent=L.company;
+  document.getElementById('epp-malvin').textContent='👤 Malvin';
+  document.getElementById('epp-amaury').textContent='👤 Amaury';
+  const editFlabels = document.querySelectorAll('#edit-modal .flabel');
+  if(editFlabels[0]) editFlabels[0].textContent=L.editEntity;
+  if(editFlabels[2]) editFlabels[2].textContent=L.cadence;
+  if(editFlabels[3]) editFlabels[3].textContent=L.paidPersonally;
+  if(editFlabels[4]) editFlabels[4].textContent=L.descLabel;
+  if(editFlabels[5]) editFlabels[5].textContent=L.amountLabel;
+  if(editFlabels[6]) editFlabels[6].textContent=L.dateLabel;
+  if(editFlabels[7]) editFlabels[7].textContent=L.reasonLabel;
+
+  // Loading text
+  const loadTxt = document.querySelector('.load-txt');
+  if(loadTxt) loadTxt.textContent=L.loadingTxt;
 }
 
 function setSS(s){
