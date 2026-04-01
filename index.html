@@ -411,7 +411,9 @@ select option{background:#111;}
 <div class="toast" id="toast"></div>
 
 <script>
-const API = 'https://script.google.com/macros/s/AKfycbx8GeqP_BoCRkhX9kZqLprIDcuWrcIG6zpBlpafu0lVw5bzaF3QjqJT6aLwBFlh97-D/exec';
+const BIN_ID = '69cd04edaaba882197b48e3d';
+const API_KEY = '$2a$10$ePmeV.SxJ0gcLAPBssFpeOIp3IL/rUBT931O2ViMafPqGQWVdaaHW';
+const API = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
 const PASSWORDS = {'Idem2000':'malvin','Idem2020':'amaury'};
 
 let log=[], author='malvin', txType='rev', txEntity='us', subCadence='monthly', subPayer='none', eyeOn=false;
@@ -438,9 +440,11 @@ function toggleEye(){
 // ── DATA ──
 async function loadData(user){
   try {
-    const r=await fetch(API+'?nocache='+Date.now());
+    const r=await fetch(API+'/latest', {
+      headers: {'X-Master-Key': API_KEY, 'X-Bin-Meta': 'false'}
+    });
     const d=await r.json();
-    log=(d.ok&&d.data&&d.data!=='[]'&&d.data!=='')?JSON.parse(d.data):[];
+    log=Array.isArray(d.log)?d.log:[];
   } catch(e){ log=[]; }
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='block';
@@ -452,8 +456,11 @@ async function loadData(user){
 async function saveData(){
   setSS('saving');
   try {
-    const encoded = encodeURIComponent(JSON.stringify(log));
-    await fetch(API+'?action=save&data='+encoded+'&nocache='+Date.now());
+    await fetch(API, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','X-Master-Key': API_KEY},
+      body: JSON.stringify({log: log})
+    });
     setSS('saved');
   } catch(e){ setSS('error'); showToast('⚠ Erreur réseau — données non sauvegardées',true); }
 }
