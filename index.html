@@ -444,7 +444,7 @@ async function loadData(user){
       headers: {'X-Master-Key': API_KEY, 'X-Bin-Meta': 'false'}
     });
     const d=await r.json();
-    log=Array.isArray(d.log)?d.log:[];
+    log=Array.isArray(d.record?.log)?d.record.log:(Array.isArray(d.log)?d.log:[]);
   } catch(e){ log=[]; }
   document.getElementById('loading').style.display='none';
   document.getElementById('app').style.display='block';
