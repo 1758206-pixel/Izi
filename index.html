@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <title>Izinest × French Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -29,7 +31,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100
 .lock-input::placeholder{letter-spacing:0;color:var(--muted);font-family:var(--fb);font-size:14px;}
 .lock-input.err{border-color:var(--pink);animation:shake .35s ease;}
 .eye{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:4px;}
-.lock-btn{margin-top:14px;width:100%;padding:15px;background:var(--green);color:#000;border:none;border-radius:100px;font-family:var(--fb);font-size:15px;font-weight:800;cursor:pointer;}
+.lock-btn{margin-top:14px;width:100%;padding:15px;background:var(--green);color:#000;border:none;border-radius:100px;font-family:var(--fb);font-size:15px;font-weight:800;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 #loading{position:fixed;inset:0;z-index:9998;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
 .spin{width:36px;height:36px;border:3px solid var(--border2);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;}
@@ -42,11 +44,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100
 .logo .iz{color:var(--green)}.logo .x{color:var(--muted);margin:0 4px;font-weight:300}.logo .fr{color:var(--pink)}
 .pill{margin-left:auto;background:var(--s2);border:1px solid var(--border2);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--dim);font-family:var(--fm);letter-spacing:1px;}
 .abar{display:flex;gap:6px;margin-bottom:12px;}
-.abtn{flex:1;padding:8px 6px;border-radius:100px;border:1px solid var(--border2);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+.abtn{flex:1;padding:8px 6px;border-radius:100px;border:1px solid var(--border2);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.5px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .abtn.sm{background:rgba(0,255,136,.12);border-color:var(--green);color:var(--green);}
 .abtn.sa{background:rgba(255,34,102,.12);border-color:var(--pink);color:var(--pink);}
 .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:var(--s1);border-radius:100px;padding:4px;border:1px solid var(--border);}
-.tab{padding:7px 2px;border-radius:100px;border:none;font-family:var(--fb);font-size:10px;font-weight:700;cursor:pointer;color:var(--dim);background:transparent;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:1px;}
+.tab{padding:7px 2px;border-radius:100px;border:none;font-family:var(--fb);font-size:10px;font-weight:700;cursor:pointer;color:var(--dim);background:transparent;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:1px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .tab .ti{font-size:13px;}
 .tab.active{background:var(--s3);color:var(--text);}
 .page{display:none;padding:14px 16px;}
@@ -92,17 +94,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--fb);min-height:100
 .fcard{background:var(--s1);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px;}
 .ftitle{font-size:16px;font-weight:800;margin-bottom:14px;}
 .ttog{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
-.ttbtn{padding:10px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;}
+.ttbtn{padding:10px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .ttbtn.ag{background:rgba(0,255,136,.12);border-color:var(--green);color:var(--green);}
 .ttbtn.ap{background:rgba(255,34,102,.12);border-color:var(--pink);color:var(--pink);}
 .ttbtn.av{background:rgba(187,136,255,.12);border-color:var(--purple);color:var(--purple);}
 .ttbtn.ao{background:rgba(255,136,68,.12);border-color:var(--orange);color:var(--orange);}
 .etog{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.etbtn{padding:9px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;}
+.etbtn{padding:9px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .etbtn.ag{background:rgba(0,255,136,.12);border-color:var(--green);color:var(--green);}
 .etbtn.ap{background:rgba(255,34,102,.12);border-color:var(--pink);color:var(--pink);}
 .sctog{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-.sctbtn{padding:9px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;}
+.sctbtn{padding:9px 6px;border-radius:var(--rs);border:1px solid var(--border);background:var(--s2);color:var(--dim);font-family:var(--fb);font-size:11px;font-weight:700;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .sctbtn.ao{background:rgba(255,136,68,.12);border-color:var(--orange);color:var(--orange);}
 .fg{margin-bottom:11px;}
 .flabel{display:block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);margin-bottom:6px;}
@@ -113,7 +115,7 @@ select option{background:#111;}
 .crow{display:flex;gap:8px;}
 .crow input{flex:1;}
 .csym{width:75px!important;flex-shrink:0;}
-.sbtn{width:100%;padding:13px;border:none;border-radius:var(--rs);font-family:var(--fb);font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;margin-top:4px;letter-spacing:.3px;}
+.sbtn{width:100%;padding:13px;border:none;border-radius:var(--rs);font-family:var(--fb);font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;margin-top:4px;letter-spacing:.3px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .sbtn.sg{background:var(--green);color:#000;}
 .sbtn.sv{background:var(--purple);color:#000;}
 .sbtn.so{background:var(--orange);color:#000;}
@@ -145,7 +147,7 @@ select option{background:#111;}
 .hamt.g{color:var(--green)}.hamt.p{color:var(--pink)}.hamt.v{color:var(--purple)}.hamt.o{color:var(--orange)}
 .edit-audit{margin-top:6px;padding:6px 8px;background:rgba(255,204,0,.06);border:1px solid rgba(255,204,0,.2);border-radius:6px;font-size:10px;color:var(--yellow);line-height:1.5;}
 .sup-note{margin-top:5px;font-size:9px;color:var(--yellow);letter-spacing:.5px;font-weight:700;}
-.edit-btn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:5px 10px;background:rgba(255,204,0,.08);border:1px solid rgba(255,204,0,.2);border-radius:6px;color:var(--yellow);font-family:var(--fb);font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.5px;}
+.edit-btn{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:5px 10px;background:rgba(255,204,0,.08);border:1px solid rgba(255,204,0,.2);border-radius:6px;color:var(--yellow);font-family:var(--fb);font-size:10px;font-weight:700;cursor:pointer;letter-spacing:.5px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .note{background:rgba(255,204,0,.04);border:1px solid rgba(255,204,0,.15);border-radius:var(--rs);padding:10px 12px;font-size:11px;color:var(--yellow);margin-bottom:12px;line-height:1.5;}
 .ltcard{background:var(--s1);border:1px solid rgba(187,136,255,.2);border-radius:var(--r);padding:14px;margin-bottom:8px;}
 .lttitle{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
@@ -177,7 +179,7 @@ select option{background:#111;}
 @keyframes slideup{from{transform:translateY(60px);opacity:0}to{transform:translateY(0);opacity:1}}
 .edit-title{font-size:15px;font-weight:800;margin-bottom:4px;}
 .edit-sub{font-size:11px;color:var(--yellow);margin-bottom:16px;line-height:1.5;}
-.edit-close{float:right;background:var(--s3);border:none;color:var(--dim);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px;}
+.edit-close{float:right;background:var(--s3);border:none;color:var(--dim);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:13px;-webkit-tap-highlight-color:transparent;touch-action:manipulation;}
 .empty{text-align:center;padding:40px 20px;color:var(--dim);font-size:13px;}
 .empty .ei{font-size:28px;margin-bottom:8px;}
 </style>
@@ -188,11 +190,12 @@ select option{background:#111;}
   <div class="lock-box">
     <div class="lock-wrap">
       <input class="lock-input" id="lock-pw" type="password" placeholder="Password"
+        autocorrect="off" autocapitalize="off" autocomplete="off" spellcheck="false"
         onkeydown="if(event.key==='Enter')unlock()"
         oninput="this.classList.remove('err')"/>
       <button class="eye" id="eye-btn" onclick="toggleEye()" tabindex="-1">👁</button>
     </div>
-    <button class="lock-btn" onclick="unlock()">ENTER</button>
+    <button class="lock-btn" id="lock-submit-btn" onclick="unlock()">ENTER</button>
   </div>
 </div>
 
@@ -281,7 +284,7 @@ select option{background:#111;}
           <button class="etbtn"    id="pp-amaury" onclick="setPayer('amaury')">👤 Amaury</button>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Description</label><input type="text" id="inp-desc" placeholder="Client payment, Facebook Ads, Notion…"/></div>
+      <div class="fg"><label class="flabel">Description</label><input type="text" id="inp-desc" placeholder="Client payment, Facebook Ads, Notion…" autocorrect="off" autocapitalize="sentences"/></div>
       <div class="fg">
         <label class="flabel" id="amt-label">Amount</label>
         <div class="crow">
@@ -392,7 +395,7 @@ select option{background:#111;}
           <button class="etbtn" id="epp-amaury" onclick="editSetPayer('amaury')">👤 Amaury</button>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Description</label><input type="text" id="edit-desc"/></div>
+      <div class="fg"><label class="flabel">Description</label><input type="text" id="edit-desc" autocorrect="off" autocapitalize="sentences"/></div>
       <div class="fg">
         <label class="flabel" id="edit-amt-label">Amount</label>
         <div class="crow">
@@ -401,7 +404,7 @@ select option{background:#111;}
         </div>
       </div>
       <div class="fg"><label class="flabel">Date</label><input type="date" id="edit-date"/></div>
-      <div class="fg"><label class="flabel">Reason for edit</label><input type="text" id="edit-reason" placeholder="Correction, wrong amount, typo…"/></div>
+      <div class="fg"><label class="flabel">Reason for edit</label><input type="text" id="edit-reason" placeholder="Correction, wrong amount, typo…" autocorrect="off"/></div>
       <button class="sbtn sy" onclick="saveEdit()">✓ SAVE EDIT</button>
     </div>
   </div>
@@ -498,22 +501,43 @@ function showDebug(msg) {
 
 // ── LOCK ──
 function unlock(){
-  const inp=document.getElementById('lock-pw');
-  const user=PASSWORDS[inp.value];
+  const inp = document.getElementById('lock-pw');
+  const val = inp.value;
+  const user = PASSWORDS[val];
   if(user){
     document.getElementById('lock').style.display='none';
     document.getElementById('loading').style.display='flex';
     loadData(user);
   } else {
-    inp.classList.add('err'); inp.value='';
+    inp.classList.add('err');
+    inp.value='';
     setTimeout(()=>inp.classList.remove('err'),400);
   }
 }
+
 function toggleEye(){
   eyeOn=!eyeOn;
   document.getElementById('lock-pw').type=eyeOn?'text':'password';
   document.getElementById('eye-btn').textContent=eyeOn?'🙈':'👁';
 }
+
+// ── iOS standalone touchend fallback ──
+document.addEventListener('DOMContentLoaded', function() {
+  var btn = document.getElementById('lock-submit-btn');
+  if(btn){
+    btn.addEventListener('touchend', function(e){
+      e.preventDefault();
+      unlock();
+    });
+  }
+  var eyeBtn = document.getElementById('eye-btn');
+  if(eyeBtn){
+    eyeBtn.addEventListener('touchend', function(e){
+      e.preventDefault();
+      toggleEye();
+    });
+  }
+});
 
 // ── DATA ──
 async function loadData(user){
