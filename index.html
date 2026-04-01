@@ -198,7 +198,7 @@ select option{background:#111;}
 
 <div id="loading">
   <div class="spin"></div>
-  <div class="load-txt">Chargement des données…</div>
+  <div class="load-txt" id="load-txt">Chargement des données…</div>
 </div>
 
 <div id="app">
@@ -212,47 +212,51 @@ select option{background:#111;}
       <button class="abtn" id="abtn-amaury" onclick="setAuthor('amaury')">🇫🇷 Amaury</button>
     </div>
     <div class="tabs">
-      <button class="tab active" onclick="switchTab('dash',this)"><span class="ti">📊</span>DASH</button>
-      <button class="tab" onclick="switchTab('add',this)"><span class="ti">＋</span>ADD</button>
-      <button class="tab" onclick="switchTab('loans',this)"><span class="ti">💜</span>LOANS</button>
-      <button class="tab" onclick="switchTab('hist',this)"><span class="ti">📋</span>LOG</button>
-      <button class="tab" onclick="switchTab('co',this)"><span class="ti">🏢</span>CO.</button>
+      <button class="tab active" onclick="switchTab('dash',this)"><span class="ti">📊</span><span id="tab-dash">DASH</span></button>
+      <button class="tab" onclick="switchTab('add',this)"><span class="ti">＋</span><span id="tab-add">ADD</span></button>
+      <button class="tab" onclick="switchTab('loans',this)"><span class="ti">💜</span><span id="tab-loans">LOANS</span></button>
+      <button class="tab" onclick="switchTab('hist',this)"><span class="ti">📋</span><span id="tab-hist">LOG</span></button>
+      <button class="tab" onclick="switchTab('co',this)"><span class="ti">🏢</span><span id="tab-co">CO.</span></button>
     </div>
   </div>
+
+  <!-- DASH PAGE -->
 
   <div class="page active" id="page-dash">
     <div class="kgrid">
-      <div class="kcard"><div class="klabel">Revenue</div><div class="kval g" id="k-rev">$0</div><div class="ksub" id="k-rev-c">0 entries</div></div>
-      <div class="kcard"><div class="klabel">Expenses</div><div class="kval p" id="k-exp">$0</div><div class="ksub" id="k-exp-c">0 expenses</div></div>
-      <div class="kcard"><div class="klabel">Loans Out</div><div class="kval v" id="k-loan">$0</div><div class="ksub">priority first</div></div>
-      <div class="kcard"><div class="klabel">Net Shareable</div><div class="kval y" id="k-net">$0</div><div class="ksub">after exp & loans</div></div>
+      <div class="kcard"><div class="klabel" id="kl-rev">Revenue</div><div class="kval g" id="k-rev">$0</div><div class="ksub" id="k-rev-c">0 entries</div></div>
+      <div class="kcard"><div class="klabel" id="kl-exp">Expenses</div><div class="kval p" id="k-exp">$0</div><div class="ksub" id="k-exp-c">0 expenses</div></div>
+      <div class="kcard"><div class="klabel" id="kl-loan">Loans Out</div><div class="kval v" id="k-loan">$0</div><div class="ksub" id="ksub-loan">priority first</div></div>
+      <div class="kcard"><div class="klabel" id="kl-net">Net Shareable</div><div class="kval y" id="k-net">$0</div><div class="ksub" id="ksub-net">after exp &amp; loans</div></div>
     </div>
-    <div class="stitle">Active Subscriptions</div>
+    <div class="stitle" id="stitle-subs">Active Subscriptions</div>
     <div class="subcard">
-      <div class="subhdr"><span class="subtitle2">🔄 Recurring</span><span class="subtot" id="dash-sub-total">$0/mo</span></div>
+      <div class="subhdr"><span class="subtitle2" id="subtitle-recurring">🔄 Recurring</span><span class="subtot" id="dash-sub-total">$0/mo</span></div>
       <div class="sublist" id="dash-sub-list"><div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">No subscriptions recorded</div></div>
     </div>
-    <div class="stitle">Profit Waterfall</div>
+    <div class="stitle" id="stitle-waterfall">Profit Waterfall</div>
     <div class="wf">
-      <div class="wfr"><span class="wfl">Revenue</span><span class="wfv" style="color:var(--green)" id="wf-rev">$0</span></div>
-      <div class="wfr"><span class="wfl">− US Expenses (Izinest)</span><span class="wfv" style="color:var(--pink)" id="wf-expu">$0</span></div>
-      <div class="wfr"><span class="wfl">− US Subscriptions</span><span class="wfv" style="color:var(--orange)" id="wf-subu">$0</span></div>
-      <div class="wfr tot"><span class="wfl bold">= Net before loans</span><span class="wfv" style="color:var(--yellow)" id="wf-net1">$0</span></div>
-      <div class="wfr"><span class="wfl">− Advances (loans + personal subs)</span><span class="wfv" style="color:var(--purple)" id="wf-loan">$0</span></div>
-      <div class="wfr tot"><span class="wfl bold">= Distributable</span><span class="wfv" style="color:var(--yellow)" id="wf-dist">$0</span></div>
-      <div class="wfr"><span class="wfl" style="color:var(--green)">→ Malvin / Izinest (50%)</span><span class="wfv" style="color:var(--green)" id="wf-iz">$0</span></div>
-      <div class="wfr"><span class="wfl" style="color:var(--pink)">→ Amaury / French Co. (50%)</span><span class="wfv" style="color:var(--pink)" id="wf-fr">$0</span></div>
+      <div class="wfr"><span class="wfl" id="wfl-rev">Revenue</span><span class="wfv" style="color:var(--green)" id="wf-rev">$0</span></div>
+      <div class="wfr"><span class="wfl" id="wfl-expu">− US Expenses (Izinest)</span><span class="wfv" style="color:var(--pink)" id="wf-expu">$0</span></div>
+      <div class="wfr"><span class="wfl" id="wfl-subu">− US Subscriptions</span><span class="wfv" style="color:var(--orange)" id="wf-subu">$0</span></div>
+      <div class="wfr tot"><span class="wfl bold" id="wfl-net1">= Net before loans</span><span class="wfv" style="color:var(--yellow)" id="wf-net1">$0</span></div>
+      <div class="wfr"><span class="wfl" id="wfl-advances">− Advances (loans + personal subs)</span><span class="wfv" style="color:var(--purple)" id="wf-loan">$0</span></div>
+      <div class="wfr tot"><span class="wfl bold" id="wfl-dist">= Distributable</span><span class="wfv" style="color:var(--yellow)" id="wf-dist">$0</span></div>
+      <div class="wfr"><span class="wfl" style="color:var(--green)" id="wfl-malvin-share">→ Malvin / Izinest (50%)</span><span class="wfv" style="color:var(--green)" id="wf-iz">$0</span></div>
+      <div class="wfr"><span class="wfl" style="color:var(--pink)" id="wfl-amaury-share">→ Amaury / French Co. (50%)</span><span class="wfv" style="color:var(--pink)" id="wf-fr">$0</span></div>
     </div>
-    <div class="stitle">Take-home</div>
+    <div class="stitle" id="stitle-takehome">Take-home</div>
     <div class="pcards">
-      <div class="pcard malvin"><div class="pname">Malvin · Izinest</div><div class="pamt" id="ph-malvin">$0</div><div class="psub">50% of distributable</div></div>
-      <div class="pcard amaury"><div class="pname">Amaury · French Co.</div><div class="pamt" id="ph-amaury">$0</div><div class="psub">50% − FR exp.</div></div>
+      <div class="pcard malvin"><div class="pname">Malvin · Izinest</div><div class="pamt" id="ph-malvin">$0</div><div class="psub" id="psub-malvin">50% of distributable</div></div>
+      <div class="pcard amaury"><div class="pname">Amaury · French Co.</div><div class="pamt" id="ph-amaury">$0</div><div class="psub" id="psub-amaury">50% − FR exp.</div></div>
     </div>
   </div>
 
+  <!-- ADD PAGE -->
+
   <div class="page" id="page-add">
     <div class="fcard">
-      <div class="ftitle">New Transaction</div>
+      <div class="ftitle" id="add-ftitle">New Transaction</div>
       <div class="ttog">
         <button class="ttbtn ag" id="tt-rev"  onclick="setTT('rev')">📈 Revenue</button>
         <button class="ttbtn"    id="tt-exp"  onclick="setTT('exp')">📉 Expense</button>
@@ -267,21 +271,21 @@ select option{background:#111;}
         </div>
       </div>
       <div class="fg" id="cadence-row" style="display:none;">
-        <label class="flabel">Cadence</label>
+        <label class="flabel" id="cadence-label">Cadence</label>
         <div class="sctog">
           <button class="sctbtn ao" id="sc-monthly" onclick="setCadence('monthly')">📅 Monthly</button>
           <button class="sctbtn"    id="sc-annual"  onclick="setCadence('annual')">📆 Annual</button>
         </div>
       </div>
       <div class="fg" id="payer-row" style="display:none;">
-        <label class="flabel">Paid personally by</label>
+        <label class="flabel" id="payer-label">Paid personally by</label>
         <div class="etog" style="grid-template-columns:1fr 1fr 1fr;">
           <button class="etbtn ag" id="pp-none"   onclick="setPayer('none')">🏢 Company</button>
           <button class="etbtn"    id="pp-malvin" onclick="setPayer('malvin')">👤 Malvin</button>
           <button class="etbtn"    id="pp-amaury" onclick="setPayer('amaury')">👤 Amaury</button>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Description</label><input type="text" id="inp-desc" placeholder="Client payment, Facebook Ads, Notion…"/></div>
+      <div class="fg"><label class="flabel" id="desc-label">Description</label><input type="text" id="inp-desc" placeholder="Client payment, Facebook Ads, Notion…"/></div>
       <div class="fg">
         <label class="flabel" id="amt-label">Amount</label>
         <div class="crow">
@@ -289,81 +293,94 @@ select option{background:#111;}
           <select id="inp-cur" class="csym"><option value="USD">$ USD</option><option value="EUR">€ EUR</option></select>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Date</label><input type="date" id="inp-date"/></div>
+      <div class="fg"><label class="flabel" id="date-label">Date</label><input type="date" id="inp-date"/></div>
       <button class="sbtn sg" id="add-btn" onclick="addTx()">SAVE</button>
     </div>
   </div>
 
+  <!-- LOANS PAGE -->
+
   <div class="page" id="page-loans">
     <div class="ltcard">
       <div class="lttitle">🇺🇸 Malvin · Izinest LLC</div>
-      <div class="ltrow"><span class="ltk">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lu-tot">$0</span></div>
-      <div class="ltrow"><span class="ltk">Subs paid personally <small style="color:var(--orange)">(monthly equiv.)</small></span><span class="ltv" style="color:var(--orange)" id="lu-subadv">$0</span></div>
-      <div class="ltrow"><span class="ltk" style="font-weight:600;color:var(--text)">Total owed to Malvin</span><span class="ltv" style="color:var(--purple)" id="lu-totaladv">$0</span></div>
-      <div class="ltrow"><span class="ltk">Repaid (from revenue)</span><span class="ltv" style="color:var(--green)" id="lu-rep">$0</span></div>
-      <div class="ltrow"><span class="ltk">Still owed</span><span class="ltv" style="color:var(--purple)" id="lu-ow">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-us-loans">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lu-tot">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-us-subadv">Subs paid personally <small style="color:var(--orange)">(monthly equiv.)</small></span><span class="ltv" style="color:var(--orange)" id="lu-subadv">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-us-total" style="font-weight:600;color:var(--text)">Total owed to Malvin</span><span class="ltv" style="color:var(--purple)" id="lu-totaladv">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-us-repaid">Repaid (from revenue)</span><span class="ltv" style="color:var(--green)" id="lu-rep">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-us-owed">Still owed</span><span class="ltv" style="color:var(--purple)" id="lu-ow">$0</span></div>
       <div class="ltbar"><div class="ltfill" id="lu-bar" style="width:0%"></div></div>
     </div>
     <div class="ltcard">
       <div class="lttitle">🇫🇷 Amaury · French Co.</div>
-      <div class="ltrow"><span class="ltk">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lf-tot">$0</span></div>
-      <div class="ltrow"><span class="ltk">Subs paid personally <small style="color:var(--orange)">(monthly equiv.)</small></span><span class="ltv" style="color:var(--orange)" id="lf-subadv">$0</span></div>
-      <div class="ltrow"><span class="ltk" style="font-weight:600;color:var(--text)">Total owed to Amaury</span><span class="ltv" style="color:var(--purple)" id="lf-totaladv">$0</span></div>
-      <div class="ltrow"><span class="ltk">Repaid (from revenue)</span><span class="ltv" style="color:var(--green)" id="lf-rep">$0</span></div>
-      <div class="ltrow"><span class="ltk">Still owed</span><span class="ltv" style="color:var(--purple)" id="lf-ow">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-fr-loans">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lf-tot">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-fr-subadv">Subs paid personally <small style="color:var(--orange)">(monthly equiv.)</small></span><span class="ltv" style="color:var(--orange)" id="lf-subadv">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-fr-total" style="font-weight:600;color:var(--text)">Total owed to Amaury</span><span class="ltv" style="color:var(--purple)" id="lf-totaladv">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-fr-repaid">Repaid (from revenue)</span><span class="ltv" style="color:var(--green)" id="lf-rep">$0</span></div>
+      <div class="ltrow"><span class="ltk" id="lk-fr-owed">Still owed</span><span class="ltv" style="color:var(--purple)" id="lf-ow">$0</span></div>
       <div class="ltbar"><div class="ltfill" id="lf-bar" style="width:0%"></div></div>
     </div>
-    <div class="stitle">Loan entries</div>
+    <div class="stitle" id="stitle-loan-entries">Loan entries</div>
     <div class="hlog" id="loan-entries"></div>
-    <div class="stitle">Personal sub payments</div>
+    <div class="stitle" id="stitle-personal-subs">Personal sub payments</div>
     <div class="hlog" id="sub-personal-entries"></div>
   </div>
 
+  <!-- HIST PAGE -->
+
   <div class="page" id="page-hist">
-    <div class="note">📌 Log <strong>immuable</strong> — horodaté Paris, attribué à l'auteur. Rien n'est jamais supprimé. Les modifications conservent l'original visible.</div>
+    <div class="note" id="hist-note">📌 Log <strong>immuable</strong> — horodaté Paris, attribué à l'auteur. Rien n'est jamais supprimé. Les modifications conservent l'original visible.</div>
     <div class="frow">
       <select id="fl-type" onchange="renderHist()">
-        <option value="all">All types</option><option value="rev">Revenue</option>
-        <option value="exp">Expenses</option><option value="loan">Loans</option><option value="sub">Subscriptions</option>
+        <option value="all" id="flt-all">All types</option>
+        <option value="rev" id="flt-rev">Revenue</option>
+        <option value="exp" id="flt-exp">Expenses</option>
+        <option value="loan" id="flt-loan">Loans</option>
+        <option value="sub" id="flt-sub">Subscriptions</option>
       </select>
       <select id="fl-auth" onchange="renderHist()">
-        <option value="all">All authors</option><option value="malvin">Malvin</option><option value="amaury">Amaury</option>
+        <option value="all" id="fla-all">All authors</option>
+        <option value="malvin">Malvin</option>
+        <option value="amaury">Amaury</option>
       </select>
     </div>
     <div class="hlog" id="hist-list"></div>
   </div>
 
+  <!-- CO PAGE -->
+
   <div class="page" id="page-co">
     <div class="cocard">
       <div class="cohdr"><div class="codot g"></div><div class="coname" style="color:var(--green)">Izinest LLC</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇺🇸 Malvin</span></div>
-      <div class="corow"><span class="cok">Revenue</span><span class="cov g" id="co-us-rev">$0</span></div>
-      <div class="corow"><span class="cok">Expenses (US)</span><span class="cov p" id="co-us-exp">$0</span></div>
-      <div class="corow"><span class="cok">Subscriptions (US)</span><span class="cov o" id="co-us-sub">$0</span></div>
-      <div class="corow"><span class="cok">Loans advanced</span><span class="cov v" id="co-us-loan">$0</span></div>
-      <div class="corow"><span class="cok">Subs paid personally /mo</span><span class="cov o" id="co-us-subadv">$0</span></div>
-      <div class="corow"><span class="cok">50% distributable</span><span class="cov y" id="co-us-share">$0</span></div>
-      <div class="corow" style="background:rgba(0,255,136,.04);border-radius:6px;padding:8px;"><span class="cok" style="color:var(--green);font-weight:700">→ Malvin take-home</span><span class="cov g" id="co-us-final" style="font-size:15px">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-us-rev">Revenue</span><span class="cov g" id="co-us-rev">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-us-exp">Expenses (US)</span><span class="cov p" id="co-us-exp">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-us-sub">Subscriptions (US)</span><span class="cov o" id="co-us-sub">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-us-loan">Loans advanced</span><span class="cov v" id="co-us-loan">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-us-subadv">Subs paid personally /mo</span><span class="cov o" id="co-us-subadv">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-us-share">50% distributable</span><span class="cov y" id="co-us-share">$0</span></div>
+      <div class="corow" style="background:rgba(0,255,136,.04);border-radius:6px;padding:8px;"><span class="cok" id="co-kl-us-final" style="color:var(--green);font-weight:700">→ Malvin take-home</span><span class="cov g" id="co-us-final" style="font-size:15px">$0</span></div>
     </div>
     <div class="cocard">
       <div class="cohdr"><div class="codot p"></div><div class="coname" style="color:var(--pink)">French Co.</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇫🇷 Amaury</span></div>
-      <div class="corow"><span class="cok">Expenses (FR)</span><span class="cov p" id="co-fr-exp">$0</span></div>
-      <div class="corow"><span class="cok">Subscriptions (FR)</span><span class="cov o" id="co-fr-sub">$0</span></div>
-      <div class="corow"><span class="cok">Loans advanced</span><span class="cov v" id="co-fr-loan">$0</span></div>
-      <div class="corow"><span class="cok">Subs paid personally /mo</span><span class="cov o" id="co-fr-subadv">$0</span></div>
-      <div class="corow"><span class="cok">50% distributable</span><span class="cov y" id="co-fr-share">$0</span></div>
-      <div class="corow" style="background:rgba(255,34,102,.04);border-radius:6px;padding:8px;"><span class="cok" style="color:var(--pink);font-weight:700">→ Amaury take-home</span><span class="cov p" id="co-fr-final" style="font-size:15px">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-fr-exp">Expenses (FR)</span><span class="cov p" id="co-fr-exp">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-fr-sub">Subscriptions (FR)</span><span class="cov o" id="co-fr-sub">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-fr-loan">Loans advanced</span><span class="cov v" id="co-fr-loan">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-fr-subadv">Subs paid personally /mo</span><span class="cov o" id="co-fr-subadv">$0</span></div>
+      <div class="corow"><span class="cok" id="co-kl-fr-share">50% distributable</span><span class="cov y" id="co-fr-share">$0</span></div>
+      <div class="corow" style="background:rgba(255,34,102,.04);border-radius:6px;padding:8px;"><span class="cok" id="co-kl-fr-final" style="color:var(--pink);font-weight:700">→ Amaury take-home</span><span class="cov p" id="co-fr-final" style="font-size:15px">$0</span></div>
     </div>
     <div class="cocard" style="border-color:rgba(0,212,255,.15)">
-      <div class="lttitle" style="color:var(--blue)">💡 Logic</div>
-      <p style="font-size:12px;color:var(--dim);line-height:1.7;">Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury's share.</p>
+      <div class="lttitle" id="logic-title" style="color:var(--blue)">💡 Logic</div>
+      <p id="logic-text" style="font-size:12px;color:var(--dim);line-height:1.7;">Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses &amp; FR subscriptions deducted only from Amaury's share.</p>
     </div>
   </div>
+
+  <!-- EDIT MODAL -->
 
   <div id="edit-modal">
     <div class="edit-sheet">
       <button class="edit-close" onclick="closeEdit()">✕ Close</button>
-      <div class="edit-title">✏️ Edit Transaction</div>
-      <div class="edit-sub">⚠️ L'original est conservé dans le log, marqué comme supplanté.</div>
+      <div class="edit-title" id="edit-modal-title">✏️ Edit Transaction</div>
+      <div class="edit-sub" id="edit-modal-sub">⚠️ L'original est conservé dans le log, marqué comme supplanté.</div>
       <div class="ttog">
         <button class="ttbtn" id="ett-rev"  onclick="editSetTT('rev')">📈 Revenue</button>
         <button class="ttbtn" id="ett-exp"  onclick="editSetTT('exp')">📉 Expense</button>
@@ -378,21 +395,21 @@ select option{background:#111;}
         </div>
       </div>
       <div class="fg" id="edit-cadence-row" style="display:none;">
-        <label class="flabel">Cadence</label>
+        <label class="flabel" id="edit-cadence-label">Cadence</label>
         <div class="sctog">
           <button class="sctbtn" id="esc-monthly" onclick="editSetCadence('monthly')">📅 Monthly</button>
           <button class="sctbtn" id="esc-annual"  onclick="editSetCadence('annual')">📆 Annual</button>
         </div>
       </div>
       <div class="fg" id="edit-payer-row" style="display:none;">
-        <label class="flabel">Paid personally by</label>
+        <label class="flabel" id="edit-payer-label">Paid personally by</label>
         <div class="etog" style="grid-template-columns:1fr 1fr 1fr;">
           <button class="etbtn" id="epp-none"   onclick="editSetPayer('none')">🏢 Company</button>
           <button class="etbtn" id="epp-malvin" onclick="editSetPayer('malvin')">👤 Malvin</button>
           <button class="etbtn" id="epp-amaury" onclick="editSetPayer('amaury')">👤 Amaury</button>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Description</label><input type="text" id="edit-desc"/></div>
+      <div class="fg"><label class="flabel" id="edit-desc-label">Description</label><input type="text" id="edit-desc"/></div>
       <div class="fg">
         <label class="flabel" id="edit-amt-label">Amount</label>
         <div class="crow">
@@ -400,9 +417,9 @@ select option{background:#111;}
           <select id="edit-cur" class="csym"><option value="USD">$ USD</option><option value="EUR">€ EUR</option></select>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Date</label><input type="date" id="edit-date"/></div>
-      <div class="fg"><label class="flabel">Reason for edit</label><input type="text" id="edit-reason" placeholder="Correction, wrong amount, typo…"/></div>
-      <button class="sbtn sy" onclick="saveEdit()">✓ SAVE EDIT</button>
+      <div class="fg"><label class="flabel" id="edit-date-label">Date</label><input type="date" id="edit-date"/></div>
+      <div class="fg"><label class="flabel" id="edit-reason-label">Reason for edit</label><input type="text" id="edit-reason" placeholder="Correction, wrong amount, typo…"/></div>
+      <button class="sbtn sy" id="edit-save-btn" onclick="saveEdit()">✓ SAVE EDIT</button>
     </div>
   </div>
 </div>
@@ -443,7 +460,8 @@ const LANG = {
     subsUS:'Subscriptions (US)', subsFR:'Subscriptions (FR)', loansAdv:'Loans advanced', subsPersonallyMo:'Subs paid personally /mo',
     distributableShare:'50% distributable', malvinTakeHome:'→ Malvin take-home', amauryTakeHome:'→ Amaury take-home',
     expFRLabel:'Expenses (FR, deducted from share)',
-    logicTitle:'💡 Logic', logicText:'Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury's share.',
+    coRevLabel:'Revenue', coExpUS:'Expenses (US)', coSubUS:'Subscriptions (US)', coLoanAdv:'Loans advanced', coSubPerso:'Subs paid personally /mo', co50pct:'50% distributable',
+    logicTitle:'💡 Logic', logicText:'Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury\'s share.',
     editTx:'✏️ Edit Transaction', editSubMsg:'⚠️ The original entry will be kept in the log marked as superseded. The edit is traceable.',
     editEntity:'Entity', reasonLabel:'Reason for edit', reasonPlaceholder:'Correction, wrong amount, typo…', saveEdit:'✓ SAVE EDIT',
     saving:'⟳ Saving…', saved:'✓ Saved', errNetwork:'✕ Network error',
@@ -452,11 +470,12 @@ const LANG = {
     annual:'Annual', monthly:'Monthly', noEntries:'No entries found',
     supersededBy:'⚠ SUPERSEDED BY EDIT', editedTag:'EDITED',
     paidBy:'Paid by',
+    subsPersonallySmall:'(monthly equiv.)',
   },
   fr: {
     dash:'TABLEAU', add:'AJOUTER', loans:'PRÊTS', log:'JOURNAL', co:'SOCIÉTÉ',
     revenue:'Revenus', expenses:'Dépenses', loansOut:'Prêts', netShareable:'Net Partageable',
-    entries:'entrées', expCount:'dépenses', priorityFirst:'priorité d'abord', afterExp:'après dép. & prêts',
+    entries:'entrées', expCount:'dépenses', priorityFirst:'priorité d\'abord', afterExp:'après dép. & prêts',
     recurring:'🔄 Récurrents', noSubs:'Aucun abonnement enregistré',
     profitWaterfall:'Cascade de Profits', takeHome:'À percevoir',
     revLabel:'Revenus', expUS:'− Dépenses US (Izinest)', expSubs:'− Abonnements US',
@@ -464,20 +483,21 @@ const LANG = {
     distributable:'= Distribuable', malvinShare:'→ Malvin / Izinest (50%)', amauryShare:'→ Amaury / French Co. (50%)',
     newTx:'Nouvelle Transaction', descPlaceholder:'Paiement client, Facebook Ads, Notion…',
     descLabel:'Description', amountLabel:'Montant', dateLabel:'Date', saveBtn:'ENREGISTRER',
-    entityWho:'Entité (qui paie ?)', whoAdvances:'Qui avance l'argent ?', whoPaysSub:'Qui paie l'abonnement ?', whoPaysExp:'Qui paie la dépense ?',
+    entityWho:'Entité (qui paie ?)', whoAdvances:'Qui avance l\'argent ?', whoPaysSub:'Qui paie l\'abonnement ?', whoPaysExp:'Qui paie la dépense ?',
     cadence:'Fréquence', paidPersonally:'Payé personnellement par', company:'🏢 Société',
     amountByCadence:'Montant (selon la fréquence)',
     loanEntries:'Entrées de prêts', personalSubs:'Abonnements perso', noLoans:'Aucun prêt enregistré', noPersonalSubs:'Aucun abonnement perso',
     totalOwedMalvin:'Total dû à Malvin', totalOwedAmaury:'Total dû à Amaury',
     loansAdvanced:'Prêts avancés', subsPersonally:'Abos payés perso', repaid:'Remboursé (sur revenus)', stillOwed:'Encore dû',
-    immutableNote:'📌 Ce journal est <strong>immuable</strong> — chaque transaction est horodatée (heure Paris) et attribuée à son auteur. Rien ne peut être supprimé. Les modifications créent une nouvelle entrée ; l'original reste visible.',
+    immutableNote:'📌 Ce journal est <strong>immuable</strong> — chaque transaction est horodatée (heure Paris) et attribuée à son auteur. Rien ne peut être supprimé. Les modifications créent une nouvelle entrée ; l\'original reste visible.',
     allTypes:'Tous types', allAuthors:'Tous auteurs',
     expensesLabel:'Dépenses', loansLabel:'Prêts', subsLabel:'Abonnements',
     subsUS:'Abonnements (US)', subsFR:'Abonnements (FR)', loansAdv:'Prêts avancés', subsPersonallyMo:'Abos payés perso /mois',
     distributableShare:'50% distribuable', malvinTakeHome:'→ Malvin à percevoir', amauryTakeHome:'→ Amaury à percevoir',
     expFRLabel:'Dépenses (FR, déduites de la part)',
-    logicTitle:'💡 Logique', logicText:'Revenus − Dépenses US − Abonnements US → Net − Remboursements prêts (priorité) → Reste ÷ 2. Dépenses FR & Abonnements FR déduits uniquement de la part d'Amaury.',
-    editTx:'✏️ Modifier la Transaction', editSub:'⚠️ L'entrée originale restera dans le journal, marquée comme supplantée. La modification est traçable.',
+    coRevLabel:'Revenus', coExpUS:'Dépenses (US)', coSubUS:'Abonnements (US)', coLoanAdv:'Prêts avancés', coSubPerso:'Abos payés perso /mois', co50pct:'50% distribuable',
+    logicTitle:'💡 Logique', logicText:'Revenus − Dépenses US − Abonnements US → Net − Remboursements prêts (priorité) → Reste ÷ 2. Dépenses FR & Abonnements FR déduits uniquement de la part d\'Amaury.',
+    editTx:'✏️ Modifier la Transaction', editSubMsg:'⚠️ L\'entrée originale restera dans le journal, marquée comme supplantée. La modification est traçable.',
     editEntity:'Entité', reasonLabel:'Raison de la modification', reasonPlaceholder:'Correction, mauvais montant, faute de frappe…', saveEdit:'✓ ENREGISTRER',
     saving:'⟳ Sauvegarde…', saved:'✓ Sauvegardé', errNetwork:'✕ Erreur réseau',
     fillRequired:'⚠ Description et montant requis', editFill:'⚠ Remplissez description et montant',
@@ -485,6 +505,7 @@ const LANG = {
     annual:'Annuel', monthly:'Mensuel', noEntries:'Aucune entrée trouvée',
     supersededBy:'⚠ SUPPLANTÉ PAR MODIFICATION', editedTag:'MODIFIÉ',
     paidBy:'Payé par',
+    subsPersonallySmall:'(équiv. mensuel)',
   }
 };
 let L = LANG.en;
@@ -538,158 +559,130 @@ async function saveData(){
   } catch(e){ setSS('error'); showToast('⚠ Erreur réseau — données non sauvegardées',true); }
 }
 
+// ── APPLY LANG — all by stable ID, no fragile index selectors ──
 function applyLang(){
-  // Give each tab a data-tab attribute to target them reliably
-  const tabs = document.querySelectorAll('.tab');
-  if(tabs[0]) tabs[0].innerHTML='<span class="ti">📊</span>'+L.dash;
-  if(tabs[1]) tabs[1].innerHTML='<span class="ti">＋</span>'+L.add;
-  if(tabs[2]) tabs[2].innerHTML='<span class="ti">💜</span>'+L.loans;
-  if(tabs[3]) tabs[3].innerHTML='<span class="ti">📋</span>'+L.log;
-  if(tabs[4]) tabs[4].innerHTML='<span class="ti">🏢</span>'+L.co;
+  // Loading
+  setText('load-txt', L.loadingTxt);
+
+  // Tabs
+  setText('tab-dash', L.dash);
+  setText('tab-add', L.add);
+  setText('tab-loans', L.loans);
+  setText('tab-hist', L.log);
+  setText('tab-co', L.co);
 
   // KPI labels
-  const klabels = document.querySelectorAll('.klabel');
-  if(klabels[0]) klabels[0].textContent=L.revenue;
-  if(klabels[1]) klabels[1].textContent=L.expenses;
-  if(klabels[2]) klabels[2].textContent=L.loansOut;
-  if(klabels[3]) klabels[3].textContent=L.netShareable;
+  setText('kl-rev', L.revenue);
+  setText('kl-exp', L.expenses);
+  setText('kl-loan', L.loansOut);
+  setText('kl-net', L.netShareable);
+  setText('ksub-loan', L.priorityFirst);
+  setText('ksub-net', L.afterExp);
 
-  // KPI subs
-  const ksubs = document.querySelectorAll('.ksub');
-  if(ksubs[2]) ksubs[2].textContent=L.priorityFirst;
-  if(ksubs[3]) ksubs[3].textContent=L.afterExp;
+  // Subscriptions section
+  setText('stitle-subs', L.recurring.replace('🔄 ','').replace('🔄 ',''));
+  setText('subtitle-recurring', L.recurring);
 
-  // Pcard subs
-  const psubs = document.querySelectorAll('.psub');
-  if(psubs[0]) psubs[0].textContent='50% '+L.distributable.replace('= ','').toLowerCase();
-  if(psubs[1]) psubs[1].textContent='50% − FR exp.';
+  // Waterfall
+  setText('stitle-waterfall', L.profitWaterfall);
+  setText('wfl-rev', L.revLabel);
+  setText('wfl-expu', L.expUS);
+  setText('wfl-subu', L.expSubs);
+  setText('wfl-net1', L.netBefore);
+  setText('wfl-advances', L.advances);
+  setText('wfl-dist', L.distributable);
+  setText('wfl-malvin-share', L.malvinShare);
+  setText('wfl-amaury-share', L.amauryShare);
 
-  // Subscriptions section title
-  const subtitle2 = document.querySelector('.subtitle2');
-  if(subtitle2) subtitle2.textContent=L.recurring;
-
-  // Section titles (stitle)
-  const stitleEls = document.querySelectorAll('.stitle');
-  if(stitleEls[0]) stitleEls[0].textContent=L.recurring.replace('🔄 ','');
-  if(stitleEls[1]) stitleEls[1].textContent=L.profitWaterfall;
-  if(stitleEls[2]) stitleEls[2].textContent=L.takeHome;
-  if(stitleEls[3]) stitleEls[3].textContent=L.loanEntries;
-  if(stitleEls[4]) stitleEls[4].textContent=L.personalSubs;
-
-  // Waterfall rows
-  const wfls = document.querySelectorAll('.wfl');
-  if(wfls[0]) wfls[0].textContent=L.revLabel;
-  if(wfls[1]) wfls[1].textContent=L.expUS;
-  if(wfls[2]) wfls[2].textContent=L.expSubs;
-  if(wfls[3]) wfls[3].textContent=L.netBefore;
-  if(wfls[4]) wfls[4].textContent=L.advances;
-  if(wfls[5]) wfls[5].textContent=L.distributable;
-  if(wfls[6]) wfls[6].innerHTML=L.malvinShare;
-  if(wfls[7]) wfls[7].innerHTML=L.amauryShare;
+  // Take-home
+  setText('stitle-takehome', L.takeHome);
+  setText('psub-malvin', '50% '+L.distributable.replace('= ','').toLowerCase());
 
   // Add form
-  const ftitle = document.querySelector('.ftitle');
-  if(ftitle) ftitle.textContent=L.newTx;
-  const descInp = document.getElementById('inp-desc');
-  if(descInp) descInp.placeholder=L.descPlaceholder;
-  const addBtn = document.getElementById('add-btn');
-  if(addBtn) addBtn.textContent=L.saveBtn;
-  const flabels = document.querySelectorAll('#page-add .flabel');
-  if(flabels[0]) flabels[0].textContent=L.entityWho;
-  if(flabels[2]) flabels[2].textContent=L.cadence;
-  if(flabels[3]) flabels[3].textContent=L.paidPersonally;
-  if(flabels[4]) flabels[4].textContent=L.descLabel;
-  if(flabels[5]) flabels[5].id='amt-label';
-  document.getElementById('amt-label').textContent=L.amountLabel;
-  const dateLabelAdd = document.querySelectorAll('#page-add .flabel');
-  if(dateLabelAdd[6]) dateLabelAdd[6].textContent=L.dateLabel;
+  setText('add-ftitle', L.newTx);
+  setAttr('inp-desc', 'placeholder', L.descPlaceholder);
+  setText('add-btn', L.saveBtn);
+  setText('entity-label', L.entityWho);
+  setText('cadence-label', L.cadence);
+  setText('payer-label', L.paidPersonally);
+  setText('desc-label', L.descLabel);
+  setText('amt-label', L.amountLabel);
+  setText('date-label', L.dateLabel);
 
-  // Toggle buttons
-  document.getElementById('tt-rev').textContent='📈 '+L.revenue;
-  document.getElementById('tt-exp').textContent='📉 '+L.expenses;
-  document.getElementById('tt-loan').textContent='💜 '+L.loansOut;
-  document.getElementById('tt-sub').textContent='🔄 '+L.subsLabel;
-  document.getElementById('et-us').textContent='🇺🇸 Izinest LLC';
-  document.getElementById('et-fr').textContent='🇫🇷 French Company';
-  document.getElementById('sc-monthly').textContent='📅 '+L.monthly;
-  document.getElementById('sc-annual').textContent='📆 '+L.annual;
-  document.getElementById('pp-none').textContent=L.company;
-  document.getElementById('pp-malvin').textContent='👤 Malvin';
-  document.getElementById('pp-amaury').textContent='👤 Amaury';
+  // Transaction type buttons
+  setText('tt-rev', '📈 '+L.revenue);
+  setText('tt-exp', '📉 '+L.expenses);
+  setText('tt-loan', '💜 '+L.loansOut);
+  setText('tt-sub', '🔄 '+L.subsLabel);
+  setText('sc-monthly', '📅 '+L.monthly);
+  setText('sc-annual', '📆 '+L.annual);
+  setText('pp-none', L.company);
 
-  // Loans page labels
-  const ltrows = document.querySelectorAll('.ltcard .ltk');
-  if(ltrows[0]) ltrows[0].textContent=L.loansAdvanced;
-  if(ltrows[4]) ltrows[4].textContent=L.loansAdvanced;
-  const ltrowAll = document.querySelectorAll('#page-loans .ltk');
-  ltrowAll.forEach((el,i)=>{
-    if(el.textContent.includes('Repaid')||el.textContent.includes('Remboursé')) el.textContent=L.repaid;
-    if(el.textContent.includes('Still owed')||el.textContent.includes('Encore dû')) el.textContent=L.stillOwed;
-    if(el.textContent.includes('Total owed to Malvin')||el.textContent.includes('Total dû à Malvin')) el.innerHTML=L.totalOwedMalvin;
-    if(el.textContent.includes('Total owed to Amaury')||el.textContent.includes('Total dû à Amaury')) el.innerHTML=L.totalOwedAmaury;
-  });
+  // Loans page
+  setText('stitle-loan-entries', L.loanEntries);
+  setText('stitle-personal-subs', L.personalSubs);
+  setText('lk-us-loans', L.loansAdvanced);
+  setText('lk-us-repaid', L.repaid);
+  setText('lk-us-owed', L.stillOwed);
+  setText('lk-us-total', L.totalOwedMalvin);
+  setText('lk-fr-loans', L.loansAdvanced);
+  setText('lk-fr-repaid', L.repaid);
+  setText('lk-fr-owed', L.stillOwed);
+  setText('lk-fr-total', L.totalOwedAmaury);
+  // Rebuild "subs personally" rows with small tag
+  setHTML('lk-us-subadv', L.subsPersonally+' <small style="color:var(--orange)">'+L.subsPersonallySmall+'</small>');
+  setHTML('lk-fr-subadv', L.subsPersonally+' <small style="color:var(--orange)">'+L.subsPersonallySmall+'</small>');
 
-  // History filters
-  const flType = document.getElementById('fl-type');
-  if(flType){ flType.options[0].text=L.allTypes; flType.options[1].text=L.revenue; flType.options[2].text=L.expensesLabel; flType.options[3].text=L.loansLabel; flType.options[4].text=L.subsLabel; }
-  const flAuth = document.getElementById('fl-auth');
-  if(flAuth){ flAuth.options[0].text=L.allAuthors; }
-
-  // Immutable note
-  const note = document.querySelector('.note');
-  if(note) note.innerHTML=L.immutableNote;
+  // History
+  setHTML('hist-note', L.immutableNote);
+  setText('flt-all', L.allTypes);
+  setText('flt-rev', L.revenue);
+  setText('flt-exp', L.expensesLabel);
+  setText('flt-loan', L.loansLabel);
+  setText('flt-sub', L.subsLabel);
+  setText('fla-all', L.allAuthors);
 
   // CO page
-  const coks = document.querySelectorAll('.cok');
-  const coMap = [L.revenue, L.expensesLabel+' (US)', L.subsUS, L.loansAdv, L.subsPersonallyMo, L.distributableShare,
-                 L.expFRLabel, L.subsFR, L.loansAdv, L.subsPersonallyMo, L.distributableShare];
-  coks.forEach((el,i)=>{ if(coMap[i]) el.textContent=coMap[i]; });
-  const coFinals = document.querySelectorAll('.corow .cok[style]');
-  document.querySelectorAll('.corow').forEach(row=>{
-    const span = row.querySelector('.cok');
-    if(span && (span.style.color==='var(--green)'||span.textContent.includes('Malvin'))) span.textContent=L.malvinTakeHome;
-    if(span && (span.style.color==='var(--pink)'||span.textContent.includes('Amaury'))) span.textContent=L.amauryTakeHome;
-  });
-
-  // Logic
-  const logicTitles = document.querySelectorAll('.lttitle');
-  logicTitles.forEach(el=>{ if(el.style.color&&el.style.color.includes('blue')) el.textContent=L.logicTitle; });
-  const logicPs = document.querySelectorAll('.cocard p');
-  if(logicPs[0]) logicPs[0].textContent=L.logicText;
+  setText('co-kl-us-rev', L.coRevLabel);
+  setText('co-kl-us-exp', L.coExpUS);
+  setText('co-kl-us-sub', L.coSubUS);
+  setText('co-kl-us-loan', L.coLoanAdv);
+  setText('co-kl-us-subadv', L.coSubPerso);
+  setText('co-kl-us-share', L.co50pct);
+  setText('co-kl-us-final', L.malvinTakeHome);
+  setText('co-kl-fr-exp', L.expFRLabel);
+  setText('co-kl-fr-sub', L.subsFR);
+  setText('co-kl-fr-loan', L.coLoanAdv);
+  setText('co-kl-fr-subadv', L.coSubPerso);
+  setText('co-kl-fr-share', L.co50pct);
+  setText('co-kl-fr-final', L.amauryTakeHome);
+  setText('logic-title', L.logicTitle);
+  setText('logic-text', L.logicText);
 
   // Edit modal
-  const editTitle = document.querySelector('.edit-title');
-  if(editTitle) editTitle.textContent=L.editTx;
-  const editSub = document.querySelector('.edit-sub');
-  if(editSub) editSub.textContent=L.editSubMsg;
-  const editReason = document.getElementById('edit-reason');
-  if(editReason) editReason.placeholder=L.reasonPlaceholder;
-  const editSaveBtn = document.querySelector('#edit-modal .sbtn');
-  if(editSaveBtn) editSaveBtn.textContent=L.saveEdit;
-  document.getElementById('ett-rev').textContent='📈 '+L.revenue;
-  document.getElementById('ett-exp').textContent='📉 '+L.expenses;
-  document.getElementById('ett-loan').textContent='💜 '+L.loansOut;
-  document.getElementById('ett-sub').textContent='🔄 '+L.subsLabel;
-  document.getElementById('eet-us').textContent='🇺🇸 Izinest LLC';
-  document.getElementById('eet-fr').textContent='🇫🇷 French Company';
-  document.getElementById('esc-monthly').textContent='📅 '+L.monthly;
-  document.getElementById('esc-annual').textContent='📆 '+L.annual;
-  document.getElementById('epp-none').textContent=L.company;
-  document.getElementById('epp-malvin').textContent='👤 Malvin';
-  document.getElementById('epp-amaury').textContent='👤 Amaury';
-  const editFlabels = document.querySelectorAll('#edit-modal .flabel');
-  if(editFlabels[0]) editFlabels[0].textContent=L.editEntity;
-  if(editFlabels[2]) editFlabels[2].textContent=L.cadence;
-  if(editFlabels[3]) editFlabels[3].textContent=L.paidPersonally;
-  if(editFlabels[4]) editFlabels[4].textContent=L.descLabel;
-  if(editFlabels[5]) editFlabels[5].textContent=L.amountLabel;
-  if(editFlabels[6]) editFlabels[6].textContent=L.dateLabel;
-  if(editFlabels[7]) editFlabels[7].textContent=L.reasonLabel;
-
-  // Loading text
-  const loadTxt = document.querySelector('.load-txt');
-  if(loadTxt) loadTxt.textContent=L.loadingTxt;
+  setText('edit-modal-title', L.editTx);
+  setText('edit-modal-sub', L.editSubMsg);
+  setText('edit-entity-label', L.editEntity);
+  setText('edit-cadence-label', L.cadence);
+  setText('edit-payer-label', L.paidPersonally);
+  setText('edit-desc-label', L.descLabel);
+  setText('edit-amt-label', L.amountLabel);
+  setText('edit-date-label', L.dateLabel);
+  setText('edit-reason-label', L.reasonLabel);
+  setAttr('edit-reason', 'placeholder', L.reasonPlaceholder);
+  setText('edit-save-btn', L.saveEdit);
+  setText('ett-rev', '📈 '+L.revenue);
+  setText('ett-exp', '📉 '+L.expenses);
+  setText('ett-loan', '💜 '+L.loansOut);
+  setText('ett-sub', '🔄 '+L.subsLabel);
+  setText('esc-monthly', '📅 '+L.monthly);
+  setText('esc-annual', '📆 '+L.annual);
+  setText('epp-none', L.company);
 }
+
+function setText(id, val){ const el=document.getElementById(id); if(el) el.textContent=val; }
+function setHTML(id, val){ const el=document.getElementById(id); if(el) el.innerHTML=val; }
+function setAttr(id, attr, val){ const el=document.getElementById(id); if(el) el.setAttribute(attr,val); }
 
 function setSS(s){
   const el=document.getElementById('save-status');
@@ -734,7 +727,20 @@ function switchTab(t,btn){
   ({dash:renderDash,loans:renderLoans,hist:renderHist,co:renderCo})[t]?.();
 }
 
-function setTT(t){txType=t;['rev','exp','loan','sub'].forEach(k=>{document.getElementById('tt-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});document.getElementById('entity-row').style.display=t==='rev'?'none':'block';document.getElementById('cadence-row').style.display=t==='sub'?'block':'none';document.getElementById('payer-row').style.display=t==='sub'?'block':'none';document.getElementById('entity-label').textContent=t==='loan'?'Who is advancing?':t==='sub'?'Who pays the subscription?':'Who pays the expense?';document.getElementById('amt-label').textContent=t==='sub'?'Amount (based on cadence)':'Amount';document.getElementById('add-btn').className='sbtn '+(t==='loan'?'sv':t==='sub'?'so':'sg');}
+function setTT(t){
+  txType=t;
+  ['rev','exp','loan','sub'].forEach(k=>{
+    document.getElementById('tt-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');
+  });
+  document.getElementById('entity-row').style.display=t==='rev'?'none':'block';
+  document.getElementById('cadence-row').style.display=t==='sub'?'block':'none';
+  document.getElementById('payer-row').style.display=t==='sub'?'block':'none';
+  const entityLbl = t==='loan'?L.whoAdvances:t==='sub'?L.whoPaysSub:L.whoPaysExp;
+  setText('entity-label', entityLbl);
+  setText('amt-label', t==='sub'?L.amountByCadence:L.amountLabel);
+  document.getElementById('add-btn').className='sbtn '+(t==='loan'?'sv':t==='sub'?'so':'sg');
+}
+
 function setEntity(e){txEntity=e;document.getElementById('et-us').className='etbtn'+(e==='us'?' ag':'');document.getElementById('et-fr').className='etbtn'+(e==='fr'?' ap':'');}
 function setCadence(c){subCadence=c;document.getElementById('sc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('sc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
 function setPayer(p){subPayer=p;document.getElementById('pp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('pp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('pp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
@@ -753,30 +759,53 @@ function addTx(){
   document.getElementById('inp-amt').value='';
   document.getElementById('inp-date').valueAsDate=new Date();
   setPayer('none');
-  showToast('✓ Saved');
+  showToast('✓ '+L.saved.replace('✓ ',''));
   switchTab('dash',null);
   document.querySelectorAll('.tab')[0].classList.add('active');
 }
 
 function renderDash(){
   const c=compute();
-  document.getElementById('k-rev').textContent=f(c.rev);document.getElementById('k-rev-c').textContent=c.revC+' '+L.entries;
-  document.getElementById('k-exp').textContent=f(c.expUS+c.expFR);document.getElementById('k-exp-c').textContent=c.expC+' '+L.expCount;
-  document.getElementById('k-loan').textContent=f(c.loansOwed);document.getElementById('k-net').textContent=f(c.dist);
-  document.getElementById('wf-rev').textContent=f(c.rev);document.getElementById('wf-expu').textContent='−'+f(c.expUS);document.getElementById('wf-subu').textContent='−'+f(c.subUS)+'/mo';
-  document.getElementById('wf-net1').textContent=f(c.netBefore);document.getElementById('wf-loan').textContent='−'+f(c.loanRepay);document.getElementById('wf-dist').textContent=f(c.dist);
-  document.getElementById('wf-iz').textContent=f(c.malvinFinal);document.getElementById('wf-fr').textContent=f(c.amauryFinal);
-  document.getElementById('ph-malvin').textContent=f(c.malvinFinal);document.getElementById('ph-amaury').textContent=f(c.amauryFinal);
+  document.getElementById('k-rev').textContent=f(c.rev);
+  document.getElementById('k-rev-c').textContent=c.revC+' '+L.entries;
+  document.getElementById('k-exp').textContent=f(c.expUS+c.expFR);
+  document.getElementById('k-exp-c').textContent=c.expC+' '+L.expCount;
+  document.getElementById('k-loan').textContent=f(c.loansOwed);
+  document.getElementById('k-net').textContent=f(c.dist);
+  document.getElementById('wf-rev').textContent=f(c.rev);
+  document.getElementById('wf-expu').textContent='−'+f(c.expUS);
+  document.getElementById('wf-subu').textContent='−'+f(c.subUS)+'/mo';
+  document.getElementById('wf-net1').textContent=f(c.netBefore);
+  document.getElementById('wf-loan').textContent='−'+f(c.loanRepay);
+  document.getElementById('wf-dist').textContent=f(c.dist);
+  document.getElementById('wf-iz').textContent=f(c.malvinFinal);
+  document.getElementById('wf-fr').textContent=f(c.amauryFinal);
+  document.getElementById('ph-malvin').textContent=f(c.malvinFinal);
+  document.getElementById('ph-amaury').textContent=f(c.amauryFinal);
   const subs=log.filter(e=>e.type==='sub'&&!e.superseded);
   const tot=subs.reduce((s,e)=>s+(e.amtMonthly!==undefined?e.amtMonthly:e.amt),0);
   document.getElementById('dash-sub-total').textContent='$'+tot.toFixed(2)+'/mo';
-  document.getElementById('dash-sub-list').innerHTML=subs.length?subs.map(e=>{const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;const da=e.cadence==='annual'?'$'+e.amt.toFixed(2)+'/yr':'$'+e.amt.toFixed(2)+'/mo';return`<div class="subitem"><div class="subil"><span class="subin">${e.desc}</span><span class="subim">${e.entity==='us'?'🇺🇸 Izinest':'🇫🇷 French Co.'} · ${e.date}</span></div><div class="subir"><span class="subia">${da}</span>${e.cadence==='annual'?`<span class="subimo">≈$${m.toFixed(2)}/mo</span>`:''}<span class="subbadge ${e.cadence==='annual'?'an':'mo'}">${e.cadence==='annual'?L.annual:L.monthly}</span></div></div>`;}).join(''):'<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">'+L.noSubs+'</div>';
+  document.getElementById('dash-sub-list').innerHTML=subs.length?subs.map(e=>{
+    const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;
+    const da=e.cadence==='annual'?'$'+e.amt.toFixed(2)+'/yr':'$'+e.amt.toFixed(2)+'/mo';
+    return`<div class="subitem"><div class="subil"><span class="subin">${e.desc}</span><span class="subim">${e.entity==='us'?'🇺🇸 Izinest':'🇫🇷 French Co.'} · ${e.date}</span></div><div class="subir"><span class="subia">${da}</span>${e.cadence==='annual'?`<span class="subimo">≈$${m.toFixed(2)}/mo</span>`:''}<span class="subbadge ${e.cadence==='annual'?'an':'mo'}">${e.cadence==='annual'?L.annual:L.monthly}</span></div></div>`;
+  }).join(''):'<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">'+L.noSubs+'</div>';
 }
 
 function renderLoans(){
   const c=compute();
-  document.getElementById('lu-tot').textContent=f(c.loanUS);document.getElementById('lu-subadv').textContent=f(c.subAdvM)+'/mo';document.getElementById('lu-totaladv').textContent=f(c.advUS);document.getElementById('lu-rep').textContent=f(c.lrUS);document.getElementById('lu-ow').textContent=f(Math.max(0,c.advUS-c.lrUS));document.getElementById('lu-bar').style.width=(c.advUS>0?Math.min(100,c.lrUS/c.advUS*100):0)+'%';
-  document.getElementById('lf-tot').textContent=f(c.loanFR);document.getElementById('lf-subadv').textContent=f(c.subAdvA)+'/mo';document.getElementById('lf-totaladv').textContent=f(c.advFR);document.getElementById('lf-rep').textContent=f(c.lrFR);document.getElementById('lf-ow').textContent=f(Math.max(0,c.advFR-c.lrFR));document.getElementById('lf-bar').style.width=(c.advFR>0?Math.min(100,c.lrFR/c.advFR*100):0)+'%';
+  document.getElementById('lu-tot').textContent=f(c.loanUS);
+  document.getElementById('lu-subadv').textContent=f(c.subAdvM)+'/mo';
+  document.getElementById('lu-totaladv').textContent=f(c.advUS);
+  document.getElementById('lu-rep').textContent=f(c.lrUS);
+  document.getElementById('lu-ow').textContent=f(Math.max(0,c.advUS-c.lrUS));
+  document.getElementById('lu-bar').style.width=(c.advUS>0?Math.min(100,c.lrUS/c.advUS*100):0)+'%';
+  document.getElementById('lf-tot').textContent=f(c.loanFR);
+  document.getElementById('lf-subadv').textContent=f(c.subAdvA)+'/mo';
+  document.getElementById('lf-totaladv').textContent=f(c.advFR);
+  document.getElementById('lf-rep').textContent=f(c.lrFR);
+  document.getElementById('lf-ow').textContent=f(Math.max(0,c.advFR-c.lrFR));
+  document.getElementById('lf-bar').style.width=(c.advFR>0?Math.min(100,c.lrFR/c.advFR*100):0)+'%';
   const loans=log.filter(e=>e.type==='loan');
   document.getElementById('loan-entries').innerHTML=loans.length?loans.map(itemHTML).join(''):'<div class="empty"><div class="ei">✅</div>'+L.noLoans+'</div>';
   const sp=log.filter(e=>e.type==='sub'&&e.paidBy&&e.paidBy!=='none');
@@ -791,8 +820,19 @@ function renderHist(){
 
 function renderCo(){
   const c=compute();
-  document.getElementById('co-us-rev').textContent=f(c.rev);document.getElementById('co-us-exp').textContent=f(c.expUS);document.getElementById('co-us-sub').textContent=f(c.subUS)+'/mo';document.getElementById('co-us-loan').textContent=f(c.loanUS);document.getElementById('co-us-subadv').textContent=f(c.subAdvM)+'/mo';document.getElementById('co-us-share').textContent=f(c.izShare);document.getElementById('co-us-final').textContent=f(c.malvinFinal);
-  document.getElementById('co-fr-exp').textContent=f(c.expFR);document.getElementById('co-fr-sub').textContent=f(c.subFR)+'/mo';document.getElementById('co-fr-loan').textContent=f(c.loanFR);document.getElementById('co-fr-subadv').textContent=f(c.subAdvA)+'/mo';document.getElementById('co-fr-share').textContent=f(c.frShare);document.getElementById('co-fr-final').textContent=f(c.amauryFinal);
+  document.getElementById('co-us-rev').textContent=f(c.rev);
+  document.getElementById('co-us-exp').textContent=f(c.expUS);
+  document.getElementById('co-us-sub').textContent=f(c.subUS)+'/mo';
+  document.getElementById('co-us-loan').textContent=f(c.loanUS);
+  document.getElementById('co-us-subadv').textContent=f(c.subAdvM)+'/mo';
+  document.getElementById('co-us-share').textContent=f(c.izShare);
+  document.getElementById('co-us-final').textContent=f(c.malvinFinal);
+  document.getElementById('co-fr-exp').textContent=f(c.expFR);
+  document.getElementById('co-fr-sub').textContent=f(c.subFR)+'/mo';
+  document.getElementById('co-fr-loan').textContent=f(c.loanFR);
+  document.getElementById('co-fr-subadv').textContent=f(c.subAdvA)+'/mo';
+  document.getElementById('co-fr-share').textContent=f(c.frShare);
+  document.getElementById('co-fr-final').textContent=f(c.amauryFinal);
 }
 
 function itemHTML(e){
@@ -803,28 +843,53 @@ function itemHTML(e){
   const apfx=e.type==='rev'?'+':'−';
   const csfx=isSub?(e.cadence==='annual'?'/yr':'/mo'):'';
   let tags='';
-  if(e.type==='rev')tags+='<span class="htag g">Revenue</span>';
-  else if(e.type==='loan')tags+=`<span class="htag v">Loan · ${e.entity==='us'?'Izinest':'French Co.'}</span>`;
-  else if(e.type==='sub')tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span><span class="htag ${e.cadence==='annual'?'y':'o'}">${e.cadence==='annual'?L.annual:L.monthly}</span>`;
+  if(e.type==='rev') tags+='<span class="htag g">'+L.revenue+'</span>';
+  else if(e.type==='loan') tags+=`<span class="htag v">${L.loansOut} · ${e.entity==='us'?'Izinest':'French Co.'}</span>`;
+  else if(e.type==='sub') tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span><span class="htag ${e.cadence==='annual'?'y':'o'}">${e.cadence==='annual'?L.annual:L.monthly}</span>`;
   else tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span>`;
   tags+=e.author==='malvin'?'<span class="htag" style="background:rgba(0,255,136,.1);color:var(--green)">Malvin</span>':'<span class="htag" style="background:rgba(255,34,102,.1);color:var(--pink)">Amaury</span>';
-  if(isSub&&e.paidBy&&e.paidBy!=='none')tags+=`<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}">'+L.paidBy+' ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>`;
-  if(e.isEdit)tags+='<span class="htag y">'+L.editedTag+'</span>';
+  if(isSub&&e.paidBy&&e.paidBy!=='none') tags+=`<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}"> ${L.paidBy} ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>`;
+  if(e.isEdit) tags+='<span class="htag y">'+L.editedTag+'</span>';
   let extra='';
-  if(isSub&&e.cadence==='annual')extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
-  if(e.isEdit)extra+=`<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>`;
-  if(e.superseded)extra+='<div class="sup-note">'+L.supersededBy+'</div>';
+  if(isSub&&e.cadence==='annual') extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
+  if(e.isEdit) extra+=`<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>`;
+  if(e.superseded) extra+='<div class="sup-note">'+L.supersededBy+'</div>';
   const editBtn=(!e.superseded&&!e.isEdit)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:'';
   return`<div class="hitem${e.superseded?' sup':''}"><div class="hicon ${icMap[e.type]||'inc'}">${emMap[e.type]||'💰'}</div><div class="hinfo"><div class="hdesc">${e.desc}</div><div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>${extra}${editBtn}</div><div class="hamt ${acl}">${apfx}$${Math.abs(e.amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})} ${e.cur}${csfx}</div></div>`;
 }
 
-function showToast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'var(--pink)':'var(--green)';t.style.color='#000';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(msg,err){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.background=err?'var(--pink)':'var(--green)';t.style.color='#000';
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);
+}
 
 // ── EDIT ──
 let editId=null,eTT='rev',eEnt='us',eCad='monthly',ePay='none';
-function openEdit(id){const e=log.find(x=>x.id===id);if(!e)return;editId=id;eTT=e.type;eEnt=e.entity==='shared'?'us':e.entity;eCad=e.cadence||'monthly';ePay=e.paidBy||'none';document.getElementById('edit-desc').value=e.desc;document.getElementById('edit-amt').value=e.amt;document.getElementById('edit-cur').value=e.cur||'USD';document.getElementById('edit-date').value=e.date;document.getElementById('edit-reason').value='';editSetTT(eTT);editSetEntity(eEnt);editSetCadence(eCad);editSetPayer(ePay);document.getElementById('edit-modal').classList.add('open');}
+function openEdit(id){
+  const e=log.find(x=>x.id===id);if(!e)return;
+  editId=id;eTT=e.type;eEnt=e.entity==='shared'?'us':e.entity;eCad=e.cadence||'monthly';ePay=e.paidBy||'none';
+  document.getElementById('edit-desc').value=e.desc;
+  document.getElementById('edit-amt').value=e.amt;
+  document.getElementById('edit-cur').value=e.cur||'USD';
+  document.getElementById('edit-date').value=e.date;
+  document.getElementById('edit-reason').value='';
+  editSetTT(eTT);editSetEntity(eEnt);editSetCadence(eCad);editSetPayer(ePay);
+  document.getElementById('edit-modal').classList.add('open');
+}
 function closeEdit(){document.getElementById('edit-modal').classList.remove('open');editId=null;}
-function editSetTT(t){eTT=t;['rev','exp','loan','sub'].forEach(k=>{document.getElementById('ett-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});document.getElementById('edit-entity-row').style.display=t==='rev'?'none':'block';document.getElementById('edit-cadence-row').style.display=t==='sub'?'block':'none';document.getElementById('edit-payer-row').style.display=t==='sub'?'block':'none';document.getElementById('edit-entity-label').textContent=t==='loan'?'Who advanced?':t==='sub'?'Who pays?':'Who pays?';document.getElementById('edit-amt-label').textContent=t==='sub'?'Amount (based on cadence)':'Amount';}
+function editSetTT(t){
+  eTT=t;
+  ['rev','exp','loan','sub'].forEach(k=>{
+    document.getElementById('ett-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');
+  });
+  document.getElementById('edit-entity-row').style.display=t==='rev'?'none':'block';
+  document.getElementById('edit-cadence-row').style.display=t==='sub'?'block':'none';
+  document.getElementById('edit-payer-row').style.display=t==='sub'?'block':'none';
+  const lbl=t==='loan'?L.whoAdvances:t==='sub'?L.whoPaysSub:L.whoPaysExp;
+  setText('edit-entity-label', lbl);
+  setText('edit-amt-label', t==='sub'?L.amountByCadence:L.amountLabel);
+}
 function editSetEntity(e){eEnt=e;document.getElementById('eet-us').className='etbtn'+(e==='us'?' ag':'');document.getElementById('eet-fr').className='etbtn'+(e==='fr'?' ap':'');}
 function editSetCadence(c){eCad=c;document.getElementById('esc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('esc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
 function editSetPayer(p){ePay=p;document.getElementById('epp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('epp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('epp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
