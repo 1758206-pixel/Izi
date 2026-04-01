@@ -452,11 +452,8 @@ async function loadData(user){
 async function saveData(){
   setSS('saving');
   try {
-    await fetch(API,{
-      method:'POST',
-      body:JSON.stringify({action:'save',data:JSON.stringify(log)}),
-      headers:{'Content-Type':'application/json'}
-    });
+    const encoded = encodeURIComponent(JSON.stringify(log));
+    await fetch(API+'?action=save&data='+encoded+'&nocache='+Date.now());
     setSS('saved');
   } catch(e){ setSS('error'); showToast('⚠ Erreur réseau — données non sauvegardées',true); }
 }
