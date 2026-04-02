@@ -1,7 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="fr">
-<head>
+<!DOCTYPE html><html lang="fr"><head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -184,9 +181,7 @@ select option{background:#111;}
 .empty .ei{font-size:28px;margin-bottom:8px;}
 </style>
 </head>
-<body>
-
-<div id="lock">
+<body><div id="lock">
   <div class="lock-box">
     <div class="lock-wrap">
       <input class="lock-input" id="lock-pw" type="password" placeholder="Password"
@@ -197,14 +192,10 @@ select option{background:#111;}
     </div>
     <button class="lock-btn" id="lock-submit-btn" onclick="unlock()">ENTER</button>
   </div>
-</div>
-
-<div id="loading">
+</div><div id="loading">
   <div class="spin"></div>
   <div class="load-txt">Chargement des données…</div>
-</div>
-
-<div id="app">
+</div><div id="app">
   <div class="hdr">
     <div class="hdr-top">
       <div class="logo"><span class="iz">Izinest</span><span class="x">×</span><span class="fr">French Co.</span></div>
@@ -221,9 +212,7 @@ select option{background:#111;}
       <button class="tab" onclick="switchTab('hist',this)"><span class="ti">📋</span>LOG</button>
       <button class="tab" onclick="switchTab('co',this)"><span class="ti">🏢</span>CO.</button>
     </div>
-  </div>
-
-  <div class="page active" id="page-dash">
+  </div><div class="page active" id="page-dash">
     <div class="kgrid">
       <div class="kcard"><div class="klabel">Revenue</div><div class="kval g" id="k-rev">$0</div><div class="ksub" id="k-rev-c">0 entries</div></div>
       <div class="kcard"><div class="klabel">Expenses</div><div class="kval p" id="k-exp">$0</div><div class="ksub" id="k-exp-c">0 expenses</div></div>
@@ -251,9 +240,7 @@ select option{background:#111;}
       <div class="pcard malvin"><div class="pname">Malvin · Izinest</div><div class="pamt" id="ph-malvin">$0</div><div class="psub">50% of distributable</div></div>
       <div class="pcard amaury"><div class="pname">Amaury · French Co.</div><div class="pamt" id="ph-amaury">$0</div><div class="psub">50% − FR exp.</div></div>
     </div>
-  </div>
-
-  <div class="page" id="page-add">
+  </div><div class="page" id="page-add">
     <div class="fcard">
       <div class="ftitle">New Transaction</div>
       <div class="ttog">
@@ -295,9 +282,7 @@ select option{background:#111;}
       <div class="fg"><label class="flabel">Date</label><input type="date" id="inp-date"/></div>
       <button class="sbtn sg" id="add-btn" onclick="addTx()">SAVE</button>
     </div>
-  </div>
-
-  <div class="page" id="page-loans">
+  </div><div class="page" id="page-loans">
     <div class="ltcard">
       <div class="lttitle">🇺🇸 Malvin · Izinest LLC</div>
       <div class="ltrow"><span class="ltk">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lu-tot">$0</span></div>
@@ -320,9 +305,7 @@ select option{background:#111;}
     <div class="hlog" id="loan-entries"></div>
     <div class="stitle">Personal sub payments</div>
     <div class="hlog" id="sub-personal-entries"></div>
-  </div>
-
-  <div class="page" id="page-hist">
+  </div><div class="page" id="page-hist">
     <div class="note">📌 Log <strong>immuable</strong> — horodaté Paris, attribué à l'auteur. Rien n'est jamais supprimé. Les modifications conservent l'original visible.</div>
     <div class="frow">
       <select id="fl-type" onchange="renderHist()">
@@ -334,9 +317,7 @@ select option{background:#111;}
       </select>
     </div>
     <div class="hlog" id="hist-list"></div>
-  </div>
-
-  <div class="page" id="page-co">
+  </div><div class="page" id="page-co">
     <div class="cocard">
       <div class="cohdr"><div class="codot g"></div><div class="coname" style="color:var(--green)">Izinest LLC</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇺🇸 Malvin</span></div>
       <div class="corow"><span class="cok">Revenue</span><span class="cov g" id="co-us-rev">$0</span></div>
@@ -360,9 +341,7 @@ select option{background:#111;}
       <div class="lttitle" style="color:var(--blue)">💡 Logic</div>
       <p style="font-size:12px;color:var(--dim);line-height:1.7;">Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury's share.</p>
     </div>
-  </div>
-
-  <div id="edit-modal">
+  </div><div id="edit-modal">
     <div class="edit-sheet">
       <button class="edit-close" onclick="closeEdit()">✕ Close</button>
       <div class="edit-title">✏️ Edit Transaction</div>
@@ -408,405 +387,378 @@ select option{background:#111;}
       <button class="sbtn sy" onclick="saveEdit()">✓ SAVE EDIT</button>
     </div>
   </div>
-</div>
-
-<div class="save-status" id="save-status"></div>
-<div class="toast" id="toast"></div>
-
-<script>
+</div><div class="save-status" id="save-status"></div>
+<div class="toast" id="toast"></div><script>
 const BIN_ID = '69cd04edaaba882197b48e3d';
 const API_KEY = '$2a$10$ePmeV.SxJ0gcLAPBssFpeOIp3IL/rUBT931O2ViMafPqGQWVdaaHW';
 const API = 'https://api.jsonbin.io/v3/b/' + BIN_ID;
-const PASSWORDS = {'Idem2000':'malvin','Idem2020':'amaury'};
-
-let log=[], author='malvin', txType='rev', txEntity='us', subCadence='monthly', subPayer='none', eyeOn=false;
-
+const PASSWORDS = {'Idem2000':'malvin','Idem2020':'amaury'};let log=[], author=‘malvin’, txType=‘rev’, txEntity=‘us’, subCadence=‘monthly’, subPayer=‘none’, eyeOn=false;
 const LANG = {
-  en: {
-    dash:'DASH', add:'ADD', loans:'LOANS', log:'LOG', co:'CO.',
-    revenue:'Revenue', expenses:'Expenses', loansOut:'Loans Out', netShareable:'Net Shareable',
-    entries:'entries', expCount:'expenses', priorityFirst:'priority first', afterExp:'after exp & loans',
-    recurring:'🔄 Recurring', noSubs:'No subscriptions recorded',
-    profitWaterfall:'Profit Waterfall', takeHome:'Take-home',
-    revLabel:'Revenue', expUS:'− US Expenses (Izinest)', expSubs:'− US Subscriptions',
-    netBefore:'= Net before loans', advances:'− Advances (loans + personal subs)',
-    distributable:'= Distributable', malvinShare:'→ Malvin / Izinest (50%)', amauryShare:'→ Amaury / French Co. (50%)',
-    newTx:'New Transaction', descPlaceholder:'Client payment, Facebook Ads, Notion…',
-    descLabel:'Description', amountLabel:'Amount', dateLabel:'Date', saveBtn:'SAVE',
-    entityWho:'Entity (who pays?)', whoAdvances:'Who is advancing?', whoPaysSub:'Who pays the subscription?', whoPaysExp:'Who pays the expense?',
-    cadence:'Cadence', paidPersonally:'Paid personally by', company:'🏢 Company',
-    amountByCadence:'Amount (based on cadence)',
-    loanEntries:'Loan entries', personalSubs:'Personal sub payments', noLoans:'No loans recorded', noPersonalSubs:'No personal sub payments',
-    totalOwedMalvin:'Total owed to Malvin', totalOwedAmaury:'Total owed to Amaury',
-    loansAdvanced:'Loans advanced', subsPersonally:'Subs paid personally', repaid:'Repaid (from revenue)', stillOwed:'Still owed',
-    immutableNote:'📌 This log is <strong>immutable</strong> — every transaction is timestamped (Paris time) and attributed to its author. Nothing can be deleted. Edits create a new entry; the original is kept as superseded.',
-    allTypes:'All types', allAuthors:'All authors',
-    expensesLabel:'Expenses', loansLabel:'Loans', subsLabel:'Subscriptions',
-    subsUS:'Subscriptions (US)', subsFR:'Subscriptions (FR)', loansAdv:'Loans advanced', subsPersonallyMo:'Subs paid personally /mo',
-    distributableShare:'50% distributable', malvinTakeHome:'→ Malvin take-home', amauryTakeHome:'→ Amaury take-home',
-    expFRLabel:'Expenses (FR, deducted from share)',
-    logicTitle:'💡 Logic', logicText:'Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury\'s share.',
-    editTx:'✏️ Edit Transaction', editSubMsg:'⚠️ The original entry will be kept in the log marked as superseded. The edit is traceable.',
-    editEntity:'Entity', reasonLabel:'Reason for edit', reasonPlaceholder:'Correction, wrong amount, typo…', saveEdit:'✓ SAVE EDIT',
-    saving:'⟳ Saving…', saved:'✓ Saved', errNetwork:'✕ Network error',
-    fillRequired:'⚠ Description and amount required', editFill:'⚠ Fill description & amount',
-    editSaved:'✓ Edit saved', loadingTxt:'Loading data…',
-    annual:'Annual', monthly:'Monthly', noEntries:'No entries found',
-    supersededBy:'⚠ SUPERSEDED BY EDIT', editedTag:'EDITED', paidBy:'Paid by',
-  },
-  fr: {
-    dash:'TABLEAU', add:'AJOUTER', loans:'PRÊTS', log:'JOURNAL', co:'SOCIÉTÉ',
-    revenue:'Revenus', expenses:'Dépenses', loansOut:'Prêts', netShareable:'Net Partageable',
-    entries:'entrées', expCount:'dépenses', priorityFirst:'priorité d\'abord', afterExp:'après dép. & prêts',
-    recurring:'🔄 Récurrents', noSubs:'Aucun abonnement enregistré',
-    profitWaterfall:'Cascade de Profits', takeHome:'À percevoir',
-    revLabel:'Revenus', expUS:'− Dépenses US (Izinest)', expSubs:'− Abonnements US',
-    netBefore:'= Net avant prêts', advances:'− Avances (prêts + abonnements perso)',
-    distributable:'= Distribuable', malvinShare:'→ Malvin / Izinest (50%)', amauryShare:'→ Amaury / French Co. (50%)',
-    newTx:'Nouvelle Transaction', descPlaceholder:'Paiement client, Facebook Ads, Notion…',
-    descLabel:'Description', amountLabel:'Montant', dateLabel:'Date', saveBtn:'ENREGISTRER',
-    entityWho:'Entité (qui paie ?)', whoAdvances:'Qui avance l\'argent ?', whoPaysSub:'Qui paie l\'abonnement ?', whoPaysExp:'Qui paie la dépense ?',
-    cadence:'Fréquence', paidPersonally:'Payé personnellement par', company:'🏢 Société',
-    amountByCadence:'Montant (selon la fréquence)',
-    loanEntries:'Entrées de prêts', personalSubs:'Abonnements perso', noLoans:'Aucun prêt enregistré', noPersonalSubs:'Aucun abonnement perso',
-    totalOwedMalvin:'Total dû à Malvin', totalOwedAmaury:'Total dû à Amaury',
-    loansAdvanced:'Prêts avancés', subsPersonally:'Abos payés perso', repaid:'Remboursé (sur revenus)', stillOwed:'Encore dû',
-    immutableNote:'📌 Ce journal est <strong>immuable</strong> — chaque transaction est horodatée (heure Paris) et attribuée à son auteur. Rien ne peut être supprimé. Les modifications créent une nouvelle entrée ; l\'original reste visible.',
-    allTypes:'Tous types', allAuthors:'Tous auteurs',
-    expensesLabel:'Dépenses', loansLabel:'Prêts', subsLabel:'Abonnements',
-    subsUS:'Abonnements (US)', subsFR:'Abonnements (FR)', loansAdv:'Prêts avancés', subsPersonallyMo:'Abos payés perso /mois',
-    distributableShare:'50% distribuable', malvinTakeHome:'→ Malvin à percevoir', amauryTakeHome:'→ Amaury à percevoir',
-    expFRLabel:'Dépenses (FR, déduites de la part)',
-    logicTitle:'💡 Logique', logicText:'Revenus − Dépenses US − Abonnements US → Net − Remboursements prêts (priorité) → Reste ÷ 2. Dépenses FR & Abonnements FR déduits uniquement de la part d\'Amaury.',
-    editTx:'✏️ Modifier la Transaction', editSubMsg:'⚠️ L\'entrée originale restera dans le journal, marquée comme supplantée. La modification est traçable.',
-    editEntity:'Entité', reasonLabel:'Raison de la modification', reasonPlaceholder:'Correction, mauvais montant, faute de frappe…', saveEdit:'✓ ENREGISTRER',
-    saving:'⟳ Sauvegarde…', saved:'✓ Sauvegardé', errNetwork:'✕ Erreur réseau',
-    fillRequired:'⚠ Description et montant requis', editFill:'⚠ Remplissez description et montant',
-    editSaved:'✓ Modification enregistrée', loadingTxt:'Chargement des données…',
-    annual:'Annuel', monthly:'Mensuel', noEntries:'Aucune entrée trouvée',
-    supersededBy:'⚠ SUPPLANTÉ PAR MODIFICATION', editedTag:'MODIFIÉ', paidBy:'Payé par',
-  }
+en: {
+dash:‘DASH’, add:‘ADD’, loans:‘LOANS’, log:‘LOG’, co:‘CO.’,
+revenue:‘Revenue’, expenses:‘Expenses’, loansOut:‘Loans Out’, netShareable:‘Net Shareable’,
+entries:‘entries’, expCount:‘expenses’, priorityFirst:‘priority first’, afterExp:‘after exp & loans’,
+recurring:‘🔄 Recurring’, noSubs:‘No subscriptions recorded’,
+profitWaterfall:‘Profit Waterfall’, takeHome:‘Take-home’,
+revLabel:‘Revenue’, expUS:‘− US Expenses (Izinest)’, expSubs:‘− US Subscriptions’,
+netBefore:’= Net before loans’, advances:‘− Advances (loans + personal subs)’,
+distributable:’= Distributable’, malvinShare:‘→ Malvin / Izinest (50%)’, amauryShare:‘→ Amaury / French Co. (50%)’,
+newTx:‘New Transaction’, descPlaceholder:‘Client payment, Facebook Ads, Notion…’,
+descLabel:‘Description’, amountLabel:‘Amount’, dateLabel:‘Date’, saveBtn:‘SAVE’,
+entityWho:‘Entity (who pays?)’, whoAdvances:‘Who is advancing?’, whoPaysSub:‘Who pays the subscription?’, whoPaysExp:‘Who pays the expense?’,
+cadence:‘Cadence’, paidPersonally:‘Paid personally by’, company:‘🏢 Company’,
+amountByCadence:‘Amount (based on cadence)’,
+loanEntries:‘Loan entries’, personalSubs:‘Personal sub payments’, noLoans:‘No loans recorded’, noPersonalSubs:‘No personal sub payments’,
+totalOwedMalvin:‘Total owed to Malvin’, totalOwedAmaury:‘Total owed to Amaury’,
+loansAdvanced:‘Loans advanced’, subsPersonally:‘Subs paid personally’, repaid:‘Repaid (from revenue)’, stillOwed:‘Still owed’,
+immutableNote:‘📌 This log is <strong>immutable</strong> — every transaction is timestamped (Paris time) and attributed to its author. Nothing can be deleted. Edits create a new entry; the original is kept as superseded.’,
+allTypes:‘All types’, allAuthors:‘All authors’,
+expensesLabel:‘Expenses’, loansLabel:‘Loans’, subsLabel:‘Subscriptions’,
+subsUS:‘Subscriptions (US)’, subsFR:‘Subscriptions (FR)’, loansAdv:‘Loans advanced’, subsPersonallyMo:‘Subs paid personally /mo’,
+distributableShare:‘50% distributable’, malvinTakeHome:‘→ Malvin take-home’, amauryTakeHome:‘→ Amaury take-home’,
+expFRLabel:‘Expenses (FR, deducted from share)’,
+logicTitle:‘💡 Logic’, logicText:‘Revenue − US expenses − US subscriptions → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses & FR subscriptions deducted only from Amaury's share.’,
+editTx:‘✏️ Edit Transaction’, editSubMsg:‘⚠️ The original entry will be kept in the log marked as superseded. The edit is traceable.’,
+editEntity:‘Entity’, reasonLabel:‘Reason for edit’, reasonPlaceholder:‘Correction, wrong amount, typo…’, saveEdit:‘✓ SAVE EDIT’,
+saving:‘⟳ Saving…’, saved:‘✓ Saved’, errNetwork:‘✕ Network error’,
+fillRequired:‘⚠ Description and amount required’, editFill:‘⚠ Fill description & amount’,
+editSaved:‘✓ Edit saved’, loadingTxt:‘Loading data…’,
+annual:‘Annual’, monthly:‘Monthly’, noEntries:‘No entries found’,
+supersededBy:‘⚠ SUPERSEDED BY EDIT’, editedTag:‘EDITED’, paidBy:‘Paid by’,
+},
+fr: {
+dash:‘TABLEAU’, add:‘AJOUTER’, loans:‘PRÊTS’, log:‘JOURNAL’, co:‘SOCIÉTÉ’,
+revenue:‘Revenus’, expenses:‘Dépenses’, loansOut:‘Prêts’, netShareable:‘Net Partageable’,
+entries:‘entrées’, expCount:‘dépenses’, priorityFirst:‘priorité d'abord’, afterExp:‘après dép. & prêts’,
+recurring:‘🔄 Récurrents’, noSubs:‘Aucun abonnement enregistré’,
+profitWaterfall:‘Cascade de Profits’, takeHome:‘À percevoir’,
+revLabel:‘Revenus’, expUS:‘− Dépenses US (Izinest)’, expSubs:‘− Abonnements US’,
+netBefore:’= Net avant prêts’, advances:‘− Avances (prêts + abonnements perso)’,
+distributable:’= Distribuable’, malvinShare:‘→ Malvin / Izinest (50%)’, amauryShare:‘→ Amaury / French Co. (50%)’,
+newTx:‘Nouvelle Transaction’, descPlaceholder:‘Paiement client, Facebook Ads, Notion…’,
+descLabel:‘Description’, amountLabel:‘Montant’, dateLabel:‘Date’, saveBtn:‘ENREGISTRER’,
+entityWho:‘Entité (qui paie ?)’, whoAdvances:‘Qui avance l'argent ?’, whoPaysSub:‘Qui paie l'abonnement ?’, whoPaysExp:‘Qui paie la dépense ?’,
+cadence:‘Fréquence’, paidPersonally:‘Payé personnellement par’, company:‘🏢 Société’,
+amountByCadence:‘Montant (selon la fréquence)’,
+loanEntries:‘Entrées de prêts’, personalSubs:‘Abonnements perso’, noLoans:‘Aucun prêt enregistré’, noPersonalSubs:‘Aucun abonnement perso’,
+totalOwedMalvin:‘Total dû à Malvin’, totalOwedAmaury:‘Total dû à Amaury’,
+loansAdvanced:‘Prêts avancés’, subsPersonally:‘Abos payés perso’, repaid:‘Remboursé (sur revenus)’, stillOwed:‘Encore dû’,
+immutableNote:‘📌 Ce journal est <strong>immuable</strong> — chaque transaction est horodatée (heure Paris) et attribuée à son auteur. Rien ne peut être supprimé. Les modifications créent une nouvelle entrée ; l'original reste visible.’,
+allTypes:‘Tous types’, allAuthors:‘Tous auteurs’,
+expensesLabel:‘Dépenses’, loansLabel:‘Prêts’, subsLabel:‘Abonnements’,
+subsUS:‘Abonnements (US)’, subsFR:‘Abonnements (FR)’, loansAdv:‘Prêts avancés’, subsPersonallyMo:‘Abos payés perso /mois’,
+distributableShare:‘50% distribuable’, malvinTakeHome:‘→ Malvin à percevoir’, amauryTakeHome:‘→ Amaury à percevoir’,
+expFRLabel:‘Dépenses (FR, déduites de la part)’,
+logicTitle:‘💡 Logique’, logicText:‘Revenus − Dépenses US − Abonnements US → Net − Remboursements prêts (priorité) → Reste ÷ 2. Dépenses FR & Abonnements FR déduits uniquement de la part d'Amaury.’,
+editTx:‘✏️ Modifier la Transaction’, editSubMsg:‘⚠️ L'entrée originale restera dans le journal, marquée comme supplantée. La modification est traçable.’,
+editEntity:‘Entité’, reasonLabel:‘Raison de la modification’, reasonPlaceholder:‘Correction, mauvais montant, faute de frappe…’, saveEdit:‘✓ ENREGISTRER’,
+saving:‘⟳ Sauvegarde…’, saved:‘✓ Sauvegardé’, errNetwork:‘✕ Erreur réseau’,
+fillRequired:‘⚠ Description et montant requis’, editFill:‘⚠ Remplissez description et montant’,
+editSaved:‘✓ Modification enregistrée’, loadingTxt:‘Chargement des données…’,
+annual:‘Annuel’, monthly:‘Mensuel’, noEntries:‘Aucune entrée trouvée’,
+supersededBy:‘⚠ SUPPLANTÉ PAR MODIFICATION’, editedTag:‘MODIFIÉ’, paidBy:‘Payé par’,
+}
 };
 let L = LANG.en;
-
 function showDebug(msg) {
-  document.getElementById('loading').style.display='none';
-  document.getElementById('app').style.display='block';
-  document.body.insertAdjacentHTML('afterbegin',
-    `<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">
-      🚨 ERREUR DEBUG:<br>${msg}
-    </div>`
-  );
+document.getElementById(‘loading’).style.display=‘none’;
+document.getElementById(‘app’).style.display=‘block’;
+document.body.insertAdjacentHTML(‘afterbegin’,
+<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;"> 🚨 ERREUR DEBUG:<br>${msg} </div>
+);
 }
-
 // ── LOCK ──
 function unlock(){
-  const inp = document.getElementById('lock-pw');
-  const val = inp.value;
-  const user = PASSWORDS[val];
-  if(user){
-    document.getElementById('lock').style.display='none';
-    document.getElementById('loading').style.display='flex';
-    loadData(user);
-  } else {
-    inp.classList.add('err');
-    inp.value='';
-    setTimeout(()=>inp.classList.remove('err'),400);
-  }
+const inp = document.getElementById(‘lock-pw’);
+const val = inp.value;
+const user = PASSWORDS[val];
+if(user){
+document.getElementById(‘lock’).style.display=‘none’;
+document.getElementById(‘loading’).style.display=‘flex’;
+loadData(user);
+} else {
+inp.classList.add(‘err’);
+inp.value=’’;
+setTimeout(()=>inp.classList.remove(‘err’),400);
 }
-
+}
 function toggleEye(){
-  eyeOn=!eyeOn;
-  document.getElementById('lock-pw').type=eyeOn?'text':'password';
-  document.getElementById('eye-btn').textContent=eyeOn?'🙈':'👁';
+eyeOn=!eyeOn;
+document.getElementById(‘lock-pw’).type=eyeOn?‘text’:‘password’;
+document.getElementById(‘eye-btn’).textContent=eyeOn?‘🙈’:‘👁’;
 }
-
 // ── iOS standalone touchend fallback ──
-document.addEventListener('DOMContentLoaded', function() {
-  var btn = document.getElementById('lock-submit-btn');
-  if(btn){
-    btn.addEventListener('touchend', function(e){
-      e.preventDefault();
-      unlock();
-    });
-  }
-  var eyeBtn = document.getElementById('eye-btn');
-  if(eyeBtn){
-    eyeBtn.addEventListener('touchend', function(e){
-      e.preventDefault();
-      toggleEye();
-    });
-  }
+document.addEventListener(‘DOMContentLoaded’, function() {
+var btn = document.getElementById(‘lock-submit-btn’);
+if(btn){
+btn.addEventListener(‘touchend’, function(e){
+e.preventDefault();
+unlock();
 });
-
+}
+var eyeBtn = document.getElementById(‘eye-btn’);
+if(eyeBtn){
+eyeBtn.addEventListener(‘touchend’, function(e){
+e.preventDefault();
+toggleEye();
+});
+}
+});
 // ── DATA ──
 async function loadData(user){
-  let statusCode = 'unknown';
-  try {
-    const r = await fetch(API+'/latest', {
-      headers: {'X-Master-Key': API_KEY, 'X-Bin-Meta': 'false'}
-    });
-    statusCode = r.status;
-    if (!r.ok) throw new Error('HTTP ' + r.status + ' — ' + r.statusText);
-    const d = await r.json();
-    log = Array.isArray(d.log) ? d.log : (Array.isArray(d.record?.log) ? d.record.log : []);
-  } catch(e) {
-    log = [];
-    showDebug('Message: ' + e.message + '<br>HTTP Status: ' + statusCode + '<br>BIN_ID: ' + BIN_ID);
-    return;
-  }
-  L = user === 'amaury' ? LANG.fr : LANG.en;
-  applyLang();
-  document.getElementById('loading').style.display='none';
-  document.getElementById('app').style.display='block';
-  document.getElementById('inp-date').valueAsDate=new Date();
-  setAuthor(user,true); setTT('rev'); setEntity('us'); setCadence('monthly'); setPayer('none');
-  renderDash();
+let statusCode = ‘unknown’;
+try {
+const r = await fetch(API+’/latest’, {
+headers: {‘X-Master-Key’: API_KEY, ‘X-Bin-Meta’: ‘false’}
+});
+statusCode = r.status;
+if (!r.ok) throw new Error(’HTTP ’ + r.status + ’ — ’ + r.statusText);
+const d = await r.json();
+log = Array.isArray(d.log) ? d.log : (Array.isArray(d.record?.log) ? d.record.log : []);
+} catch(e) {
+log = [];
+showDebug(’Message: ’ + e.message + ’<br>HTTP Status: ’ + statusCode + ’<br>BIN_ID: ’ + BIN_ID);
+return;
 }
-
+L = user === ‘amaury’ ? LANG.fr : LANG.en;
+applyLang();
+document.getElementById(‘loading’).style.display=‘none’;
+document.getElementById(‘app’).style.display=‘block’;
+document.getElementById(‘inp-date’).valueAsDate=new Date();
+setAuthor(user,true); setTT(‘rev’); setEntity(‘us’); setCadence(‘monthly’); setPayer(‘none’);
+renderDash();
+}
 async function saveData(){
-  setSS('saving');
-  try {
-    await fetch(API, {
-      method: 'PUT',
-      headers: {'Content-Type':'application/json','X-Master-Key': API_KEY},
-      body: JSON.stringify({log: log})
-    });
-    setSS('saved');
-  } catch(e){ setSS('error'); showToast('⚠ Erreur réseau — données non sauvegardées',true); }
+setSS(‘saving’);
+try {
+await fetch(API, {
+method: ‘PUT’,
+headers: {‘Content-Type’:‘application/json’,‘X-Master-Key’: API_KEY},
+body: JSON.stringify({log: log})
+});
+setSS(‘saved’);
+} catch(e){ setSS(‘error’); showToast(‘⚠ Erreur réseau — données non sauvegardées’,true); }
 }
-
 function applyLang(){
-  const tabs = document.querySelectorAll('.tab');
-  if(tabs[0]) tabs[0].innerHTML='<span class="ti">📊</span>'+L.dash;
-  if(tabs[1]) tabs[1].innerHTML='<span class="ti">＋</span>'+L.add;
-  if(tabs[2]) tabs[2].innerHTML='<span class="ti">💜</span>'+L.loans;
-  if(tabs[3]) tabs[3].innerHTML='<span class="ti">📋</span>'+L.log;
-  if(tabs[4]) tabs[4].innerHTML='<span class="ti">🏢</span>'+L.co;
-  const klabels = document.querySelectorAll('.klabel');
-  if(klabels[0]) klabels[0].textContent=L.revenue;
-  if(klabels[1]) klabels[1].textContent=L.expenses;
-  if(klabels[2]) klabels[2].textContent=L.loansOut;
-  if(klabels[3]) klabels[3].textContent=L.netShareable;
-  const ksubs = document.querySelectorAll('.ksub');
-  if(ksubs[2]) ksubs[2].textContent=L.priorityFirst;
-  if(ksubs[3]) ksubs[3].textContent=L.afterExp;
-  const subtitle2 = document.querySelector('.subtitle2');
-  if(subtitle2) subtitle2.textContent=L.recurring;
-  const stitleEls = document.querySelectorAll('.stitle');
-  if(stitleEls[0]) stitleEls[0].textContent=L.recurring.replace('🔄 ','');
-  if(stitleEls[1]) stitleEls[1].textContent=L.profitWaterfall;
-  if(stitleEls[2]) stitleEls[2].textContent=L.takeHome;
-  if(stitleEls[3]) stitleEls[3].textContent=L.loanEntries;
-  if(stitleEls[4]) stitleEls[4].textContent=L.personalSubs;
-  const wfls = document.querySelectorAll('.wfl');
-  if(wfls[0]) wfls[0].textContent=L.revLabel;
-  if(wfls[1]) wfls[1].textContent=L.expUS;
-  if(wfls[2]) wfls[2].textContent=L.expSubs;
-  if(wfls[3]) wfls[3].textContent=L.netBefore;
-  if(wfls[4]) wfls[4].textContent=L.advances;
-  if(wfls[5]) wfls[5].textContent=L.distributable;
-  if(wfls[6]) wfls[6].innerHTML=L.malvinShare;
-  if(wfls[7]) wfls[7].innerHTML=L.amauryShare;
-  const ftitle = document.querySelector('.ftitle');
-  if(ftitle) ftitle.textContent=L.newTx;
-  const descInp = document.getElementById('inp-desc');
-  if(descInp) descInp.placeholder=L.descPlaceholder;
-  const addBtn = document.getElementById('add-btn');
-  if(addBtn) addBtn.textContent=L.saveBtn;
-  document.getElementById('amt-label').textContent=L.amountLabel;
-  document.getElementById('tt-rev').textContent='📈 '+L.revenue;
-  document.getElementById('tt-exp').textContent='📉 '+L.expenses;
-  document.getElementById('tt-loan').textContent='💜 '+L.loansOut;
-  document.getElementById('tt-sub').textContent='🔄 '+L.subsLabel;
-  document.getElementById('et-us').textContent='🇺🇸 Izinest LLC';
-  document.getElementById('et-fr').textContent='🇫🇷 French Company';
-  document.getElementById('sc-monthly').textContent='📅 '+L.monthly;
-  document.getElementById('sc-annual').textContent='📆 '+L.annual;
-  document.getElementById('pp-none').textContent=L.company;
-  document.getElementById('pp-malvin').textContent='👤 Malvin';
-  document.getElementById('pp-amaury').textContent='👤 Amaury';
-  const flType = document.getElementById('fl-type');
-  if(flType){ flType.options[0].text=L.allTypes; flType.options[1].text=L.revenue; flType.options[2].text=L.expensesLabel; flType.options[3].text=L.loansLabel; flType.options[4].text=L.subsLabel; }
-  const flAuth = document.getElementById('fl-auth');
-  if(flAuth){ flAuth.options[0].text=L.allAuthors; }
-  const note = document.querySelector('.note');
-  if(note) note.innerHTML=L.immutableNote;
-  const logicPs = document.querySelectorAll('.cocard p');
-  if(logicPs[0]) logicPs[0].textContent=L.logicText;
-  const editTitle = document.querySelector('.edit-title');
-  if(editTitle) editTitle.textContent=L.editTx;
-  const editSub = document.querySelector('.edit-sub');
-  if(editSub) editSub.textContent=L.editSubMsg;
-  const editReason = document.getElementById('edit-reason');
-  if(editReason) editReason.placeholder=L.reasonPlaceholder;
-  document.getElementById('ett-rev').textContent='📈 '+L.revenue;
-  document.getElementById('ett-exp').textContent='📉 '+L.expenses;
-  document.getElementById('ett-loan').textContent='💜 '+L.loansOut;
-  document.getElementById('ett-sub').textContent='🔄 '+L.subsLabel;
-  document.getElementById('eet-us').textContent='🇺🇸 Izinest LLC';
-  document.getElementById('eet-fr').textContent='🇫🇷 French Company';
-  document.getElementById('esc-monthly').textContent='📅 '+L.monthly;
-  document.getElementById('esc-annual').textContent='📆 '+L.annual;
-  document.getElementById('epp-none').textContent=L.company;
-  document.getElementById('epp-malvin').textContent='👤 Malvin';
-  document.getElementById('epp-amaury').textContent='👤 Amaury';
-  const loadTxt = document.querySelector('.load-txt');
-  if(loadTxt) loadTxt.textContent=L.loadingTxt;
+const tabs = document.querySelectorAll(’.tab’);
+if(tabs[0]) tabs[0].innerHTML=’<span class="ti">📊</span>’+L.dash;
+if(tabs[1]) tabs[1].innerHTML=’<span class="ti">＋</span>’+L.add;
+if(tabs[2]) tabs[2].innerHTML=’<span class="ti">💜</span>’+L.loans;
+if(tabs[3]) tabs[3].innerHTML=’<span class="ti">📋</span>’+L.log;
+if(tabs[4]) tabs[4].innerHTML=’<span class="ti">🏢</span>’+L.co;
+const klabels = document.querySelectorAll(’.klabel’);
+if(klabels[0]) klabels[0].textContent=L.revenue;
+if(klabels[1]) klabels[1].textContent=L.expenses;
+if(klabels[2]) klabels[2].textContent=L.loansOut;
+if(klabels[3]) klabels[3].textContent=L.netShareable;
+const ksubs = document.querySelectorAll(’.ksub’);
+if(ksubs[2]) ksubs[2].textContent=L.priorityFirst;
+if(ksubs[3]) ksubs[3].textContent=L.afterExp;
+const subtitle2 = document.querySelector(’.subtitle2’);
+if(subtitle2) subtitle2.textContent=L.recurring;
+const stitleEls = document.querySelectorAll(’.stitle’);
+if(stitleEls[0]) stitleEls[0].textContent=L.recurring.replace(‘🔄 ‘,’’);
+if(stitleEls[1]) stitleEls[1].textContent=L.profitWaterfall;
+if(stitleEls[2]) stitleEls[2].textContent=L.takeHome;
+if(stitleEls[3]) stitleEls[3].textContent=L.loanEntries;
+if(stitleEls[4]) stitleEls[4].textContent=L.personalSubs;
+const wfls = document.querySelectorAll(’.wfl’);
+if(wfls[0]) wfls[0].textContent=L.revLabel;
+if(wfls[1]) wfls[1].textContent=L.expUS;
+if(wfls[2]) wfls[2].textContent=L.expSubs;
+if(wfls[3]) wfls[3].textContent=L.netBefore;
+if(wfls[4]) wfls[4].textContent=L.advances;
+if(wfls[5]) wfls[5].textContent=L.distributable;
+if(wfls[6]) wfls[6].innerHTML=L.malvinShare;
+if(wfls[7]) wfls[7].innerHTML=L.amauryShare;
+const ftitle = document.querySelector(’.ftitle’);
+if(ftitle) ftitle.textContent=L.newTx;
+const descInp = document.getElementById(‘inp-desc’);
+if(descInp) descInp.placeholder=L.descPlaceholder;
+const addBtn = document.getElementById(‘add-btn’);
+if(addBtn) addBtn.textContent=L.saveBtn;
+document.getElementById(‘amt-label’).textContent=L.amountLabel;
+document.getElementById(‘tt-rev’).textContent=’📈 ’+L.revenue;
+document.getElementById(‘tt-exp’).textContent=’📉 ’+L.expenses;
+document.getElementById(‘tt-loan’).textContent=‘💜 ‘+L.loansOut;
+document.getElementById(‘tt-sub’).textContent=‘🔄 ‘+L.subsLabel;
+document.getElementById(‘et-us’).textContent=‘🇺🇸 Izinest LLC’;
+document.getElementById(‘et-fr’).textContent=‘🇫🇷 French Company’;
+document.getElementById(‘sc-monthly’).textContent=‘📅 ‘+L.monthly;
+document.getElementById(‘sc-annual’).textContent=‘📆 ‘+L.annual;
+document.getElementById(‘pp-none’).textContent=L.company;
+document.getElementById(‘pp-malvin’).textContent=‘👤 Malvin’;
+document.getElementById(‘pp-amaury’).textContent=‘👤 Amaury’;
+const flType = document.getElementById(‘fl-type’);
+if(flType){ flType.options[0].text=L.allTypes; flType.options[1].text=L.revenue; flType.options[2].text=L.expensesLabel; flType.options[3].text=L.loansLabel; flType.options[4].text=L.subsLabel; }
+const flAuth = document.getElementById(‘fl-auth’);
+if(flAuth){ flAuth.options[0].text=L.allAuthors; }
+const note = document.querySelector(’.note’);
+if(note) note.innerHTML=L.immutableNote;
+const logicPs = document.querySelectorAll(’.cocard p’);
+if(logicPs[0]) logicPs[0].textContent=L.logicText;
+const editTitle = document.querySelector(’.edit-title’);
+if(editTitle) editTitle.textContent=L.editTx;
+const editSub = document.querySelector(’.edit-sub’);
+if(editSub) editSub.textContent=L.editSubMsg;
+const editReason = document.getElementById(‘edit-reason’);
+if(editReason) editReason.placeholder=L.reasonPlaceholder;
+document.getElementById(‘ett-rev’).textContent=’📈 ’+L.revenue;
+document.getElementById(‘ett-exp’).textContent=’📉 ’+L.expenses;
+document.getElementById(‘ett-loan’).textContent=’💜 ’+L.loansOut;
+document.getElementById(‘ett-sub’).textContent=’🔄 ’+L.subsLabel;
+document.getElementById(‘eet-us’).textContent=‘🇺🇸 Izinest LLC’;
+document.getElementById(‘eet-fr’).textContent=‘🇫🇷 French Company’;
+document.getElementById(‘esc-monthly’).textContent=’📅 ’+L.monthly;
+document.getElementById(‘esc-annual’).textContent=‘📆 ‘+L.annual;
+document.getElementById(‘epp-none’).textContent=L.company;
+document.getElementById(‘epp-malvin’).textContent=‘👤 Malvin’;
+document.getElementById(‘epp-amaury’).textContent=‘👤 Amaury’;
+const loadTxt = document.querySelector(’.load-txt’);
+if(loadTxt) loadTxt.textContent=L.loadingTxt;
 }
-
 function setSS(s){
-  const el=document.getElementById('save-status');
-  el.className='save-status '+s;
-  el.textContent=s==='saving'?L.saving:s==='saved'?L.saved:L.errNetwork;
-  if(s==='saved') setTimeout(()=>{el.className='save-status';},3000);
+const el=document.getElementById(‘save-status’);
+el.className=’save-status ’+s;
+el.textContent=s===‘saving’?L.saving:s===‘saved’?L.saved:L.errNetwork;
+if(s===‘saved’) setTimeout(()=>{el.className=‘save-status’;},3000);
 }
-
 function compute(){
-  let rev=0,expUS=0,expFR=0,subUS=0,subFR=0,loanUS=0,loanFR=0,revC=0,expC=0,subAdvM=0,subAdvA=0;
-  log.filter(e=>!e.superseded).forEach(e=>{
-    if(e.type==='rev'){rev+=e.amt;revC++;}
-    else if(e.type==='exp'){expC++;e.entity==='us'?expUS+=e.amt:expFR+=e.amt;}
-    else if(e.type==='sub'){const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;e.entity==='us'?subUS+=m:subFR+=m;if(e.paidBy==='malvin')subAdvM+=m;else if(e.paidBy==='amaury')subAdvA+=m;}
-    else if(e.type==='loan'){e.entity==='us'?loanUS+=e.amt:loanFR+=e.amt;}
-  });
-  const advUS=loanUS+subAdvM,advFR=loanFR+subAdvA,totalAdv=advUS+advFR;
-  const netBefore=rev-expUS-subUS;
-  const loanRepay=Math.min(totalAdv,Math.max(0,netBefore));
-  const lrUS=totalAdv>0?loanRepay*(advUS/totalAdv):0;
-  const lrFR=totalAdv>0?loanRepay*(advFR/totalAdv):0;
-  const dist=Math.max(0,netBefore-loanRepay);
-  return{rev,expUS,expFR,subUS,subFR,loanUS,loanFR,subAdvM,subAdvA,advUS,advFR,totalAdv,lrUS,lrFR,netBefore,loanRepay,dist,izShare:dist*.5,frShare:dist*.5,malvinFinal:dist*.5+lrUS,amauryFinal:Math.max(0,dist*.5+lrFR-expFR-subFR),loansOwed:Math.max(0,totalAdv-loanRepay),revC,expC};
+let rev=0,expUS=0,expFR=0,subUS=0,subFR=0,loanUS=0,loanFR=0,revC=0,expC=0,subAdvM=0,subAdvA=0;
+log.filter(e=>!e.superseded).forEach(e=>{
+if(e.type===‘rev’){rev+=e.amt;revC++;}
+else if(e.type===‘exp’){expC++;e.entity===‘us’?expUS+=e.amt:expFR+=e.amt;}
+else if(e.type==='sub'){
+  const m = e.amtMonthly!==undefined ? e.amtMonthly : e.amt;
+  if(e.paidBy==='malvin') subAdvM+=m;       // avance perso → pool séparé
+  else if(e.paidBy==='amaury') subAdvA+=m;  // avance perso → pool séparé
+  else { e.entity==='us' ? subUS+=m : subFR+=m; } // payé par société seulement
 }
-
-const f=n=>'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
-const parisTime=()=>new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date());
-
+else if(e.type===‘loan’){e.entity===‘us’?loanUS+=e.amt:loanFR+=e.amt;}
+});
+const advUS=loanUS+subAdvM,advFR=loanFR+subAdvA,totalAdv=advUS+advFR;
+const netBefore=rev-expUS-subUS;
+const loanRepay=Math.min(totalAdv,Math.max(0,netBefore));
+const lrUS=totalAdv>0?loanRepay*(advUS/totalAdv):0;
+const lrFR=totalAdv>0?loanRepay*(advFR/totalAdv):0;
+const dist=Math.max(0,netBefore-loanRepay);
+return{rev,expUS,expFR,subUS,subFR,loanUS,loanFR,subAdvM,subAdvA,advUS,advFR,totalAdv,lrUS,lrFR,netBefore,loanRepay,dist,izShare:dist*.5,frShare:dist*.5,malvinFinal:dist*.5+lrUS,amauryFinal:Math.max(0,dist*.5+lrFR-expFR-subFR),loansOwed:Math.max(0,totalAdv-loanRepay),revC,expC};
+}
+const f=n=>’$’+Math.abs(n).toLocaleString(‘en-US’,{minimumFractionDigits:0,maximumFractionDigits:2});
+const parisTime=()=>new Intl.DateTimeFormat(‘en-GB’,{timeZone:‘Europe/Paris’,hour:‘2-digit’,minute:‘2-digit’,second:‘2-digit’,day:‘2-digit’,month:‘2-digit’,year:‘numeric’}).format(new Date());
 function setAuthor(a,silent){
-  author=a;
-  document.getElementById('abtn-malvin').className='abtn'+(a==='malvin'?' sm':'');
-  document.getElementById('abtn-amaury').className='abtn'+(a==='amaury'?' sa':'');
-  if(!silent) showToast(a==='malvin'?'🇺🇸 Malvin':'🇫🇷 Amaury');
+author=a;
+document.getElementById(‘abtn-malvin’).className=‘abtn’+(a===‘malvin’?’ sm’:’’);
+document.getElementById(‘abtn-amaury’).className=‘abtn’+(a===‘amaury’?’ sa’:’’);
+if(!silent) showToast(a===‘malvin’?‘🇺🇸 Malvin’:‘🇫🇷 Amaury’);
 }
-
 function switchTab(t,btn){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+t).classList.add('active');
-  if(btn) btn.classList.add('active');
-  ({dash:renderDash,loans:renderLoans,hist:renderHist,co:renderCo})[t]?.();
+document.querySelectorAll(’.page’).forEach(p=>p.classList.remove(‘active’));
+document.querySelectorAll(’.tab’).forEach(b=>b.classList.remove(‘active’));
+document.getElementById(‘page-’+t).classList.add(‘active’);
+if(btn) btn.classList.add(‘active’);
+({dash:renderDash,loans:renderLoans,hist:renderHist,co:renderCo})[t]?.();
 }
-
-function setTT(t){txType=t;['rev','exp','loan','sub'].forEach(k=>{document.getElementById('tt-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});document.getElementById('entity-row').style.display=t==='rev'?'none':'block';document.getElementById('cadence-row').style.display=t==='sub'?'block':'none';document.getElementById('payer-row').style.display=t==='sub'?'block':'none';document.getElementById('entity-label').textContent=t==='loan'?'Who is advancing?':t==='sub'?'Who pays the subscription?':'Who pays the expense?';document.getElementById('amt-label').textContent=t==='sub'?'Amount (based on cadence)':'Amount';document.getElementById('add-btn').className='sbtn '+(t==='loan'?'sv':t==='sub'?'so':'sg');}
-function setEntity(e){txEntity=e;document.getElementById('et-us').className='etbtn'+(e==='us'?' ag':'');document.getElementById('et-fr').className='etbtn'+(e==='fr'?' ap':'');}
-function setCadence(c){subCadence=c;document.getElementById('sc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('sc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
-function setPayer(p){subPayer=p;document.getElementById('pp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('pp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('pp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
-
+function setTT(t){txType=t;[‘rev’,‘exp’,‘loan’,‘sub’].forEach(k=>{document.getElementById(‘tt-’+k).className=‘ttbtn’+(k===t?(t===‘rev’?’ ag’:t===‘exp’?’ ap’:t===‘loan’?’ av’:’ ao’):’’);});document.getElementById(‘entity-row’).style.display=t===‘rev’?‘none’:‘block’;document.getElementById(‘cadence-row’).style.display=t===‘sub’?‘block’:‘none’;document.getElementById(‘payer-row’).style.display=t===‘sub’?‘block’:‘none’;document.getElementById(‘entity-label’).textContent=t===‘loan’?‘Who is advancing?’:t===‘sub’?‘Who pays the subscription?’:‘Who pays the expense?’;document.getElementById(‘amt-label’).textContent=t===‘sub’?‘Amount (based on cadence)’:‘Amount’;document.getElementById(‘add-btn’).className=‘sbtn ‘+(t===‘loan’?‘sv’:t===‘sub’?‘so’:‘sg’);}
+function setEntity(e){txEntity=e;document.getElementById(‘et-us’).className=‘etbtn’+(e===‘us’?’ ag’:’’);document.getElementById(‘et-fr’).className=‘etbtn’+(e===‘fr’?’ ap’:’’);}
+function setCadence(c){subCadence=c;document.getElementById(‘sc-monthly’).className=‘sctbtn’+(c===‘monthly’?’ ao’:’’);document.getElementById(‘sc-annual’).className=‘sctbtn’+(c===‘annual’?’ ao’:’’);}
+function setPayer(p){subPayer=p;document.getElementById(‘pp-none’).className=‘etbtn’+(p===‘none’?’ ag’:’’);document.getElementById(‘pp-malvin’).className=‘etbtn’+(p===‘malvin’?’ ag’:’’);document.getElementById(‘pp-amaury’).className=‘etbtn’+(p===‘amaury’?’ ap’:’’);}
 function addTx(){
-  const desc=document.getElementById('inp-desc').value.trim();
-  const amt=parseFloat(document.getElementById('inp-amt').value);
-  const cur=document.getElementById('inp-cur').value;
-  const date=document.getElementById('inp-date').value;
-  if(!desc||isNaN(amt)||amt<=0){showToast(L.fillRequired,true);return;}
-  const e={id:Date.now(),type:txType,entity:txType==='rev'?'shared':txEntity,desc,amt,cur,date,author,timestamp:parisTime(),tsIso:new Date().toISOString()};
-  if(txType==='sub'){e.cadence=subCadence;e.amtMonthly=subCadence==='annual'?+(amt/12).toFixed(2):amt;e.paidBy=subPayer;}
-  log.unshift(e);
-  saveData();
-  document.getElementById('inp-desc').value='';
-  document.getElementById('inp-amt').value='';
-  document.getElementById('inp-date').valueAsDate=new Date();
-  setPayer('none');
-  showToast('✓ Saved');
-  switchTab('dash',null);
-  document.querySelectorAll('.tab')[0].classList.add('active');
+const desc=document.getElementById(‘inp-desc’).value.trim();
+const amt=parseFloat(document.getElementById(‘inp-amt’).value);
+const cur=document.getElementById(‘inp-cur’).value;
+const date=document.getElementById(‘inp-date’).value;
+if(!desc||isNaN(amt)||amt<=0){showToast(L.fillRequired,true);return;}
+const e={id:Date.now(),type:txType,entity:txType===‘rev’?‘shared’:txEntity,desc,amt,cur,date,author,timestamp:parisTime(),tsIso:new Date().toISOString()};
+if(txType===‘sub’){e.cadence=subCadence;e.amtMonthly=subCadence===‘annual’?+(amt/12).toFixed(2):amt;e.paidBy=subPayer;}
+log.unshift(e);
+saveData();
+document.getElementById(‘inp-desc’).value=’’;
+document.getElementById(‘inp-amt’).value=’’;
+document.getElementById(‘inp-date’).valueAsDate=new Date();
+setPayer(‘none’);
+showToast(‘✓ Saved’);
+switchTab(‘dash’,null);
+document.querySelectorAll(’.tab’)[0].classList.add(‘active’);
 }
-
 function renderDash(){
-  const c=compute();
-  document.getElementById('k-rev').textContent=f(c.rev);document.getElementById('k-rev-c').textContent=c.revC+' '+L.entries;
-  document.getElementById('k-exp').textContent=f(c.expUS+c.expFR);document.getElementById('k-exp-c').textContent=c.expC+' '+L.expCount;
-  document.getElementById('k-loan').textContent=f(c.loansOwed);document.getElementById('k-net').textContent=f(c.dist);
-  document.getElementById('wf-rev').textContent=f(c.rev);document.getElementById('wf-expu').textContent='−'+f(c.expUS);document.getElementById('wf-subu').textContent='−'+f(c.subUS)+'/mo';
-  document.getElementById('wf-net1').textContent=f(c.netBefore);document.getElementById('wf-loan').textContent='−'+f(c.loanRepay);document.getElementById('wf-dist').textContent=f(c.dist);
-  document.getElementById('wf-iz').textContent=f(c.malvinFinal);document.getElementById('wf-fr').textContent=f(c.amauryFinal);
-  document.getElementById('ph-malvin').textContent=f(c.malvinFinal);document.getElementById('ph-amaury').textContent=f(c.amauryFinal);
-  const subs=log.filter(e=>e.type==='sub'&&!e.superseded);
-  const tot=subs.reduce((s,e)=>s+(e.amtMonthly!==undefined?e.amtMonthly:e.amt),0);
-  document.getElementById('dash-sub-total').textContent='$'+tot.toFixed(2)+'/mo';
-  document.getElementById('dash-sub-list').innerHTML=subs.length?subs.map(e=>{const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;const da=e.cadence==='annual'?'$'+e.amt.toFixed(2)+'/yr':'$'+e.amt.toFixed(2)+'/mo';return`<div class="subitem"><div class="subil"><span class="subin">${e.desc}</span><span class="subim">${e.entity==='us'?'🇺🇸 Izinest':'🇫🇷 French Co.'} · ${e.date}</span></div><div class="subir"><span class="subia">${da}</span>${e.cadence==='annual'?`<span class="subimo">≈$${m.toFixed(2)}/mo</span>`:''}<span class="subbadge ${e.cadence==='annual'?'an':'mo'}">${e.cadence==='annual'?L.annual:L.monthly}</span></div></div>`;}).join(''):'<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">'+L.noSubs+'</div>';
+const c=compute();
+document.getElementById(‘k-rev’).textContent=f(c.rev);document.getElementById(‘k-rev-c’).textContent=c.revC+’ ‘+L.entries;
+document.getElementById(‘k-exp’).textContent=f(c.expUS+c.expFR);document.getElementById(‘k-exp-c’).textContent=c.expC+’ ‘+L.expCount;
+document.getElementById(‘k-loan’).textContent=f(c.loansOwed);document.getElementById(‘k-net’).textContent=f(c.dist);
+document.getElementById(‘wf-rev’).textContent=f(c.rev);document.getElementById(‘wf-expu’).textContent=‘−’+f(c.expUS);document.getElementById(‘wf-subu’).textContent=‘−’+f(c.subUS)+’/mo’;
+document.getElementById(‘wf-net1’).textContent=f(c.netBefore);document.getElementById(‘wf-loan’).textContent=‘−’+f(c.loanRepay);document.getElementById(‘wf-dist’).textContent=f(c.dist);
+document.getElementById(‘wf-iz’).textContent=f(c.malvinFinal);document.getElementById(‘wf-fr’).textContent=f(c.amauryFinal);
+document.getElementById(‘ph-malvin’).textContent=f(c.malvinFinal);document.getElementById(‘ph-amaury’).textContent=f(c.amauryFinal);
+const subs=log.filter(e=>e.type===‘sub’&&!e.superseded);
+const tot=subs.reduce((s,e)=>s+(e.amtMonthly!==undefined?e.amtMonthly:e.amt),0);
+document.getElementById(‘dash-sub-total’).textContent=’$’+tot.toFixed(2)+’/mo’;
+document.getElementById(‘dash-sub-list’).innerHTML=subs.length?subs.map(e=>{const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;const da=e.cadence===‘annual’?’’+e.amt.toFixed(2)+’/mo’;return<div class="subitem"><div class="subil"><span class="subin">${e.desc}</span><span class="subim">${e.entity==='us'?'🇺🇸 Izinest':'🇫🇷 French Co.'} · ${e.date}</span></div><div class="subir"><span class="subia">${da}</span>${e.cadence==='annual'?<span class="subimo">≈$${m.toFixed(2)}/mo</span>:''}<span class="subbadge ${e.cadence==='annual'?'an':'mo'}">${e.cadence==='annual'?L.annual:L.monthly}</span></div></div>;}).join(’’):’<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">’+L.noSubs+’</div>’;
 }
-
 function renderLoans(){
-  const c=compute();
-  document.getElementById('lu-tot').textContent=f(c.loanUS);document.getElementById('lu-subadv').textContent=f(c.subAdvM)+'/mo';document.getElementById('lu-totaladv').textContent=f(c.advUS);document.getElementById('lu-rep').textContent=f(c.lrUS);document.getElementById('lu-ow').textContent=f(Math.max(0,c.advUS-c.lrUS));document.getElementById('lu-bar').style.width=(c.advUS>0?Math.min(100,c.lrUS/c.advUS*100):0)+'%';
-  document.getElementById('lf-tot').textContent=f(c.loanFR);document.getElementById('lf-subadv').textContent=f(c.subAdvA)+'/mo';document.getElementById('lf-totaladv').textContent=f(c.advFR);document.getElementById('lf-rep').textContent=f(c.lrFR);document.getElementById('lf-ow').textContent=f(Math.max(0,c.advFR-c.lrFR));document.getElementById('lf-bar').style.width=(c.advFR>0?Math.min(100,c.lrFR/c.advFR*100):0)+'%';
-  const loans=log.filter(e=>e.type==='loan');
-  document.getElementById('loan-entries').innerHTML=loans.length?loans.map(itemHTML).join(''):'<div class="empty"><div class="ei">✅</div>'+L.noLoans+'</div>';
-  const sp=log.filter(e=>e.type==='sub'&&e.paidBy&&e.paidBy!=='none');
-  document.getElementById('sub-personal-entries').innerHTML=sp.length?sp.map(itemHTML).join(''):'<div class="empty"><div class="ei">✅</div>'+L.noPersonalSubs+'</div>';
+const c=compute();
+document.getElementById(‘lu-tot’).textContent=f(c.loanUS);document.getElementById(‘lu-subadv’).textContent=f(c.subAdvM)+’/mo’;document.getElementById(‘lu-totaladv’).textContent=f(c.advUS);document.getElementById(‘lu-rep’).textContent=f(c.lrUS);document.getElementById(‘lu-ow’).textContent=f(Math.max(0,c.advUS-c.lrUS));document.getElementById(‘lu-bar’).style.width=(c.advUS>0?Math.min(100,c.lrUS/c.advUS100):0)+’%’;
+document.getElementById(‘lf-tot’).textContent=f(c.loanFR);document.getElementById(‘lf-subadv’).textContent=f(c.subAdvA)+’/mo’;document.getElementById(‘lf-totaladv’).textContent=f(c.advFR);document.getElementById(‘lf-rep’).textContent=f(c.lrFR);document.getElementById(‘lf-ow’).textContent=f(Math.max(0,c.advFR-c.lrFR));document.getElementById(‘lf-bar’).style.width=(c.advFR>0?Math.min(100,c.lrFR/c.advFR100):0)+’%’;
+const loans=log.filter(e=>e.type===‘loan’);
+document.getElementById(‘loan-entries’).innerHTML=loans.length?loans.map(itemHTML).join(’’):’<div class="empty"><div class="ei">✅</div>’+L.noLoans+’</div>’;
+const sp=log.filter(e=>e.type===‘sub’&&e.paidBy&&e.paidBy!==‘none’);
+document.getElementById(‘sub-personal-entries’).innerHTML=sp.length?sp.map(itemHTML).join(’’):’<div class="empty"><div class="ei">✅</div>’+L.noPersonalSubs+’</div>’;
 }
-
 function renderHist(){
-  const ft=document.getElementById('fl-type').value,fa=document.getElementById('fl-auth').value;
-  const filtered=log.filter(e=>(ft==='all'||e.type===ft)&&(fa==='all'||e.author===fa));
-  document.getElementById('hist-list').innerHTML=filtered.length?filtered.map(itemHTML).join(''):'<div class="empty"><div class="ei">🔍</div>'+L.noEntries+'</div>';
+const ft=document.getElementById(‘fl-type’).value,fa=document.getElementById(‘fl-auth’).value;
+const filtered=log.filter(e=>(ft===‘all’||e.type===ft)&&(fa===‘all’||e.author===fa));
+document.getElementById(‘hist-list’).innerHTML=filtered.length?filtered.map(itemHTML).join(’’):’<div class="empty"><div class="ei">🔍</div>’+L.noEntries+’</div>’;
 }
-
 function renderCo(){
-  const c=compute();
-  document.getElementById('co-us-rev').textContent=f(c.rev);document.getElementById('co-us-exp').textContent=f(c.expUS);document.getElementById('co-us-sub').textContent=f(c.subUS)+'/mo';document.getElementById('co-us-loan').textContent=f(c.loanUS);document.getElementById('co-us-subadv').textContent=f(c.subAdvM)+'/mo';document.getElementById('co-us-share').textContent=f(c.izShare);document.getElementById('co-us-final').textContent=f(c.malvinFinal);
-  document.getElementById('co-fr-exp').textContent=f(c.expFR);document.getElementById('co-fr-sub').textContent=f(c.subFR)+'/mo';document.getElementById('co-fr-loan').textContent=f(c.loanFR);document.getElementById('co-fr-subadv').textContent=f(c.subAdvA)+'/mo';document.getElementById('co-fr-share').textContent=f(c.frShare);document.getElementById('co-fr-final').textContent=f(c.amauryFinal);
+const c=compute();
+document.getElementById(‘co-us-rev’).textContent=f(c.rev);document.getElementById(‘co-us-exp’).textContent=f(c.expUS);document.getElementById(‘co-us-sub’).textContent=f(c.subUS)+’/mo’;document.getElementById(‘co-us-loan’).textContent=f(c.loanUS);document.getElementById(‘co-us-subadv’).textContent=f(c.subAdvM)+’/mo’;document.getElementById(‘co-us-share’).textContent=f(c.izShare);document.getElementById(‘co-us-final’).textContent=f(c.malvinFinal);
+document.getElementById(‘co-fr-exp’).textContent=f(c.expFR);document.getElementById(‘co-fr-sub’).textContent=f(c.subFR)+’/mo’;document.getElementById(‘co-fr-loan’).textContent=f(c.loanFR);document.getElementById(‘co-fr-subadv’).textContent=f(c.subAdvA)+’/mo’;document.getElementById(‘co-fr-share’).textContent=f(c.frShare);document.getElementById(‘co-fr-final’).textContent=f(c.amauryFinal);
 }
-
 function itemHTML(e){
-  const isSub=e.type==='sub';
-  const icMap={rev:'inc',exp:e.entity==='us'?'expu':'expf',loan:'loan',sub:'sub'};
-  const emMap={rev:'💰',exp:e.entity==='us'?'💸':'🏦',loan:'💜',sub:'🔄'};
-  const acl=e.type==='rev'?'g':e.type==='loan'?'v':e.type==='sub'?'o':'p';
-  const apfx=e.type==='rev'?'+':'−';
-  const csfx=isSub?(e.cadence==='annual'?'/yr':'/mo'):'';
-  let tags='';
-  if(e.type==='rev')tags+='<span class="htag g">Revenue</span>';
-  else if(e.type==='loan')tags+=`<span class="htag v">Loan · ${e.entity==='us'?'Izinest':'French Co.'}</span>`;
-  else if(e.type==='sub')tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span><span class="htag ${e.cadence==='annual'?'y':'o'}">${e.cadence==='annual'?L.annual:L.monthly}</span>`;
-  else tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span>`;
-  tags+=e.author==='malvin'?'<span class="htag" style="background:rgba(0,255,136,.1);color:var(--green)">Malvin</span>':'<span class="htag" style="background:rgba(255,34,102,.1);color:var(--pink)">Amaury</span>';
-  if(isSub&&e.paidBy&&e.paidBy!=='none')tags+=`<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}">Paid by ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>`;
-  if(e.isEdit)tags+='<span class="htag y">'+L.editedTag+'</span>';
-  let extra='';
-  if(isSub&&e.cadence==='annual')extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
-  if(e.isEdit)extra+=`<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>`;
-  if(e.superseded)extra+='<div class="sup-note">'+L.supersededBy+'</div>';
-  const editBtn=(!e.superseded&&!e.isEdit)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:'';
-  return`<div class="hitem${e.superseded?' sup':''}"><div class="hicon ${icMap[e.type]||'inc'}">${emMap[e.type]||'💰'}</div><div class="hinfo"><div class="hdesc">${e.desc}</div><div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>${extra}${editBtn}</div><div class="hamt ${acl}">${apfx}$${Math.abs(e.amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})} ${e.cur}${csfx}</div></div>`;
+const isSub=e.type===‘sub’;
+const icMap={rev:‘inc’,exp:e.entity===‘us’?‘expu’:‘expf’,loan:‘loan’,sub:‘sub’};
+const emMap={rev:‘💰’,exp:e.entity===‘us’?‘💸’:‘🏦’,loan:‘💜’,sub:‘🔄’};
+const acl=e.type===‘rev’?‘g’:e.type===‘loan’?‘v’:e.type===‘sub’?‘o’:‘p’;
+const apfx=e.type===‘rev’?’+’:‘−’;
+const csfx=isSub?(e.cadence===‘annual’?’/yr’:’/mo’):’’;
+let tags=’’;
+if(e.type===‘rev’)tags+=’<span class="htag g">Revenue</span>’;
+else if(e.type===‘loan’)tags+=<span class="htag v">Loan · ${e.entity==='us'?'Izinest':'French Co.'}</span>;
+else if(e.type===‘sub’)tags+=<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span><span class="htag ${e.cadence==='annual'?'y':'o'}">${e.cadence==='annual'?L.annual:L.monthly}</span>;
+else tags+=<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span>;
+tags+=e.author===‘malvin’?’<span class="htag" style="background:rgba(0,255,136,.1);color:var(--green)">Malvin</span>’:’<span class="htag" style="background:rgba(255,34,102,.1);color:var(--pink)">Amaury</span>’;
+if(isSub&&e.paidBy&&e.paidBy!==‘none’)tags+=<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}">Paid by ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>;
+if(e.isEdit)tags+=’<span class="htag y">’+L.editedTag+’</span>’;
+let extra=’’;
+if(isSub&&e.cadence===‘annual’)extra+=<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>;
+if(e.isEdit)extra+=<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>;
+if(e.superseded)extra+=’<div class="sup-note">’+L.supersededBy+’</div>’;
+const editBtn=(!e.superseded&&!e.isEdit)?<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>:’’;
+return<div class="hitem${e.superseded?' sup':''}"><div class="hicon ${icMap\[e.type\]||'inc'}">${emMap[e.type]||'💰'}</div><div class="hinfo"><div class="hdesc">${e.desc}</div><div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>${extra}${editBtn}</div><div class="hamt ${acl}">${apfx}$${Math.abs(e.amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})} ${e.cur}${csfx}</div></div>;
 }
-
-function showToast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'var(--pink)':'var(--green)';t.style.color='#000';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-
+function showToast(msg,err){const t=document.getElementById(‘toast’);t.textContent=msg;t.style.background=err?‘var(–pink)’:‘var(–green)’;t.style.color=’#000’;t.classList.add(‘show’);setTimeout(()=>t.classList.remove(‘show’),2500);}
 // ── EDIT ──
-let editId=null,eTT='rev',eEnt='us',eCad='monthly',ePay='none';
-function openEdit(id){const e=log.find(x=>x.id===id);if(!e)return;editId=id;eTT=e.type;eEnt=e.entity==='shared'?'us':e.entity;eCad=e.cadence||'monthly';ePay=e.paidBy||'none';document.getElementById('edit-desc').value=e.desc;document.getElementById('edit-amt').value=e.amt;document.getElementById('edit-cur').value=e.cur||'USD';document.getElementById('edit-date').value=e.date;document.getElementById('edit-reason').value='';editSetTT(eTT);editSetEntity(eEnt);editSetCadence(eCad);editSetPayer(ePay);document.getElementById('edit-modal').classList.add('open');}
-function closeEdit(){document.getElementById('edit-modal').classList.remove('open');editId=null;}
-function editSetTT(t){eTT=t;['rev','exp','loan','sub'].forEach(k=>{document.getElementById('ett-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});document.getElementById('edit-entity-row').style.display=t==='rev'?'none':'block';document.getElementById('edit-cadence-row').style.display=t==='sub'?'block':'none';document.getElementById('edit-payer-row').style.display=t==='sub'?'block':'none';document.getElementById('edit-entity-label').textContent=t==='loan'?'Who advanced?':t==='sub'?'Who pays?':'Who pays?';document.getElementById('edit-amt-label').textContent=t==='sub'?'Amount (based on cadence)':'Amount';}
-function editSetEntity(e){eEnt=e;document.getElementById('eet-us').className='etbtn'+(e==='us'?' ag':'');document.getElementById('eet-fr').className='etbtn'+(e==='fr'?' ap':'');}
-function editSetCadence(c){eCad=c;document.getElementById('esc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('esc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
-function editSetPayer(p){ePay=p;document.getElementById('epp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('epp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('epp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
+let editId=null,eTT=‘rev’,eEnt=‘us’,eCad=‘monthly’,ePay=‘none’;
+function openEdit(id){const e=log.find(x=>x.id===id);if(!e)return;editId=id;eTT=e.type;eEnt=e.entity===‘shared’?‘us’:e.entity;eCad=e.cadence||‘monthly’;ePay=e.paidBy||‘none’;document.getElementById(‘edit-desc’).value=e.desc;document.getElementById(‘edit-amt’).value=e.amt;document.getElementById(‘edit-cur’).value=e.cur||‘USD’;document.getElementById(‘edit-date’).value=e.date;document.getElementById(‘edit-reason’).value=’’;editSetTT(eTT);editSetEntity(eEnt);editSetCadence(eCad);editSetPayer(ePay);document.getElementById(‘edit-modal’).classList.add(‘open’);}
+function closeEdit(){document.getElementById(‘edit-modal’).classList.remove(‘open’);editId=null;}
+function editSetTT(t){eTT=t;[‘rev’,‘exp’,‘loan’,‘sub’].forEach(k=>{document.getElementById(‘ett-’+k).className=‘ttbtn’+(k===t?(t===‘rev’?’ ag’:t===‘exp’?’ ap’:t===‘loan’?’ av’:’ ao’):’’);});document.getElementById(‘edit-entity-row’).style.display=t===‘rev’?‘none’:‘block’;document.getElementById(‘edit-cadence-row’).style.display=t===‘sub’?‘block’:‘none’;document.getElementById(‘edit-payer-row’).style.display=t===‘sub’?‘block’:‘none’;document.getElementById(‘edit-entity-label’).textContent=t===‘loan’?‘Who advanced?’:t===‘sub’?‘Who pays?’:‘Who pays?’;document.getElementById(‘edit-amt-label’).textContent=t===‘sub’?‘Amount (based on cadence)’:‘Amount’;}
+function editSetEntity(e){eEnt=e;document.getElementById(‘eet-us’).className=‘etbtn’+(e===‘us’?’ ag’:’’);document.getElementById(‘eet-fr’).className=‘etbtn’+(e===‘fr’?’ ap’:’’);}
+function editSetCadence(c){eCad=c;document.getElementById(‘esc-monthly’).className=‘sctbtn’+(c===‘monthly’?’ ao’:’’);document.getElementById(‘esc-annual’).className=‘sctbtn’+(c===‘annual’?’ ao’:’’);}
+function editSetPayer(p){ePay=p;document.getElementById(‘epp-none’).className=‘etbtn’+(p===‘none’?’ ag’:’’);document.getElementById(‘epp-malvin’).className=‘etbtn’+(p===‘malvin’?’ ag’:’’);document.getElementById(‘epp-amaury’).className=‘etbtn’+(p===‘amaury’?’ ap’:’’);}
 function saveEdit(){
-  const desc=document.getElementById('edit-desc').value.trim();
-  const amt=parseFloat(document.getElementById('edit-amt').value);
-  const cur=document.getElementById('edit-cur').value;
-  const date=document.getElementById('edit-date').value;
-  const reason=document.getElementById('edit-reason').value.trim()||'No reason given';
-  if(!desc||isNaN(amt)||amt<=0){showToast(L.editFill,true);return;}
-  if(editId===null)return;
-  const orig=log.find(x=>x.id===editId);if(!orig)return;
-  orig.superseded=true;orig.supersededBy=Date.now();
-  const newE={id:Date.now(),type:eTT,entity:eTT==='rev'?'shared':eEnt,desc,amt,cur,date,author,timestamp:parisTime(),tsIso:new Date().toISOString(),isEdit:true,editOf:editId,editReason:reason,prevDesc:orig.desc,prevAmt:orig.amt,prevDate:orig.date};
-  if(eTT==='sub'){newE.cadence=eCad;newE.amtMonthly=eCad==='annual'?+(amt/12).toFixed(2):amt;newE.paidBy=ePay;}
-  log.unshift(newE);
-  saveData();closeEdit();showToast(L.editSaved);renderDash();
+const desc=document.getElementById(‘edit-desc’).value.trim();
+const amt=parseFloat(document.getElementById(‘edit-amt’).value);
+const cur=document.getElementById(‘edit-cur’).value;
+const date=document.getElementById(‘edit-date’).value;
+const reason=document.getElementById(‘edit-reason’).value.trim()||‘No reason given’;
+if(!desc||isNaN(amt)||amt<=0){showToast(L.editFill,true);return;}
+if(editId===null)return;
+const orig=log.find(x=>x.id===editId);if(!orig)return;
+orig.superseded=true;orig.supersededBy=Date.now();
+const newE={id:Date.now(),type:eTT,entity:eTT===‘rev’?‘shared’:eEnt,desc,amt,cur,date,author,timestamp:parisTime(),tsIso:new Date().toISOString(),isEdit:true,editOf:editId,editReason:reason,prevDesc:orig.desc,prevAmt:orig.amt,prevDate:orig.date};
+if(eTT===‘sub’){newE.cadence=eCad;newE.amtMonthly=eCad===‘annual’?+(amt/12).toFixed(2):amt;newE.paidBy=ePay;}
+log.unshift(newE);
+saveData();closeEdit();showToast(L.editSaved);renderDash();
 }
-</script>
-
-</body>
+</script></body>
 </html>
