@@ -667,7 +667,17 @@ function compute(){
   log.filter(e=>!e.superseded).forEach(e=>{
     if(e.type==='rev'){rev+=e.amt;revC++;}
     else if(e.type==='exp'){expC++;e.entity==='us'?expUS+=e.amt:expFR+=e.amt;}
-    else if(e.type==='sub'){const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;e.entity==='us'?subUS+=m:subFR+=m;if(e.paidBy==='malvin')subAdvM+=m;else if(e.paidBy==='amaury')subAdvA+=m;}
+    else if(e.type==='sub'){
+  const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;
+  if(e.paidBy==='none'){
+    e.entity==='us'?subUS+=m:subFR+=m;
+  } else if(e.paidBy==='malvin'){
+    subAdvM+=m;
+  } else if(e.paidBy==='amaury'){
+    subAdvA+=m;
+  }
+}
+
     else if(e.type==='loan'){e.entity==='us'?loanUS+=e.amt:loanFR+=e.amt;}
   });
   const advUS=loanUS+subAdvM,advFR=loanFR+subAdvA,totalAdv=advUS+advFR;
