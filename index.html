@@ -689,7 +689,8 @@ function compute(){
   return{rev,expUS,expFR,subUS,subFR,loanUS,loanFR,subAdvM,subAdvA,advUS,advFR,totalAdv,lrUS,lrFR,netBefore,loanRepay,dist,izShare:dist*.5,frShare:dist*.5,malvinFinal:dist*.5+lrUS,amauryFinal:dist*.5+lrFR-expFR-subFR,loansOwed:Math.max(0,totalAdv-loanRepay),revC,expC};
 }
 
-const f=n=>'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
+const f=n=>(n<0?'-$':'$')+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
+
 const parisTime=()=>new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date());
 
 function setAuthor(a,silent){
