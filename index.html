@@ -220,8 +220,6 @@ input:focus{border-color:var(--green);}
     </div>
   </div>
 
-  <!-- DASH -->
-
   <div class="page active" id="page-dash">
     <div id="amaury-debt-banner" style="display:none;"></div>
     <div class="kgrid">
@@ -252,8 +250,6 @@ input:focus{border-color:var(--green);}
       <div class="pcard amaury"><div class="pname">Amaury · French Co.</div><div class="pamt" id="ph-amaury">$0</div><div class="psub">50% − FR exp.</div></div>
     </div>
   </div>
-
-  <!-- ADD -->
 
   <div class="page" id="page-add">
     <div class="fcard">
@@ -296,8 +292,6 @@ input:focus{border-color:var(--green);}
     </div>
   </div>
 
-  <!-- LOANS -->
-
   <div class="page" id="page-loans">
     <div class="ltcard">
       <div class="lttitle">🇺🇸 Malvin · Izinest LLC</div>
@@ -324,8 +318,6 @@ input:focus{border-color:var(--green);}
     <div class="hlog" id="sub-personal-entries"></div>
   </div>
 
-  <!-- LOG -->
-
   <div class="page" id="page-hist">
     <div class="note">📌 Log <strong>immuable</strong> — horodaté Paris, attribué à l'auteur. Rien n'est jamais supprimé.</div>
     <div class="frow">
@@ -339,8 +331,6 @@ input:focus{border-color:var(--green);}
     </div>
     <div class="hlog" id="hist-list"></div>
   </div>
-
-  <!-- CO -->
 
   <div class="page" id="page-co">
     <div class="cocard">
@@ -367,8 +357,6 @@ input:focus{border-color:var(--green);}
       <p style="font-size:12px;color:var(--dim);line-height:1.7;">Revenue − US expenses − US company subs → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses &amp; FR subs from Amaury's share only. Personal subs = advance.</p>
     </div>
   </div>
-
-  <!-- EDIT MODAL -->
 
   <div id="edit-modal">
     <div class="edit-sheet">
@@ -420,6 +408,9 @@ input:focus{border-color:var(--green);}
 const SUPABASE_URL = 'https://sxeiucmciwhffkzshibw.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_B-S5BPHVWwTcrWWgl9HD5g_Bq6CoBvX';
 const SUPABASE_API = SUPABASE_URL + '/rest/v1/appdata';
+
+// ── GOOGLE SHEET CONFIG ──
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbx8GeqP_BoCRkhX9kZqLprIDcuWrcIG6zpBlpafu0lVw5bzaF3QjqJT6aLwBFlh97-D/exec';
 
 const PASSWORDS = {'Idem2000':'malvin','Idem2020':'amaury'};
 
@@ -508,7 +499,7 @@ async function saveData(){
         'Content-Type':'application/json',
         'apikey':SUPABASE_KEY,
         'Authorization':'Bearer '+SUPABASE_KEY,
-        'Prefer':'return=representation'  // retourne la ligne modifiée
+        'Prefer':'return=representation'
       },
       body:JSON.stringify({log:log})
     });
@@ -521,7 +512,6 @@ async function saveData(){
     showToast('⚠ Save failed: '+e.message,true);
   }
 }
-
 
 function setSS(s){
   const el=document.getElementById('save-status');
@@ -565,18 +555,55 @@ function setEntity(e){txEntity=e;document.getElementById('et-us').className='etb
 function setCadence(c){subCadence=c;document.getElementById('sc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('sc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
 function setPayer(p){subPayer=p;document.getElementById('pp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('pp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('pp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
 
-function addTx(){
-  const desc=document.getElementById('inp-desc').value.trim();
-  const amt=parseFloat(document.getElementById('inp-amt').value);
-  const date=document.getElementById('inp-date').value;
-  if(!desc||isNaN(amt)||amt<=0){showToast(L.fillRequired,true);return;}
-  const e={id:Date.now(),type:txType,entity:txType==='rev'?'shared':txEntity,desc,amt,cur:'USD',date,author,timestamp:parisTime(),tsIso:new Date().toISOString()};
-  if(txType==='sub'){e.cadence=subCadence;e.amtMonthly=subCadence==='annual'?+(amt/12).toFixed(2):amt;e.paidBy=subPayer;}
-  log.unshift(e);saveData();
-  document.getElementById('inp-desc').value='';document.getElementById('inp-amt').value='';
-  document.getElementById('inp-date').valueAsDate=new Date();
-  setPayer('none');showToast('✓ Saved');
-  switchTab('dash',null);document.querySelectorAll('.tab')[0].classList.add('active');
+async function addTx() {
+  const desc = document.getElementById('inp-desc').value.trim();
+  const amt = parseFloat(document.getElementById('inp-amt').value);
+  const date = document.getElementById('inp-date').value;
+  
+  if (!desc || isNaN(amt) || amt <= 0) {
+    showToast(L.fillRequired, true);
+    return;
+  }
+
+  const e = {
+    id: Date.now(),
+    type: txType,
+    entity: txType === 'rev' ? 'shared' : txEntity,
+    desc,
+    amt,
+    cur: 'USD',
+    date,
+    author,
+    timestamp: parisTime(),
+    tsIso: new Date().toISOString()
+  };
+
+  if (txType === 'sub') {
+    e.cadence = subCadence;
+    e.amtMonthly = subCadence === 'annual' ? +(amt / 12).toFixed(2) : amt;
+    e.paidBy = subPayer;
+  }
+
+  // 1. Sauvegarde dans Supabase (Interface immédiate)
+  log.unshift(e);
+  saveData();
+
+  // 2. Envoi vers Google Sheet (Archive en arrière-plan)
+  fetch(GOOGLE_SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    cache: 'no-cache',
+    body: JSON.stringify(e)
+  });
+
+  // Reset de l'interface
+  document.getElementById('inp-desc').value = '';
+  document.getElementById('inp-amt').value = '';
+  document.getElementById('inp-date').valueAsDate = new Date();
+  setPayer('none');
+  showToast('✓ Saved (Cloud & Sheet)');
+  switchTab('dash', null);
+  document.querySelectorAll('.tab')[0].classList.add('active');
 }
 
 function renderDash(){
