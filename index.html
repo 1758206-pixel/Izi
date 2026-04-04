@@ -681,7 +681,8 @@ function itemHTML(e){
   if(isSub&&e.cadence==='annual')extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
   if(e.isEdit)extra+=`<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>`;
   if(e.superseded)extra+=`<div class="sup-note">${L.supersededBy}</div>`;
-  const editBtn=(!e.superseded&&!e.isEdit)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:'';
+  const editBtn=(!e.superseded)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:'';
+
   return`<div class="hitem${e.superseded?' sup':''}"><div class="hicon ${icMap[e.type]||'inc'}">${emMap[e.type]||'💰'}</div><div class="hinfo"><div class="hdesc">${e.desc}</div><div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>${extra}${editBtn}</div><div class="hamt ${acl}">${apfx}$${Math.abs(e.amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}${csfx}</div></div>`;
 }
 
