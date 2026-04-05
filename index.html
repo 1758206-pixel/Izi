@@ -7,7 +7,7 @@ const SUPABASE_API = SUPABASE_URL + '/rest/v1/appdata';
 // ── GOOGLE SHEET CONFIG ──
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbx8GeqP_BoCRkhX9kZqLprIDcuWrcIG6zpBlpafu0lVw5bzaF3QjqJT6aLwBFlh97-D/exec';
 
-const PASSWORDS = {'Rio2000':'malvin','Rio2020':'amaury'};
+const PASSWORDS = {'Madrid2000':'malvin','Madrid2020':'amaury'};
 
 let log = [];
 let author = 'malvin';
@@ -50,7 +50,7 @@ const I18N = {
     tabCo:'CO',
 
     addTitle:'New Transaction',
-    historyNote:'📌 Immutable <strong>log</strong> — Paris timestamp, attributed to the author. Nothing is ever deleted.',
+    historyNote:'📌 <strong>Immutable log</strong> — Paris timestamp, attributed to the author. Nothing is ever deleted.',
 
     ttRev:'Revenue',
     ttExp:'Expense',
@@ -131,7 +131,6 @@ const I18N = {
 
     dashEntries:'entries',
     dashExpensesSubs:'expenses + subs',
-    dashExpenses:'expenses',
 
     monthlySuffix:'/mo',
     annualSuffix:'/yr',
@@ -145,7 +144,11 @@ const I18N = {
     placeholderDesc:'Description',
     placeholderReason:'Reason for edit',
 
-    savedCloudSheet:'✓ Saved (Cloud & Sheet)'
+    savedCloudSheet:'✓ Saved (Cloud & Sheet)',
+    noReason:'No reason given',
+    wasLabel:'was',
+    reasonLabel:'Reason',
+    editButton:'✏️ EDIT'
   },
 
   fr: {
@@ -178,7 +181,7 @@ const I18N = {
     tabCo:'SOLDES',
 
     addTitle:'Nouvelle transaction',
-    historyNote:'📌 <strong>Journal immuable</strong> — horodaté Paris, attribué à l’auteur. Rien n’est supprimé.',
+    historyNote:`📌 <strong>Journal immuable</strong> — horodaté Paris, attribué à l’auteur. Rien n’est supprimé.`,
 
     ttRev:'Revenu',
     ttExp:'Dépense',
@@ -228,7 +231,7 @@ const I18N = {
     coAmauryFinal:'→ Total Amaury perso',
     coFrenchFinal:'→ Remboursé à la société FR',
 
-    logicText:'Tous les revenus et coûts d’exploitation appartiennent aux opérations US. Si Malvin, Amaury en perso ou la société FR paie à la place, l’app crée un solde prioritaire à rembourser à ce payeur. Le cash distribuable restant est ensuite partagé à 50/50.',
+    logicText:`Tous les revenus et coûts d’exploitation appartiennent aux opérations US. Si Malvin, Amaury en perso ou la société FR paie à la place, l’app crée un solde prioritaire à rembourser à ce payeur. Le cash distribuable restant est ensuite partagé à 50/50.`,
 
     dashAmauryName:'Côté Amaury',
     dashAmaurySub:'Part 50 % + remboursements Amaury perso / société FR',
@@ -259,7 +262,6 @@ const I18N = {
 
     dashEntries:'écritures',
     dashExpensesSubs:'dépenses + abonnements',
-    dashExpenses:'dépenses',
 
     monthlySuffix:'/mois',
     annualSuffix:'/an',
@@ -273,7 +275,11 @@ const I18N = {
     placeholderDesc:'Description',
     placeholderReason:'Raison de la modification',
 
-    savedCloudSheet:'✓ Enregistré (Cloud & Sheet)'
+    savedCloudSheet:'✓ Enregistré (Cloud & Sheet)',
+    noReason:'Aucune raison fournie',
+    wasLabel:'était',
+    reasonLabel:'Raison',
+    editButton:'✏️ MODIFIER'
   }
 };
 
@@ -292,7 +298,6 @@ function money(n, min = 0, max = 2){
 
 function f(n){ return money(Math.abs(Number(n || 0)), 0, 2); }
 function f2(n){ return money(Math.abs(Number(n || 0)), 2, 2); }
-
 function monthlySuffix(){ return tr('monthlySuffix'); }
 function annualSuffix(){ return tr('annualSuffix'); }
 
@@ -309,8 +314,10 @@ function parisTime(){
 }
 
 function showDebug(msg){
-  document.getElementById('loading').style.display='none';
-  document.getElementById('app').style.display='block';
+  const loading = document.getElementById('loading');
+  const app = document.getElementById('app');
+  if (loading) loading.style.display='none';
+  if (app) app.style.display='block';
   document.body.insertAdjacentHTML('afterbegin',
     `<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">
       🚨 DEBUG ERROR:<br>${msg}
@@ -366,10 +373,6 @@ function getMonthlyAmt(e){
   return e.amtMonthly !== undefined ? Number(e.amtMonthly) : Number(e.amt || 0);
 }
 
-// Legacy compatibility rule:
-// 1) explicit paySource wins
-// 2) advancedBy wins
-// 3) legacy entity:'fr' => french_co has priority over paidBy:'amaury'
 function getPaySource(e){
   if (e.paySource) return normalizeSource(e.paySource);
   if (e.advancedBy) return normalizeSource(e.advancedBy);
@@ -575,7 +578,6 @@ function translateStaticUI(){
   if (editDesc) editDesc.placeholder = tr('placeholderDesc');
   if (editReason) editReason.placeholder = tr('placeholderReason');
 
-  // History filters
   const optTypeAll = document.querySelector('#fl-type option[value="all"]');
   const optTypeRev = document.querySelector('#fl-type option[value="rev"]');
   const optTypeExp = document.querySelector('#fl-type option[value="exp"]');
@@ -590,7 +592,6 @@ function translateStaticUI(){
   const optAuthorAll = document.querySelector('#fl-auth option[value="all"]');
   if (optAuthorAll) optAuthorAll.textContent = tr('filterAll');
 
-  // Loan cards
   const loanTitleMalvin = document.querySelector('#page-loans .ltcard:nth-child(1) .lttitle');
   if (loanTitleMalvin) loanTitleMalvin.textContent = tr('loanCardMalvin');
   const loanTitleAmaury = document.getElementById('loan-title-amaury');
@@ -637,7 +638,6 @@ function translateStaticUI(){
   if (loanSectionTitles[0]) loanSectionTitles[0].textContent = tr('loansSectionTitle');
   if (loanSectionTitles[1]) loanSectionTitles[1].textContent = tr('extSubsSectionTitle');
 
-  // Company / balances cards
   const coUsCard = document.getElementById('co-us-rev')?.closest('.cocard');
   if (coUsCard) {
     const name = coUsCard.querySelector('.coname');
@@ -1310,26 +1310,23 @@ function itemHTML(e){
   }
 
   if (e.isEdit) {
-    const reasonLabel = currentLang === 'fr' ? 'Raison' : 'Reason';
-    const wasLabel = currentLang === 'fr' ? 'était' : 'was';
-    extra += `<div class="edit-audit">✏️ <strong>${tr('editedTag')}</strong> · ${wasLabel}: ${e.prevDesc} · ${f2(Math.abs(e.prevAmt))} on ${e.prevDate}<br>${reasonLabel}: <em>${e.editReason}</em></div>`;
+    extra += `<div class="edit-audit">✏️ <strong>${tr('editedTag')}</strong> · ${tr('wasLabel')}: ${e.prevDesc} · ${f2(Math.abs(e.prevAmt))} on ${e.prevDate}<br>${tr('reasonLabel')}: <em>${e.editReason}</em></div>`;
   }
 
   if (e.superseded) {
     extra += `<div class="sup-note">${tr('supersededBy')}</div>`;
   }
 
-  const editBtnLabel = currentLang === 'fr' ? '✏️ MODIFIER' : '✏️ EDIT';
-  const editBtn = (!e.superseded) ? `<button class="edit-btn" onclick="openEdit(${e.id})">${editBtnLabel}</button>` : '';
+  const editBtn = (!e.superseded) ? `<button class="edit-btn" onclick="openEdit(${e.id})">${tr('editButton')}</button>` : '';
 
   return `<div class="hitem${e.superseded ? ' sup' : ''}">
-    <div class="hicon ${icMap[e.type]||'inc'}">${emMap[e.type]||'💰'}</div>
+    <div class="hicon ${icMap[e.type] || 'inc'}">${emMap[e.type] || '💰'}</div>
     <div class="hinfo">
       <div class="hdesc">${e.desc}</div>
-      <div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>
+      <div class="hmeta">${e.date} · ${e.timestamp || ''} ${tags}</div>
       ${extra}${editBtn}
     </div>
-    <div class="hamt ${acl}">${apfx}${f2(Math.abs(Number(e.amt||0)))}${csfx}</div>
+    <div class="hamt ${acl}">${apfx}${f2(Math.abs(Number(e.amt || 0)))}${csfx}</div>
   </div>`;
 }
 
@@ -1456,7 +1453,7 @@ function saveEdit(){
   const desc = document.getElementById('edit-desc').value.trim();
   const amt = parseFloat(document.getElementById('edit-amt').value);
   const date = document.getElementById('edit-date').value;
-  const reason = document.getElementById('edit-reason').value.trim() || (currentLang === 'fr' ? 'Aucune raison fournie' : 'No reason given');
+  const reason = document.getElementById('edit-reason').value.trim() || tr('noReason');
 
   if(!desc || isNaN(amt) || amt<=0){
     showToast(tr('editFill'), true);
