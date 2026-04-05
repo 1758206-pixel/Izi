@@ -7,7 +7,7 @@ const SUPABASE_API = SUPABASE_URL + '/rest/v1/appdata';
 // ── GOOGLE SHEET CONFIG ──
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbx8GeqP_BoCRkhX9kZqLprIDcuWrcIG6zpBlpafu0lVw5bzaF3QjqJT6aLwBFlh97-D/exec';
 
-const PASSWORDS = {'Madrid2000':'malvin','Madrid2020':'amaury'};
+const PASSWORDS = {'Rio2000':'malvin','Rio2020':'amaury'};
 
 let log = [];
 let author = 'malvin';
@@ -18,6 +18,18 @@ let subPayer = 'none';
 let eyeOn = false;
 let currentLang = 'en';
 let currentLocale = 'en-US';
+let editId = null;
+let eTT = 'rev';
+let eEnt = 'us';
+let eCad = 'monthly';
+let ePay = 'none';
+
+window.onerror = function(msg, src, line, col, err){
+  document.body.insertAdjacentHTML('afterbegin',
+    `<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">
+      JS ERROR: ${msg} @ ${line}:${col}<br>${err?.stack || ''}
+    </div>`);
+};
 
 const I18N = {
   en: {
@@ -50,7 +62,7 @@ const I18N = {
     tabCo:'CO',
 
     addTitle:'New Transaction',
-    historyNote:'📌 <strong>Immutable log</strong> — Paris timestamp, attributed to the author. Nothing is ever deleted.',
+    historyNote:"📌 <strong>Immutable log</strong> — Paris timestamp, attributed to the author. Nothing is ever deleted.",
 
     ttRev:'Revenue',
     ttExp:'Expense',
@@ -100,7 +112,7 @@ const I18N = {
     coAmauryFinal:'→ Amaury personal total',
     coFrenchFinal:'→ Repaid to French Co.',
 
-    logicText:'All revenue and operating costs belong to US ops. If Malvin, Amaury personally, or French Co. pays instead, the app books a priority balance due back to that payer. Remaining distributable cash is then split 50/50.',
+    logicText:"All revenue and operating costs belong to US ops. If Malvin, Amaury personally, or French Co. pays instead, the app books a priority balance due back to that payer. Remaining distributable cash is then split 50/50.",
 
     dashAmauryName:'Amaury side',
     dashAmaurySub:'50% share + repayments to Amaury personal / French Co.',
@@ -181,7 +193,7 @@ const I18N = {
     tabCo:'SOLDES',
 
     addTitle:'Nouvelle transaction',
-    historyNote:`📌 <strong>Journal immuable</strong> — horodaté Paris, attribué à l’auteur. Rien n’est supprimé.`,
+    historyNote:"📌 <strong>Journal immuable</strong> — horodaté Paris, attribué à l’auteur. Rien n’est supprimé.",
 
     ttRev:'Revenu',
     ttExp:'Dépense',
@@ -231,7 +243,7 @@ const I18N = {
     coAmauryFinal:'→ Total Amaury perso',
     coFrenchFinal:'→ Remboursé à la société FR',
 
-    logicText:`Tous les revenus et coûts d’exploitation appartiennent aux opérations US. Si Malvin, Amaury en perso ou la société FR paie à la place, l’app crée un solde prioritaire à rembourser à ce payeur. Le cash distribuable restant est ensuite partagé à 50/50.`,
+    logicText:"Tous les revenus et coûts d’exploitation appartiennent aux opérations US. Si Malvin, Amaury en perso ou la société FR paie à la place, l’app crée un solde prioritaire à rembourser à ce payeur. Le cash distribuable restant est ensuite partagé à 50/50.",
 
     dashAmauryName:'Côté Amaury',
     dashAmaurySub:'Part 50 % + remboursements Amaury perso / société FR',
@@ -345,15 +357,14 @@ function toggleEye(){
   document.getElementById('eye-btn').textContent = eyeOn ? '🙈' : '👁';
 }
 
-document.addEventListener('DOMContentLoaded',function(){
+document.addEventListener('DOMContentLoaded', function(){
   const btn = document.getElementById('lock-submit-btn');
-  if(btn) btn.addEventListener('touchend',function(e){ e.preventDefault(); unlock(); });
+  if(btn) btn.addEventListener('touchend', function(e){ e.preventDefault(); unlock(); });
 
   const eb = document.getElementById('eye-btn');
-  if(eb) eb.addEventListener('touchend',function(e){ e.preventDefault(); toggleEye(); });
+  if(eb) eb.addEventListener('touchend', function(e){ e.preventDefault(); toggleEye(); });
 });
 
-// ── SOURCE HELPERS ──
 function normalizeSource(src){
   const map = {
     none:'company_us',
@@ -387,7 +398,6 @@ function getPaySource(e){
   if (e.entity === 'fr') return 'french_co';
   if (e.paidBy === 'malvin') return 'malvin_personal';
   if (e.paidBy === 'amaury') return 'amaury_personal';
-
   return 'company_us';
 }
 
@@ -453,7 +463,6 @@ function setUiFromSource(src, editMode){
   }
 }
 
-// ── STATIC DOM PATCH ──
 function ensureV2DomPatch(){
   const loansPage = document.getElementById('page-loans');
   if (loansPage && !document.getElementById('la-tot')) {
@@ -724,7 +733,6 @@ function setLanguage(lang){
   setSS('saved');
 }
 
-// ── DATA ──
 async function loadData(user){
   let statusCode='unknown';
   try {
@@ -740,7 +748,7 @@ async function loadData(user){
     log = Array.isArray(d[0]?.log) ? d[0].log : [];
   } catch(e){
     log = [];
-    showDebug('Erreur: '+e.message+'<br>HTTP: '+statusCode+'<br>onLine: '+navigator.onLine);
+    showDebug('Erreur: ' + e.message + '<br>HTTP: ' + statusCode + '<br>onLine: ' + navigator.onLine);
     return;
   }
 
@@ -763,18 +771,17 @@ async function saveData(){
       headers:{
         'Content-Type':'application/json',
         'apikey':SUPABASE_KEY,
-        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Authorization':'Bearer ' + SUPABASE_KEY,
         'Prefer':'return=representation'
       },
       body:JSON.stringify({log:log})
     });
     const body = await r.json();
-    console.log('PATCH status:',r.status,'body:',JSON.stringify(body));
-    if(!r.ok || !body.length) throw new Error('HTTP '+r.status+' — rows updated: '+(body.length||0));
+    if(!r.ok || !body.length) throw new Error('HTTP ' + r.status + ' — rows updated: ' + (body.length || 0));
     setSS('saved');
   }catch(e){
     setSS('error');
-    showToast('⚠ Save failed: '+e.message, true);
+    showToast('⚠ Save failed: ' + e.message, true);
   }
 }
 
@@ -786,7 +793,6 @@ function setSS(s){
   if(s==='saved') setTimeout(()=>{ el.className='save-status'; },3000);
 }
 
-// ── COMPUTE ──
 function compute(){
   let rev = 0;
   let expUS = 0;
@@ -899,42 +905,32 @@ function compute(){
     expUS,
     subUS,
     netBefore,
-
     revC,
     expC,
-
     loanByMalvin,
     loanByAmauryPersonal,
     loanByFrenchCo,
-
     expPaidByMalvin,
     expPaidByAmauryPersonal,
     expPaidByFrenchCo,
-
     subPaidByMalvin,
     subPaidByAmauryPersonal,
     subPaidByFrenchCo,
-
     dueToMalvinGross,
     dueToAmauryPersonalGross,
     dueToFrenchCoGross,
-
     priorityRepay,
     repayToMalvin,
     repayToAmauryPersonal,
     repayToFrenchCo,
-
     outstandingMalvin,
     outstandingAmauryPersonal,
     outstandingFrenchCo,
-
     totalDueGross,
     loansOwed: outstandingMalvin + outstandingAmauryPersonal + outstandingFrenchCo,
-
     dist,
     malvinShare,
     amauryShare,
-
     malvinFinal,
     amauryPersonalFinal,
     frenchCoFinal,
@@ -942,7 +938,6 @@ function compute(){
   };
 }
 
-// ── AUTHOR / TABS ──
 function setAuthor(a, silent){
   author = a;
   setLanguage(a === 'amaury' ? 'fr' : 'en');
@@ -958,17 +953,16 @@ function setAuthor(a, silent){
 function switchTab(t, btn){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+t).classList.add('active');
+  document.getElementById('page-' + t).classList.add('active');
   if(btn) btn.classList.add('active');
   ({dash:renderDash,loans:renderLoans,hist:renderHist,co:renderCo})[t]?.();
 }
 
-// ── INPUT MODES ──
 function setTT(t){
   txType = t;
 
   ['rev','exp','loan','sub'].forEach(k => {
-    const el = document.getElementById('tt-'+k);
+    const el = document.getElementById('tt-' + k);
     if (!el) return;
     el.className = 'ttbtn' + (k===t ? (t==='rev' ? ' ag' : t==='exp' ? ' ap' : t==='loan' ? ' av' : ' ao') : '');
   });
@@ -1047,7 +1041,6 @@ function setPayer(p){
   if (amaury) amaury.className = 'etbtn' + (p==='amaury' ? ' ap' : '');
 }
 
-// ── ADD ──
 async function addTx() {
   const desc = document.getElementById('inp-desc').value.trim();
   const amt = parseFloat(document.getElementById('inp-amt').value);
@@ -1111,7 +1104,6 @@ async function addTx() {
   if (document.querySelectorAll('.tab')[0]) document.querySelectorAll('.tab')[0].classList.add('active');
 }
 
-// ── RENDER DASH ──
 function renderDash(){
   const c = compute();
 
@@ -1176,7 +1168,6 @@ function renderDash(){
   }).join('') : `<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">${tr('noSubs')}</div>`;
 }
 
-// ── RENDER ADVANCES ──
 function renderLoans(){
   const c = compute();
 
@@ -1224,7 +1215,6 @@ function renderLoans(){
     sp.length ? sp.map(itemHTML).join('') : `<div class="empty"><div class="ei">✅</div>${tr('noPersonalSubs')}</div>`;
 }
 
-// ── RENDER HIST ──
 function renderHist(){
   const ft = document.getElementById('fl-type').value;
   const fa = document.getElementById('fl-auth').value;
@@ -1233,7 +1223,6 @@ function renderHist(){
     filtered.length ? filtered.map(itemHTML).join('') : `<div class="empty"><div class="ei">🔍</div>${tr('noEntries')}</div>`;
 }
 
-// ── RENDER CO ──
 function renderCo(){
   const c = compute();
 
@@ -1262,7 +1251,6 @@ function renderCo(){
   document.getElementById('co-fr-final').textContent = f(c.frenchCoFinal);
 }
 
-// ── ITEM HTML ──
 function itemHTML(e){
   const src = getPaySource(e);
   const isSub = e.type === 'sub';
@@ -1340,13 +1328,6 @@ function showToast(msg, err){
   setTimeout(()=>t.classList.remove('show'),2500);
 }
 
-// ── EDIT ──
-let editId = null;
-let eTT = 'rev';
-let eEnt = 'us';
-let eCad = 'monthly';
-let ePay = 'none';
-
 function openEdit(id){
   const e = log.find(x => x.id === id);
   if(!e) return;
@@ -1376,7 +1357,7 @@ function editSetTT(t){
   eTT = t;
 
   ['rev','exp','loan','sub'].forEach(k => {
-    const el = document.getElementById('ett-'+k);
+    const el = document.getElementById('ett-' + k);
     if (!el) return;
     el.className = 'ttbtn' + (k===t ? (t==='rev' ? ' ag' : t==='exp' ? ' ap' : t==='loan' ? ' av' : ' ao') : '');
   });
@@ -1461,7 +1442,7 @@ function saveEdit(){
   }
   if(editId===null) return;
 
-  const orig = log.find(x=>x.id===editId);
+  const orig = log.find(x => x.id === editId);
   if(!orig) return;
 
   const src = eTT === 'rev' ? 'company_us' : deriveSourceFromUI(eTT, eEnt, ePay);
@@ -1496,12 +1477,12 @@ function saveEdit(){
     prevDate:orig.date
   };
 
-  if(eTT==='sub'){
+  if(eTT === 'sub'){
     newE.cadence = eCad;
-    newE.amtMonthly = eCad==='annual' ? +(amt/12).toFixed(2) : amt;
+    newE.amtMonthly = eCad === 'annual' ? +(amt/12).toFixed(2) : amt;
   }
 
-  if(eTT==='loan'){
+  if(eTT === 'loan'){
     newE.advancedBy = src;
   }
 
