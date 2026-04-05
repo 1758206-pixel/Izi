@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-<title>Izinest × Amaury Settlement</title>
+<title>Izinest × French Co.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" onload="this.onload=null;this.rel='stylesheet'"/>
@@ -198,14 +198,14 @@ input:focus{border-color:var(--green);}
 
 <div id="loading">
   <div class="spin"></div>
-  <div class="load-txt">Loading…</div>
+  <div class="load-txt">Chargement…</div>
 </div>
 
 <div id="app">
   <div class="hdr">
     <div class="hdr-top">
-      <div class="logo"><span class="iz">Izinest</span><span class="x">×</span><span class="fr">Amaury Settlement</span></div>
-      <div class="pill">US OPS</div>
+      <div class="logo"><span class="iz">Izinest</span><span class="x">×</span><span class="fr">French Co.</span></div>
+      <div class="pill">50/50</div>
     </div>
     <div class="abar">
       <button class="abtn sm" id="abtn-malvin" onclick="setAuthor('malvin')">🇺🇸 Malvin</button>
@@ -213,10 +213,10 @@ input:focus{border-color:var(--green);}
     </div>
     <div class="tabs">
       <button class="tab active" onclick="switchTab('dash',this)"><span class="ti">📊</span>DASH</button>
-      <button class="tab" onclick="switchTab('add',this)"><span class="ti">➕</span>ADD</button>
-      <button class="tab" onclick="switchTab('loans',this)"><span class="ti">💜</span>ADV</button>
-      <button class="tab" onclick="switchTab('hist',this)"><span class="ti">📜</span>HIST</button>
-      <button class="tab" onclick="switchTab('co',this)"><span class="ti">🏢</span>CO</button>
+      <button class="tab" onclick="switchTab('add',this)"><span class="ti">＋</span>ADD</button>
+      <button class="tab" onclick="switchTab('loans',this)"><span class="ti">💜</span>LOANS</button>
+      <button class="tab" onclick="switchTab('hist',this)"><span class="ti">📋</span>LOG</button>
+      <button class="tab" onclick="switchTab('co',this)"><span class="ti">🏢</span>CO.</button>
     </div>
   </div>
 
@@ -225,29 +225,29 @@ input:focus{border-color:var(--green);}
     <div class="kgrid">
       <div class="kcard"><div class="klabel">Revenue</div><div class="kval g" id="k-rev">$0</div><div class="ksub" id="k-rev-c">0 entries</div></div>
       <div class="kcard"><div class="klabel">Expenses</div><div class="kval p" id="k-exp">$0</div><div class="ksub" id="k-exp-c">0 expenses</div></div>
-      <div class="kcard"><div class="klabel">Advances owed</div><div class="kval v" id="k-loan">$0</div><div class="ksub">priority first</div></div>
-      <div class="kcard"><div class="klabel">Distributable</div><div class="kval y" id="k-net">$0</div><div class="ksub">after exp &amp; advances</div></div>
+      <div class="kcard"><div class="klabel">Loans Out</div><div class="kval v" id="k-loan">$0</div><div class="ksub">priority first</div></div>
+      <div class="kcard"><div class="klabel">Net Shareable</div><div class="kval y" id="k-net">$0</div><div class="ksub">after exp &amp; loans</div></div>
     </div>
     <div class="stitle">Active Subscriptions</div>
     <div class="subcard">
       <div class="subhdr"><span class="subtitle2">🔄 Recurring</span><span class="subtot" id="dash-sub-total">$0/mo</span></div>
-      <div class="sublist" id="dash-sub-list"></div>
+      <div class="sublist" id="dash-sub-list"><div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">No subscriptions recorded</div></div>
     </div>
     <div class="stitle">Profit Waterfall</div>
     <div class="wf">
       <div class="wfr"><span class="wfl">Revenue</span><span class="wfv" style="color:var(--green)" id="wf-rev">$0</span></div>
-      <div class="wfr"><span class="wfl">− US Expenses</span><span class="wfv" style="color:var(--pink)" id="wf-expu">$0</span></div>
-      <div class="wfr"><span class="wfl">− US subscriptions</span><span class="wfv" style="color:var(--orange)" id="wf-subu">$0</span></div>
-      <div class="wfr tot"><span class="wfl bold">= Net before advances</span><span class="wfv" style="color:var(--yellow)" id="wf-net1">$0</span></div>
-      <div class="wfr"><span class="wfl">− Priority repayments</span><span class="wfv" style="color:var(--purple)" id="wf-loan">$0</span></div>
+      <div class="wfr"><span class="wfl">− US Expenses (Izinest)</span><span class="wfv" style="color:var(--pink)" id="wf-expu">$0</span></div>
+      <div class="wfr"><span class="wfl">− US Subscriptions (company)</span><span class="wfv" style="color:var(--orange)" id="wf-subu">$0</span></div>
+      <div class="wfr tot"><span class="wfl bold">= Net before loans</span><span class="wfv" style="color:var(--yellow)" id="wf-net1">$0</span></div>
+      <div class="wfr"><span class="wfl">− Advances (loans + personal subs)</span><span class="wfv" style="color:var(--purple)" id="wf-loan">$0</span></div>
       <div class="wfr tot"><span class="wfl bold">= Distributable</span><span class="wfv" style="color:var(--yellow)" id="wf-dist">$0</span></div>
-      <div class="wfr"><span class="wfl" style="color:var(--green)">→ Malvin total</span><span class="wfv" style="color:var(--green)" id="wf-iz">$0</span></div>
-      <div class="wfr"><span class="wfl" style="color:var(--pink)">→ Amaury side total</span><span class="wfv" style="color:var(--pink)" id="wf-fr">$0</span></div>
+      <div class="wfr"><span class="wfl" style="color:var(--green)">→ Malvin / Izinest (50%)</span><span class="wfv" style="color:var(--green)" id="wf-iz">$0</span></div>
+      <div class="wfr"><span class="wfl" style="color:var(--pink)">→ Amaury / French Co. (50%)</span><span class="wfv" style="color:var(--pink)" id="wf-fr">$0</span></div>
     </div>
     <div class="stitle">Take-home</div>
     <div class="pcards">
-      <div class="pcard malvin"><div class="pname">Malvin · Izinest</div><div class="pamt" id="ph-malvin">$0</div><div class="psub">50% share + repayments to Malvin</div></div>
-      <div class="pcard amaury"><div class="pname">Amaury side</div><div class="pamt" id="ph-amaury">$0</div><div class="psub">50% share + repayments to Amaury / French Co.</div></div>
+      <div class="pcard malvin"><div class="pname">Malvin · Izinest</div><div class="pamt" id="ph-malvin">$0</div><div class="psub">50% of distributable</div></div>
+      <div class="pcard amaury"><div class="pname">Amaury · French Co.</div><div class="pamt" id="ph-amaury">$0</div><div class="psub">50% − FR exp.</div></div>
     </div>
   </div>
 
@@ -255,83 +255,78 @@ input:focus{border-color:var(--green);}
     <div class="fcard">
       <div class="ftitle">New Transaction</div>
       <div class="ttog">
-        <button class="ttbtn ag" id="tt-rev" onclick="setTT('rev')">Revenue</button>
-        <button class="ttbtn" id="tt-exp" onclick="setTT('exp')">Expense</button>
-        <button class="ttbtn" id="tt-loan" onclick="setTT('loan')">Advance</button>
-        <button class="ttbtn" id="tt-sub" onclick="setTT('sub')">Sub</button>
+        <button class="ttbtn ag" id="tt-rev"  onclick="setTT('rev')">📈 Revenue</button>
+        <button class="ttbtn"    id="tt-exp"  onclick="setTT('exp')">📉 Expense</button>
+        <button class="ttbtn"    id="tt-loan" onclick="setTT('loan')">💜 Loan</button>
+        <button class="ttbtn"    id="tt-sub"  onclick="setTT('sub')">🔄 Subscription</button>
       </div>
       <div class="fg" id="entity-row">
-        <label class="flabel" id="entity-label">If company-paid: which company?</label>
+        <label class="flabel" id="entity-label">Entity (who pays?)</label>
         <div class="etog">
-          <button class="etbtn ag" id="et-us" onclick="setEntity('us')">🇺🇸 US Co.</button>
-          <button class="etbtn" id="et-fr" onclick="setEntity('fr')">🇫🇷 French Co.</button>
+          <button class="etbtn ag" id="et-us" onclick="setEntity('us')">🇺🇸 Izinest LLC</button>
+          <button class="etbtn"    id="et-fr" onclick="setEntity('fr')">🇫🇷 French Company</button>
         </div>
       </div>
       <div class="fg" id="cadence-row" style="display:none;">
         <label class="flabel">Cadence</label>
         <div class="sctog">
           <button class="sctbtn ao" id="sc-monthly" onclick="setCadence('monthly')">📅 Monthly</button>
-          <button class="sctbtn" id="sc-annual" onclick="setCadence('annual')">📆 Annual</button>
+          <button class="sctbtn"    id="sc-annual"  onclick="setCadence('annual')">📆 Annual</button>
         </div>
       </div>
       <div class="fg" id="payer-row" style="display:none;">
-        <label class="flabel">Paid via</label>
+        <label class="flabel">Paid personally by</label>
         <div class="etog" style="grid-template-columns:1fr 1fr 1fr;">
-          <button class="etbtn ag" id="pp-none" onclick="setPayer('none')">🏢 Company</button>
-          <button class="etbtn" id="pp-malvin" onclick="setPayer('malvin')">👤 Malvin</button>
-          <button class="etbtn" id="pp-amaury" onclick="setPayer('amaury')">👤 Amaury</button>
+          <button class="etbtn ag" id="pp-none"   onclick="setPayer('none')">🏢 Company</button>
+          <button class="etbtn"    id="pp-malvin" onclick="setPayer('malvin')">👤 Malvin</button>
+          <button class="etbtn"    id="pp-amaury" onclick="setPayer('amaury')">👤 Amaury</button>
         </div>
       </div>
-      <div class="fg"><label class="flabel">Description</label><input type="text" id="inp-desc" placeholder="Description" autocorrect="off" autocapitalize="sentences"/></div>
+      <div class="fg"><label class="flabel">Description</label><input type="text" id="inp-desc" placeholder="Client payment, Facebook Ads, Notion…" autocorrect="off" autocapitalize="sentences"/></div>
       <div class="fg">
         <label class="flabel" id="amt-label">Amount (USD)</label>
         <input type="number" id="inp-amt" placeholder="0.00" min="0" step="0.01"/>
       </div>
       <div class="fg"><label class="flabel">Date</label><input type="date" id="inp-date"/></div>
-      <button class="sbtn sg" id="add-btn" onclick="addTx()">Save transaction</button>
+      <button class="sbtn sg" id="add-btn" onclick="addTx()">SAVE</button>
     </div>
   </div>
 
   <div class="page" id="page-loans">
     <div class="ltcard">
-      <div class="lttitle">🇺🇸 Malvin</div>
-      <div class="ltrow"><span class="ltk">Cash advanced</span><span class="ltv" style="color:var(--purple)" id="lu-tot">$0</span></div>
-      <div class="ltrow"><span class="ltk">Expenses + subs paid</span><span class="ltv" style="color:var(--orange)" id="lu-subadv">$0</span></div>
-      <div class="ltrow"><span class="ltk" style="font-weight:600;color:var(--text)">Total owed</span><span class="ltv" style="color:var(--purple)" id="lu-totaladv">$0</span></div>
-      <div class="ltrow"><span class="ltk">Repaid (priority)</span><span class="ltv" style="color:var(--green)" id="lu-rep">$0</span></div>
+      <div class="lttitle">🇺🇸 Malvin · Izinest LLC</div>
+      <div class="ltrow"><span class="ltk">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lu-tot">$0</span></div>
+      <div class="ltrow"><span class="ltk">Subs paid personally <small style="color:var(--orange)">(monthly equiv.)</small></span><span class="ltv" style="color:var(--orange)" id="lu-subadv">$0</span></div>
+      <div class="ltrow"><span class="ltk" style="font-weight:600;color:var(--text)">Total owed to Malvin</span><span class="ltv" style="color:var(--purple)" id="lu-totaladv">$0</span></div>
+      <div class="ltrow"><span class="ltk">Repaid (from revenue)</span><span class="ltv" style="color:var(--green)" id="lu-rep">$0</span></div>
       <div class="ltrow"><span class="ltk">Still owed</span><span class="ltv" style="color:var(--purple)" id="lu-ow">$0</span></div>
       <div class="ltbar"><div class="ltfill" id="lu-bar" style="width:0%"></div></div>
     </div>
     <div class="ltcard">
-      <div class="lttitle">🇫🇷 French Co.</div>
-      <div class="ltrow"><span class="ltk">Cash advanced</span><span class="ltv" style="color:var(--purple)" id="lf-tot">$0</span></div>
-      <div class="ltrow"><span class="ltk">Expenses + subs paid</span><span class="ltv" style="color:var(--orange)" id="lf-subadv">$0</span></div>
-      <div class="ltrow"><span class="ltk" style="font-weight:600;color:var(--text)">Total owed</span><span class="ltv" style="color:var(--purple)" id="lf-totaladv">$0</span></div>
-      <div class="ltrow"><span class="ltk">Repaid (priority)</span><span class="ltv" style="color:var(--green)" id="lf-rep">$0</span></div>
+      <div class="lttitle">🇫🇷 Amaury · French Co.</div>
+      <div class="ltrow"><span class="ltk">Loans advanced</span><span class="ltv" style="color:var(--purple)" id="lf-tot">$0</span></div>
+      <div class="ltrow"><span class="ltk">Subs paid personally <small style="color:var(--orange)">(monthly equiv.)</small></span><span class="ltv" style="color:var(--orange)" id="lf-subadv">$0</span></div>
+      <div class="ltrow"><span class="ltk" style="font-weight:600;color:var(--text)">Total owed to Amaury</span><span class="ltv" style="color:var(--purple)" id="lf-totaladv">$0</span></div>
+      <div class="ltrow"><span class="ltk">Repaid (from revenue)</span><span class="ltv" style="color:var(--green)" id="lf-rep">$0</span></div>
       <div class="ltrow"><span class="ltk">Still owed</span><span class="ltv" style="color:var(--purple)" id="lf-ow">$0</span></div>
       <div class="ltbar"><div class="ltfill" id="lf-bar" style="width:0%"></div></div>
     </div>
     <div id="amaury-debt-loans" style="display:none;"></div>
-    <div class="stitle">Advances &amp; externally paid expenses</div>
+    <div class="stitle">Loan entries</div>
     <div class="hlog" id="loan-entries"></div>
-    <div class="stitle">Externally paid subscriptions</div>
+    <div class="stitle">Personal sub payments</div>
     <div class="hlog" id="sub-personal-entries"></div>
   </div>
 
   <div class="page" id="page-hist">
-    <div class="note">📌 Immutable <strong>log</strong> — Paris timestamp, attributed to the author. Nothing is ever deleted.</div>
+    <div class="note">📌 Log <strong>immuable</strong> — horodaté Paris, attribué à l'auteur. Rien n'est jamais supprimé.</div>
     <div class="frow">
       <select id="fl-type" onchange="renderHist()">
-        <option value="all">All</option>
-        <option value="rev">Revenue</option>
-        <option value="exp">Expense</option>
-        <option value="loan">Advance</option>
-        <option value="sub">Subscription</option>
+        <option value="all">All types</option><option value="rev">Revenue</option>
+        <option value="exp">Expenses</option><option value="loan">Loans</option><option value="sub">Subscriptions</option>
       </select>
       <select id="fl-auth" onchange="renderHist()">
-        <option value="all">All</option>
-        <option value="malvin">Malvin</option>
-        <option value="amaury">Amaury</option>
+        <option value="all">All authors</option><option value="malvin">Malvin</option><option value="amaury">Amaury</option>
       </select>
     </div>
     <div class="hlog" id="hist-list"></div>
@@ -339,27 +334,27 @@ input:focus{border-color:var(--green);}
 
   <div class="page" id="page-co">
     <div class="cocard">
-      <div class="cohdr"><div class="codot g"></div><div class="coname" style="color:var(--green)">US Ops / Malvin</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇺🇸 Malvin</span></div>
+      <div class="cohdr"><div class="codot g"></div><div class="coname" style="color:var(--green)">Izinest LLC</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇺🇸 Malvin</span></div>
       <div class="corow"><span class="cok">Revenue</span><span class="cov g" id="co-us-rev">$0</span></div>
       <div class="corow"><span class="cok">Expenses (US)</span><span class="cov p" id="co-us-exp">$0</span></div>
-      <div class="corow"><span class="cok">Subscriptions /mo</span><span class="cov o" id="co-us-sub">$0</span></div>
-      <div class="corow"><span class="cok">Total due to Malvin</span><span class="cov v" id="co-us-loan">$0</span></div>
-      <div class="corow"><span class="cok">Outstanding to Malvin</span><span class="cov o" id="co-us-subadv">$0</span></div>
-      <div class="corow"><span class="cok">Malvin 50% share</span><span class="cov y" id="co-us-share">$0</span></div>
-      <div class="corow" style="background:rgba(0,255,136,.04);border-radius:6px;padding:8px;"><span class="cok" style="color:var(--green);font-weight:700">→ Malvin total</span><span class="cov g" id="co-us-final" style="font-size:15px">$0</span></div>
+      <div class="corow"><span class="cok">Subscriptions (US, company)</span><span class="cov o" id="co-us-sub">$0</span></div>
+      <div class="corow"><span class="cok">Loans advanced</span><span class="cov v" id="co-us-loan">$0</span></div>
+      <div class="corow"><span class="cok">Subs paid personally /mo</span><span class="cov o" id="co-us-subadv">$0</span></div>
+      <div class="corow"><span class="cok">50% distributable</span><span class="cov y" id="co-us-share">$0</span></div>
+      <div class="corow" style="background:rgba(0,255,136,.04);border-radius:6px;padding:8px;"><span class="cok" style="color:var(--green);font-weight:700">→ Malvin take-home</span><span class="cov g" id="co-us-final" style="font-size:15px">$0</span></div>
     </div>
     <div class="cocard">
-      <div class="cohdr"><div class="codot p"></div><div class="coname" style="color:var(--pink)">French Co.</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇫🇷 company</span></div>
-      <div class="corow"><span class="cok">Expenses paid</span><span class="cov p" id="co-fr-exp">$0</span></div>
-      <div class="corow"><span class="cok">Subscriptions paid /mo</span><span class="cov o" id="co-fr-sub">$0</span></div>
-      <div class="corow"><span class="cok">Cash advances</span><span class="cov v" id="co-fr-loan">$0</span></div>
-      <div class="corow"><span class="cok">Total priority due</span><span class="cov v" id="co-fr-subadv">$0</span></div>
-      <div class="corow"><span class="cok">Share allocated</span><span class="cov y" id="co-fr-share">$0</span></div>
-      <div class="corow" style="background:rgba(255,34,102,.04);border-radius:6px;padding:8px;"><span class="cok" style="color:var(--pink);font-weight:700">→ Repaid to French Co.</span><span class="cov p" id="co-fr-final" style="font-size:15px">$0</span></div>
+      <div class="cohdr"><div class="codot p"></div><div class="coname" style="color:var(--pink)">French Co.</div><span style="margin-left:auto;font-size:10px;color:var(--dim)">🇫🇷 Amaury</span></div>
+      <div class="corow"><span class="cok">Expenses (FR)</span><span class="cov p" id="co-fr-exp">$0</span></div>
+      <div class="corow"><span class="cok">Subscriptions (FR, company)</span><span class="cov o" id="co-fr-sub">$0</span></div>
+      <div class="corow"><span class="cok">Loans advanced</span><span class="cov v" id="co-fr-loan">$0</span></div>
+      <div class="corow"><span class="cok">Subs paid personally /mo</span><span class="cov o" id="co-fr-subadv">$0</span></div>
+      <div class="corow"><span class="cok">50% distributable</span><span class="cov y" id="co-fr-share">$0</span></div>
+      <div class="corow" style="background:rgba(255,34,102,.04);border-radius:6px;padding:8px;"><span class="cok" style="color:var(--pink);font-weight:700">→ Amaury take-home</span><span class="cov p" id="co-fr-final" style="font-size:15px">$0</span></div>
     </div>
     <div class="cocard" style="border-color:rgba(0,212,255,.15)">
       <div class="lttitle" style="color:var(--blue)">💡 Logic</div>
-      <p style="font-size:12px;color:var(--dim);line-height:1.7;">All revenue and operating costs belong to US ops. If Malvin, Amaury personally, or French Co. pays instead, the app books a priority balance due back to that payer. Remaining distributable cash is then split 50/50.</p>
+      <p style="font-size:12px;color:var(--dim);line-height:1.7;">Revenue − US expenses − US company subs → Net − Loan repayments (priority) → Remainder ÷ 2. FR expenses &amp; FR subs from Amaury's share only. Personal subs = advance.</p>
     </div>
   </div>
 
@@ -367,31 +362,31 @@ input:focus{border-color:var(--green);}
     <div class="edit-sheet">
       <button class="edit-close" onclick="closeEdit()">✕ Close</button>
       <div class="edit-title">✏️ Edit Transaction</div>
-      <div class="edit-sub">⚠️ Original is preserved in the log, marked as superseded.</div>
+      <div class="edit-sub">⚠️ L'original est conservé dans le log, marqué comme supplanté.</div>
       <div class="ttog">
-        <button class="ttbtn" id="ett-rev" onclick="editSetTT('rev')">Revenue</button>
-        <button class="ttbtn" id="ett-exp" onclick="editSetTT('exp')">Expense</button>
-        <button class="ttbtn" id="ett-loan" onclick="editSetTT('loan')">Advance</button>
-        <button class="ttbtn" id="ett-sub" onclick="editSetTT('sub')">Sub</button>
+        <button class="ttbtn" id="ett-rev"  onclick="editSetTT('rev')">📈 Revenue</button>
+        <button class="ttbtn" id="ett-exp"  onclick="editSetTT('exp')">📉 Expense</button>
+        <button class="ttbtn" id="ett-loan" onclick="editSetTT('loan')">💜 Loan</button>
+        <button class="ttbtn" id="ett-sub"  onclick="editSetTT('sub')">🔄 Subscription</button>
       </div>
       <div class="fg" id="edit-entity-row">
-        <label class="flabel" id="edit-entity-label">If company-paid: which company?</label>
+        <label class="flabel" id="edit-entity-label">Entity</label>
         <div class="etog">
-          <button class="etbtn" id="eet-us" onclick="editSetEntity('us')">🇺🇸 US Co.</button>
-          <button class="etbtn" id="eet-fr" onclick="editSetEntity('fr')">🇫🇷 French Co.</button>
+          <button class="etbtn" id="eet-us" onclick="editSetEntity('us')">🇺🇸 Izinest LLC</button>
+          <button class="etbtn" id="eet-fr" onclick="editSetEntity('fr')">🇫🇷 French Company</button>
         </div>
       </div>
       <div class="fg" id="edit-cadence-row" style="display:none;">
         <label class="flabel">Cadence</label>
         <div class="sctog">
           <button class="sctbtn" id="esc-monthly" onclick="editSetCadence('monthly')">📅 Monthly</button>
-          <button class="sctbtn" id="esc-annual" onclick="editSetCadence('annual')">📆 Annual</button>
+          <button class="sctbtn" id="esc-annual"  onclick="editSetCadence('annual')">📆 Annual</button>
         </div>
       </div>
       <div class="fg" id="edit-payer-row" style="display:none;">
-        <label class="flabel">Paid via</label>
+        <label class="flabel">Paid personally by</label>
         <div class="etog" style="grid-template-columns:1fr 1fr 1fr;">
-          <button class="etbtn" id="epp-none" onclick="editSetPayer('none')">🏢 Company</button>
+          <button class="etbtn" id="epp-none"   onclick="editSetPayer('none')">🏢 Company</button>
           <button class="etbtn" id="epp-malvin" onclick="editSetPayer('malvin')">👤 Malvin</button>
           <button class="etbtn" id="epp-amaury" onclick="editSetPayer('amaury')">👤 Amaury</button>
         </div>
@@ -417,449 +412,302 @@ const SUPABASE_API = SUPABASE_URL + '/rest/v1/appdata';
 // ── GOOGLE SHEET CONFIG ──
 const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbx8GeqP_BoCRkhX9kZqLprIDcuWrcIG6zpBlpafu0lVw5bzaF3QjqJT6aLwBFlh97-D/exec';
 
-const PASSWORDS = {'Rio2000':'malvin','Rio2020':'amaury'};
+const PASSWORDS = {'Idem2000':'malvin','Idem2020':'amaury'};
 
-let log = [];
-let author = 'malvin';
-let txType = 'rev';
-let txEntity = 'us';
-let subCadence = 'monthly';
-let subPayer = 'none';
-let eyeOn = false;
-let currentLang = 'en';
-let currentLocale = 'en-US';
-let editId = null;
-let eTT = 'rev';
-let eEnt = 'us';
-let eCad = 'monthly';
-let ePay = 'none';
+let log=[], author='malvin', txType='rev', txEntity='us', subCadence='monthly', subPayer='none', eyeOn=false;
 
-window.onerror = function(msg, src, line, col, err){
-  document.body.insertAdjacentHTML('afterbegin',
-    '<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">JS ERROR: ' + msg + ' @ ' + line + ':' + col + '</div>');
+const L={
+  saving:'⟳ Saving…', saved:'✓ Saved', errNetwork:'✕ Network error',
+  fillRequired:'⚠ Description and amount required',
+  editFill:'⚠ Fill description & amount',
+  editSaved:'✓ Edit saved',
+  annual:'Annual', monthly:'Monthly',
+  noEntries:'No entries found',
+  noLoans:'No loans recorded',
+  noPersonalSubs:'No personal sub payments',
+  noSubs:'No subscriptions recorded',
+  supersededBy:'⚠ SUPERSEDED BY EDIT',
+  editedTag:'EDITED',
 };
-
-const I18N = {
-  en: {
-    saving:'⟳ Saving…',saved:'✓ Saved',errNetwork:'✕ Network error',
-    fillRequired:'⚠ Description and amount required',
-    invalidAdvance:'⚠ For an advance, choose Malvin, Amaury, or French Co.',
-    editFill:'⚠ Fill description & amount',editSaved:'✓ Edit saved',
-    annual:'Annual',monthly:'Monthly',noEntries:'No entries found',
-    noLoans:'No advances recorded',noPersonalSubs:'No externally paid subscriptions',
-    noSubs:'No subscriptions recorded',supersededBy:'⚠ SUPERSEDED BY EDIT',
-    editedTag:'EDITED',toastMalvin:'🇺🇸 Malvin mode',toastAmaury:'🇫🇷 Amaury mode',
-    appTitle:'Izinest × Amaury Settlement',logoFr:'Amaury Settlement',pill:'US OPS',
-    tabDash:'DASH',tabAdd:'ADD',tabAdv:'ADV',tabHist:'HIST',tabCo:'CO',
-    addTitle:'New Transaction',
-    historyNote:"📌 <strong>Immutable log</strong> — Paris timestamp, attributed to the author. Nothing is ever deleted.",
-    ttRev:'Revenue',ttExp:'Expense',ttLoan:'Advance',ttSub:'Sub',
-    payerCompany:'🏢 Company',payerMalvin:'👤 Malvin',payerAmaury:'👤 Amaury',
-    entityUS:'🇺🇸 US Co.',entityFR:'🇫🇷 French Co.',
-    labelPaidVia:'Paid via',labelAdvancedBy:'Advanced by',
-    labelIfCompanyPaid:'If company-paid: which company?',
-    labelFrenchCoAdvance:'French Co. advance?',
-    amountLabel:'Amount (USD)',amountLabelSub:'Amount (USD, based on cadence)',
-    saveButton:'Save transaction',
-    loanCardMalvin:'🇺🇸 Malvin',loanCardAmaury:'👤 Amaury personal',loanCardFrench:'🇫🇷 French Co.',
-    cashAdvanced:'Cash advanced',extPaidMonthly:'Expenses + subs paid',
-    totalOwed:'Total owed',repaidPriority:'Repaid (priority)',stillOwed:'Still owed',
-    loansSectionTitle:'Advances & externally paid expenses',
-    extSubsSectionTitle:'Externally paid subscriptions',
-    coUsName:'US Ops / Malvin',coUsDue:'Total due to Malvin',coUsOutstanding:'Outstanding to Malvin',
-    coUsShare:'Malvin 50% share',coUsFinal:'→ Malvin total',
-    coAmauryName:'Amaury personal',coFrenchName:'French Co.',
-    coExpensesPaid:'Expenses paid',coSubsPaid:'Subscriptions paid',
-    coCashAdv:'Cash advances',coTotalPriority:'Total priority due',
-    coShareAllocated:'Share allocated',coAmauryFinal:'→ Amaury personal total',
-    coFrenchFinal:'→ Repaid to French Co.',
-    logicText:"All revenue and operating costs belong to US ops. If Malvin, Amaury personally, or French Co. pays instead, the app books a priority balance due back to that payer. Remaining distributable cash is then split 50/50.",
-    dashAmauryName:'Amaury side',
-    dashAmaurySub:'50% share + repayments to Amaury personal / French Co.',
-    dashMalvinSub:'50% share + repayments to Malvin',
-    wfSubLabel:'− US subscriptions',wfLoanLabel:'− Priority repayments',
-    wfMalvinLabel:'→ Malvin total',wfAmauryLabel:'→ Amaury side total',
-    debtBannerTitle:'Priority balances outstanding',
-    debtMalvin:'Malvin',debtAmaury:'Amaury personal',debtFrench:'French Co.',
-    sourceCompany:'US company',sourceMalvin:'Malvin',sourceAmaury:'Amaury personal',sourceFrench:'French Co.',
-    sourceFrenchLong:'🇫🇷 French Co.',sourceCompanyLong:'🏢 US company',
-    sourceMalvinLong:'👤 Malvin personal',sourceAmauryLong:'👤 Amaury personal',
-    tagUsRevenue:'US Revenue',tagAdvance:'Advance',tagUsSubscription:'US Subscription',tagUsExpense:'US Expense',
-    dashEntries:'entries',dashExpensesSubs:'expenses + subs',
-    monthlySuffix:'/mo',annualSuffix:'/yr',
-    filterAll:'All',filterRevenue:'Revenue',filterExpense:'Expense',filterAdvance:'Advance',filterSubscription:'Subscription',
-    placeholderDesc:'Description',placeholderReason:'Reason for edit',
-    savedCloudSheet:'✓ Saved (Cloud & Sheet)',noReason:'No reason given',wasLabel:'was',reasonLabel:'Reason',editButton:'✏️ EDIT'
-  },
-  fr: {
-    saving:'⟳ Enregistrement…',saved:'✓ Enregistré',errNetwork:'✕ Erreur réseau',
-    fillRequired:'⚠ Description et montant obligatoires',
-    invalidAdvance:'⚠ Pour une avance, choisis Malvin, Amaury ou la société FR.',
-    editFill:'⚠ Renseigne la description et le montant',editSaved:'✓ Modification enregistrée',
-    annual:'Annuel',monthly:'Mensuel',noEntries:'Aucune écriture trouvée',
-    noLoans:'Aucune avance enregistrée',noPersonalSubs:'Aucun abonnement payé hors société',
-    noSubs:'Aucun abonnement enregistré',supersededBy:'⚠ REMPLACÉ PAR UNE MODIFICATION',
-    editedTag:'MODIFIÉ',toastMalvin:'🇺🇸 Mode Malvin',toastAmaury:'🇫🇷 Mode Amaury',
-    appTitle:'Izinest × Règlement Amaury',logoFr:'Règlement Amaury',pill:'OPS US',
-    tabDash:'ACCUEIL',tabAdd:'AJOUT',tabAdv:'AVANCES',tabHist:'HISTO',tabCo:'SOLDES',
-    addTitle:'Nouvelle transaction',
-    historyNote:"📌 <strong>Journal immuable</strong> — horodaté Paris, attribué à l'auteur. Rien n'est supprimé.",
-    ttRev:'Revenu',ttExp:'Dépense',ttLoan:'Avance',ttSub:'Abonnement',
-    payerCompany:'🏢 Société',payerMalvin:'👤 Malvin',payerAmaury:'👤 Amaury',
-    entityUS:'🇺🇸 Société US',entityFR:'🇫🇷 Société FR',
-    labelPaidVia:'Payé via',labelAdvancedBy:'Avancé par',
-    labelIfCompanyPaid:'Si payé par une société : laquelle ?',
-    labelFrenchCoAdvance:'Avance de la société FR ?',
-    amountLabel:'Montant (USD)',amountLabelSub:'Montant (USD, selon la cadence)',
-    saveButton:'Enregistrer la transaction',
-    loanCardMalvin:'🇺🇸 Malvin',loanCardAmaury:'👤 Amaury perso',loanCardFrench:'🇫🇷 Société FR',
-    cashAdvanced:'Cash avancé',extPaidMonthly:'Dépenses + abonnements payés',
-    totalOwed:'Total dû',repaidPriority:'Remboursé en priorité',stillOwed:'Reste dû',
-    loansSectionTitle:'Avances et dépenses payées hors société',
-    extSubsSectionTitle:'Abonnements payés hors société',
-    coUsName:'Ops US / Malvin',coUsDue:'Total dû à Malvin',coUsOutstanding:'Reste dû à Malvin',
-    coUsShare:'Part 50 % de Malvin',coUsFinal:'→ Total Malvin',
-    coAmauryName:'Amaury perso',coFrenchName:'Société FR',
-    coExpensesPaid:'Dépenses payées',coSubsPaid:'Abonnements payés',
-    coCashAdv:'Avances de cash',coTotalPriority:'Total prioritaire dû',
-    coShareAllocated:'Part attribuée',coAmauryFinal:'→ Total Amaury perso',
-    coFrenchFinal:'→ Remboursé à la société FR',
-    logicText:"Tous les revenus et coûts d'exploitation appartiennent aux opérations US. Si Malvin, Amaury en perso ou la société FR paie à la place, l'app crée un solde prioritaire. Le cash distribuable restant est ensuite partagé à 50/50.",
-    dashAmauryName:'Côté Amaury',
-    dashAmaurySub:'Part 50 % + remboursements Amaury perso / société FR',
-    dashMalvinSub:'Part 50 % + remboursements à Malvin',
-    wfSubLabel:'− Abonnements US',wfLoanLabel:'− Remboursements prioritaires',
-    wfMalvinLabel:'→ Total Malvin',wfAmauryLabel:'→ Total côté Amaury',
-    debtBannerTitle:'Soldes prioritaires en attente',
-    debtMalvin:'Malvin',debtAmaury:'Amaury perso',debtFrench:'Société FR',
-    sourceCompany:'Société US',sourceMalvin:'Malvin',sourceAmaury:'Amaury perso',sourceFrench:'Société FR',
-    sourceFrenchLong:'🇫🇷 Société FR',sourceCompanyLong:'🏢 Société US',
-    sourceMalvinLong:'👤 Malvin perso',sourceAmauryLong:'👤 Amaury perso',
-    tagUsRevenue:'Revenu US',tagAdvance:'Avance',tagUsSubscription:'Abonnement US',tagUsExpense:'Dépense US',
-    dashEntries:'écritures',dashExpensesSubs:'dépenses + abonnements',
-    monthlySuffix:'/mois',annualSuffix:'/an',
-    filterAll:'Toutes',filterRevenue:'Revenu',filterExpense:'Dépense',filterAdvance:'Avance',filterSubscription:'Abonnement',
-    placeholderDesc:'Description',placeholderReason:'Raison de la modification',
-    savedCloudSheet:'✓ Enregistré (Cloud & Sheet)',noReason:'Aucune raison fournie',wasLabel:'était',reasonLabel:'Raison',editButton:'✏️ MODIFIER'
-  }
-};
-
-function tr(k){ return I18N[currentLang]?.[k] ?? I18N.en[k] ?? k; }
-function money(n,min=0,max=2){ return new Intl.NumberFormat(currentLocale,{style:'currency',currency:'USD',minimumFractionDigits:min,maximumFractionDigits:max}).format(Number(n||0)); }
-function f(n){ return money(Math.abs(Number(n||0)),0,2); }
-function f2(n){ return money(Math.abs(Number(n||0)),2,2); }
-function monthlySuffix(){ return tr('monthlySuffix'); }
-function annualSuffix(){ return tr('annualSuffix'); }
-function parisTime(){ return new Intl.DateTimeFormat(currentLocale,{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date()); }
 
 function showDebug(msg){
-  const loading=document.getElementById('loading');const app=document.getElementById('app');
-  if(loading)loading.style.display='none';if(app)app.style.display='block';
-  document.body.insertAdjacentHTML('afterbegin','<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">🚨 DEBUG ERROR:<br>'+msg+'</div>');
+  document.getElementById('loading').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.body.insertAdjacentHTML('afterbegin',
+    `<div style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#ff2266;color:#fff;padding:16px;font-size:12px;word-break:break-all;line-height:1.6;">
+      🚨 ERREUR DEBUG:<br>${msg}
+    </div>`);
 }
 
 function unlock(){
-  const inp=document.getElementById('lock-pw');const val=inp.value;const user=PASSWORDS[val];
-  if(user){document.getElementById('lock').style.display='none';document.getElementById('loading').style.display='flex';loadData(user);}
-  else{inp.classList.add('err');inp.value='';setTimeout(()=>inp.classList.remove('err'),400);}
+  const inp=document.getElementById('lock-pw');
+  const val=inp.value;
+  const user=PASSWORDS[val];
+  if(user){
+    document.getElementById('lock').style.display='none';
+    document.getElementById('loading').style.display='flex';
+    loadData(user);
+  } else {
+    inp.classList.add('err');inp.value='';
+    setTimeout(()=>inp.classList.remove('err'),400);
+  }
 }
-function toggleEye(){eyeOn=!eyeOn;document.getElementById('lock-pw').type=eyeOn?'text':'password';document.getElementById('eye-btn').textContent=eyeOn?'🙈':'👁';}
-
+function toggleEye(){
+  eyeOn=!eyeOn;
+  document.getElementById('lock-pw').type=eyeOn?'text':'password';
+  document.getElementById('eye-btn').textContent=eyeOn?'🙈':'👁';
+}
 document.addEventListener('DOMContentLoaded',function(){
-  const btn=document.getElementById('lock-submit-btn');if(btn)btn.addEventListener('touchend',function(e){e.preventDefault();unlock();});
-  const eb=document.getElementById('eye-btn');if(eb)eb.addEventListener('touchend',function(e){e.preventDefault();toggleEye();});
+  var btn=document.getElementById('lock-submit-btn');
+  if(btn)btn.addEventListener('touchend',function(e){e.preventDefault();unlock();});
+  var eb=document.getElementById('eye-btn');
+  if(eb)eb.addEventListener('touchend',function(e){e.preventDefault();toggleEye();});
 });
 
-function normalizeSource(src){
-  const map={none:'company_us',company:'company_us',company_us:'company_us',malvin:'malvin_personal',malvin_personal:'malvin_personal',amaury:'amaury_personal',amaury_personal:'amaury_personal',french:'french_co',french_co:'french_co'};
-  return map[src]||'company_us';
-}
-function getMonthlyAmt(e){ return e.amtMonthly!==undefined?Number(e.amtMonthly):Number(e.amt||0); }
-function getPaySource(e){
-  if(e.paySource)return normalizeSource(e.paySource);
-  if(e.advancedBy)return normalizeSource(e.advancedBy);
-  if(e.type==='loan'){if(e.entity==='fr')return'french_co';if(e.paidBy==='malvin')return'malvin_personal';if(e.paidBy==='amaury')return'amaury_personal';if(e.entity==='us')return'malvin_personal';}
-  if(e.entity==='fr')return'french_co';if(e.paidBy==='malvin')return'malvin_personal';if(e.paidBy==='amaury')return'amaury_personal';
-  return'company_us';
-}
-function sourceLabel(src){src=normalizeSource(src);return{company_us:tr('sourceCompanyLong'),malvin_personal:tr('sourceMalvinLong'),amaury_personal:tr('sourceAmauryLong'),french_co:tr('sourceFrenchLong')}[src]||tr('sourceCompanyLong');}
-function sourceShort(src){src=normalizeSource(src);return{company_us:tr('sourceCompany'),malvin_personal:tr('sourceMalvin'),amaury_personal:tr('sourceAmaury'),french_co:tr('sourceFrench')}[src]||tr('sourceCompany');}
-function deriveSourceFromUI(type,entity,payer){
-  if(type==='loan'){if(payer==='malvin')return'malvin_personal';if(payer==='amaury')return'amaury_personal';if(payer==='none'&&entity==='fr')return'french_co';return null;}
-  if(payer==='malvin')return'malvin_personal';if(payer==='amaury')return'amaury_personal';if(payer==='none'&&entity==='fr')return'french_co';return'company_us';
-}
-function setUiFromSource(src,editMode){
-  src=normalizeSource(src);let ent='us';let payer='none';
-  if(src==='french_co'){ent='fr';payer='none';}else if(src==='malvin_personal'){ent='us';payer='malvin';}else if(src==='amaury_personal'){ent='us';payer='amaury';}else{ent='us';payer='none';}
-  if(editMode){editSetEntity(ent);editSetPayer(payer);}else{setEntity(ent);setPayer(payer);}
-}
-
-function ensureV2DomPatch(){
-  const loansPage=document.getElementById('page-loans');
-  if(loansPage&&!document.getElementById('la-tot')){
-    const frCard=document.getElementById('lf-tot')?.closest('.ltcard');
-    if(frCard){frCard.insertAdjacentHTML('beforebegin','<div class="ltcard" id="amaury-personal-card"><div class="lttitle" id="loan-title-amaury"></div><div class="ltrow"><span class="ltk" id="loan-la-cash-label"></span><span class="ltv" style="color:var(--purple)" id="la-tot">$0</span></div><div class="ltrow"><span class="ltk" id="loan-la-paid-label"></span><span class="ltv" style="color:var(--orange)" id="la-subadv">$0</span></div><div class="ltrow"><span class="ltk" id="loan-la-total-label" style="font-weight:600;color:var(--text)"></span><span class="ltv" style="color:var(--purple)" id="la-totaladv">$0</span></div><div class="ltrow"><span class="ltk" id="loan-la-rep-label"></span><span class="ltv" style="color:var(--green)" id="la-rep">$0</span></div><div class="ltrow"><span class="ltk" id="loan-la-ow-label"></span><span class="ltv" style="color:var(--purple)" id="la-ow">$0</span></div><div class="ltbar"><div class="ltfill" id="la-bar" style="width:0%"></div></div></div>');}
-  }
-  const coPage=document.getElementById('page-co');
-  if(coPage&&!document.getElementById('co-ap-exp')){
-    const frCard=document.getElementById('co-fr-exp')?.closest('.cocard');
-    if(frCard){frCard.insertAdjacentHTML('beforebegin','<div class="cocard" id="co-ap-card" style="border-color:rgba(255,34,102,.18)"><div class="cohdr"><div class="codot p"></div><div class="coname" id="co-ap-name" style="color:var(--pink)"></div><span id="co-ap-tag" style="margin-left:auto;font-size:10px;color:var(--dim)">👤</span></div><div class="corow"><span class="cok" id="co-ap-exp-label"></span><span class="cov p" id="co-ap-exp">$0</span></div><div class="corow"><span class="cok" id="co-ap-sub-label"></span><span class="cov o" id="co-ap-sub">$0</span></div><div class="corow"><span class="cok" id="co-ap-loan-label"></span><span class="cov v" id="co-ap-loan">$0</span></div><div class="corow"><span class="cok" id="co-ap-total-label"></span><span class="cov v" id="co-ap-total">$0</span></div><div class="corow"><span class="cok" id="co-ap-share-label"></span><span class="cov y" id="co-ap-share">$0</span></div><div class="corow" style="background:rgba(255,34,102,.04);border-radius:6px;padding:8px;"><span class="cok" id="co-ap-final-label" style="color:var(--pink);font-weight:700"></span><span class="cov p" id="co-ap-final" style="font-size:15px">$0</span></div></div>');}
-  }
-}
-
-function translateStaticUI(){
-  document.title=tr('appTitle');
-  const logoFr=document.querySelector('.logo .fr');if(logoFr)logoFr.textContent=tr('logoFr');
-  const pill=document.querySelector('.pill');if(pill)pill.textContent=tr('pill');
-  const tabs=document.querySelectorAll('.tab');
-  if(tabs[0])tabs[0].innerHTML='<span class="ti">📊</span>'+tr('tabDash');
-  if(tabs[1])tabs[1].innerHTML='<span class="ti">➕</span>'+tr('tabAdd');
-  if(tabs[2])tabs[2].innerHTML='<span class="ti">💜</span>'+tr('tabAdv');
-  if(tabs[3])tabs[3].innerHTML='<span class="ti">📜</span>'+tr('tabHist');
-  if(tabs[4])tabs[4].innerHTML='<span class="ti">🏢</span>'+tr('tabCo');
-  const addTitle=document.querySelector('#page-add .ftitle');if(addTitle)addTitle.textContent=tr('addTitle');
-  const note=document.querySelector('#page-hist .note');if(note)note.innerHTML=tr('historyNote');
-  const abtnMalvin=document.getElementById('abtn-malvin');const abtnAmaury=document.getElementById('abtn-amaury');
-  if(abtnMalvin)abtnMalvin.textContent='🇺🇸 Malvin';if(abtnAmaury)abtnAmaury.textContent='🇫🇷 Amaury';
-  ['rev','exp','loan','sub'].forEach(k=>{const el=document.getElementById('tt-'+k);if(el)el.textContent=tr('tt'+k.charAt(0).toUpperCase()+k.slice(1));});
-  ['rev','exp','loan','sub'].forEach(k=>{const el=document.getElementById('ett-'+k);if(el)el.textContent=tr('tt'+k.charAt(0).toUpperCase()+k.slice(1));});
-  const ppNone=document.getElementById('pp-none');const ppMalvin=document.getElementById('pp-malvin');const ppAmaury=document.getElementById('pp-amaury');
-  if(ppNone)ppNone.textContent=tr('payerCompany');if(ppMalvin)ppMalvin.textContent=tr('payerMalvin');if(ppAmaury)ppAmaury.textContent=tr('payerAmaury');
-  const eppNone=document.getElementById('epp-none');const eppMalvin=document.getElementById('epp-malvin');const eppAmaury=document.getElementById('epp-amaury');
-  if(eppNone)eppNone.textContent=tr('payerCompany');if(eppMalvin)eppMalvin.textContent=tr('payerMalvin');if(eppAmaury)eppAmaury.textContent=tr('payerAmaury');
-  const etUs=document.getElementById('et-us');const etFr=document.getElementById('et-fr');if(etUs)etUs.textContent=tr('entityUS');if(etFr)etFr.textContent=tr('entityFR');
-  const eetUs=document.getElementById('eet-us');const eetFr=document.getElementById('eet-fr');if(eetUs)eetUs.textContent=tr('entityUS');if(eetFr)eetFr.textContent=tr('entityFR');
-  const addBtn=document.getElementById('add-btn');if(addBtn)addBtn.textContent=tr('saveButton');
-  const inpDesc=document.getElementById('inp-desc');const editDesc=document.getElementById('edit-desc');const editReason=document.getElementById('edit-reason');
-  if(inpDesc)inpDesc.placeholder=tr('placeholderDesc');if(editDesc)editDesc.placeholder=tr('placeholderDesc');if(editReason)editReason.placeholder=tr('placeholderReason');
-  const optTypeAll=document.querySelector('#fl-type option[value="all"]');if(optTypeAll)optTypeAll.textContent=tr('filterAll');
-  const optTypeRev=document.querySelector('#fl-type option[value="rev"]');if(optTypeRev)optTypeRev.textContent=tr('filterRevenue');
-  const optTypeExp=document.querySelector('#fl-type option[value="exp"]');if(optTypeExp)optTypeExp.textContent=tr('filterExpense');
-  const optTypeLoan=document.querySelector('#fl-type option[value="loan"]');if(optTypeLoan)optTypeLoan.textContent=tr('filterAdvance');
-  const optTypeSub=document.querySelector('#fl-type option[value="sub"]');if(optTypeSub)optTypeSub.textContent=tr('filterSubscription');
-  const optAuthorAll=document.querySelector('#fl-auth option[value="all"]');if(optAuthorAll)optAuthorAll.textContent=tr('filterAll');
-  const loanTitleMalvin=document.querySelector('#page-loans .ltcard:nth-child(1) .lttitle');if(loanTitleMalvin)loanTitleMalvin.textContent=tr('loanCardMalvin');
-  const loanTitleAmaury=document.getElementById('loan-title-amaury');if(loanTitleAmaury)loanTitleAmaury.textContent=tr('loanCardAmaury');
-  const loanTitleFrench=document.querySelector('#page-loans .ltcard:nth-child(3) .lttitle');if(loanTitleFrench)loanTitleFrench.textContent=tr('loanCardFrench');
-  const labelMap=[['lu-tot','cashAdvanced'],['lu-subadv','extPaidMonthly'],['lu-totaladv','totalOwed'],['lu-rep','repaidPriority'],['lu-ow','stillOwed'],['la-tot','cashAdvanced'],['la-subadv','extPaidMonthly'],['la-totaladv','totalOwed'],['la-rep','repaidPriority'],['la-ow','stillOwed'],['lf-tot','cashAdvanced'],['lf-subadv','extPaidMonthly'],['lf-totaladv','totalOwed'],['lf-rep','repaidPriority'],['lf-ow','stillOwed']];
-  labelMap.forEach(([id,key])=>{const el=document.getElementById(id);if(el&&el.previousElementSibling)el.previousElementSibling.textContent=tr(key);});
-  const loanLATitles=[['loan-la-cash-label','cashAdvanced'],['loan-la-paid-label','extPaidMonthly'],['loan-la-total-label','totalOwed'],['loan-la-rep-label','repaidPriority'],['loan-la-ow-label','stillOwed']];
-  loanLATitles.forEach(([id,key])=>{const el=document.getElementById(id);if(el)el.textContent=tr(key);});
-  const loanSectionTitles=document.querySelectorAll('#page-loans .stitle');
-  if(loanSectionTitles[0])loanSectionTitles[0].textContent=tr('loansSectionTitle');if(loanSectionTitles[1])loanSectionTitles[1].textContent=tr('extSubsSectionTitle');
-  const coUsCard=document.getElementById('co-us-rev')?.closest('.cocard');if(coUsCard){const name=coUsCard.querySelector('.coname');if(name)name.textContent=tr('coUsName');}
-  const coUsLoanLabel=document.getElementById('co-us-loan')?.previousElementSibling;if(coUsLoanLabel)coUsLoanLabel.textContent=tr('coUsDue');
-  const coUsSubAdvLabel=document.getElementById('co-us-subadv')?.previousElementSibling;if(coUsSubAdvLabel)coUsSubAdvLabel.textContent=tr('coUsOutstanding');
-  const coUsShareLabel=document.getElementById('co-us-share')?.previousElementSibling;if(coUsShareLabel)coUsShareLabel.textContent=tr('coUsShare');
-  const coUsFinalLabel=document.getElementById('co-us-final')?.previousElementSibling;if(coUsFinalLabel)coUsFinalLabel.textContent=tr('coUsFinal');
-  const coApName=document.getElementById('co-ap-name');if(coApName)coApName.textContent=tr('coAmauryName');
-  const coApTag=document.getElementById('co-ap-tag');if(coApTag)coApTag.textContent=currentLang==='fr'?'👤 perso':'👤 personal';
-  const coApExpLabel=document.getElementById('co-ap-exp-label');if(coApExpLabel)coApExpLabel.textContent=tr('coExpensesPaid');
-  const coApSubLabel=document.getElementById('co-ap-sub-label');if(coApSubLabel)coApSubLabel.textContent=tr('coSubsPaid')+' '+monthlySuffix();
-  const coApLoanLabel=document.getElementById('co-ap-loan-label');if(coApLoanLabel)coApLoanLabel.textContent=tr('coCashAdv');
-  const coApTotalLabel=document.getElementById('co-ap-total-label');if(coApTotalLabel)coApTotalLabel.textContent=tr('coTotalPriority');
-  const coApShareLabel=document.getElementById('co-ap-share-label');if(coApShareLabel)coApShareLabel.textContent=currentLang==='fr'?'Part 50 % Amaury':'Amaury 50% share';
-  const coApFinalLabel=document.getElementById('co-ap-final-label');if(coApFinalLabel)coApFinalLabel.textContent=tr('coAmauryFinal');
-  const coFrCard=document.getElementById('co-fr-exp')?.closest('.cocard');
-  if(coFrCard){const name=coFrCard.querySelector('.coname');if(name)name.textContent=tr('coFrenchName');const tag=coFrCard.querySelector('.cohdr span[style]');if(tag)tag.textContent=currentLang==='fr'?'🇫🇷 société':'🇫🇷 company';}
-  const coFrExpLabel=document.getElementById('co-fr-exp')?.previousElementSibling;if(coFrExpLabel)coFrExpLabel.textContent=tr('coExpensesPaid');
-  const coFrSubLabel=document.getElementById('co-fr-sub')?.previousElementSibling;if(coFrSubLabel)coFrSubLabel.textContent=tr('coSubsPaid')+' '+monthlySuffix();
-  const coFrLoanLabel=document.getElementById('co-fr-loan')?.previousElementSibling;if(coFrLoanLabel)coFrLoanLabel.textContent=tr('coCashAdv');
-  const coFrSubAdvLabel=document.getElementById('co-fr-subadv')?.previousElementSibling;if(coFrSubAdvLabel)coFrSubAdvLabel.textContent=tr('coTotalPriority');
-  const coFrShareLabel=document.getElementById('co-fr-share')?.previousElementSibling;if(coFrShareLabel)coFrShareLabel.textContent=tr('coShareAllocated');
-  const coFrFinalLabel=document.getElementById('co-fr-final')?.previousElementSibling;if(coFrFinalLabel)coFrFinalLabel.textContent=tr('coFrenchFinal');
-  const logicP=document.querySelector('#page-co .cocard:last-child p');if(logicP)logicP.textContent=tr('logicText');
-  const amauryPname=document.querySelector('.pcard.amaury .pname');if(amauryPname)amauryPname.textContent=tr('dashAmauryName');
-  const amauryPsub=document.querySelector('.pcard.amaury .psub');if(amauryPsub)amauryPsub.textContent=tr('dashAmaurySub');
-  const malvinPsub=document.querySelector('.pcard.malvin .psub');if(malvinPsub)malvinPsub.textContent=tr('dashMalvinSub');
-  const wfSubLabel=document.getElementById('wf-subu')?.previousElementSibling;if(wfSubLabel)wfSubLabel.textContent=tr('wfSubLabel');
-  const wfLoanLabel=document.getElementById('wf-loan')?.previousElementSibling;if(wfLoanLabel)wfLoanLabel.textContent=tr('wfLoanLabel');
-  const wfIzLabel=document.getElementById('wf-iz')?.previousElementSibling;if(wfIzLabel)wfIzLabel.textContent=tr('wfMalvinLabel');
-  const wfFrLabel=document.getElementById('wf-fr')?.previousElementSibling;if(wfFrLabel)wfFrLabel.textContent=tr('wfAmauryLabel');
-  setTT(txType);if(editId!==null)editSetTT(eTT);
-}
-
-function setLanguage(lang){currentLang=lang==='fr'?'fr':'en';currentLocale=currentLang==='fr'?'fr-FR':'en-US';translateStaticUI();setSS('saved');}
-
+// ── DATA (Supabase) ──
 async function loadData(user){
   let statusCode='unknown';
-  try{
-    const r=await fetch(SUPABASE_API+'?id=eq.1&select=log',{headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY}});
-    statusCode=r.status;if(!r.ok)throw new Error('HTTP '+r.status+' — '+r.statusText);
-    const d=await r.json();log=Array.isArray(d[0]?.log)?d[0].log:[];
-  }catch(e){log=[];showDebug('Erreur: '+e.message+'<br>HTTP: '+statusCode+'<br>onLine: '+navigator.onLine);return;}
-  document.getElementById('loading').style.display='none';document.getElementById('app').style.display='block';
+  try {
+    const r=await fetch(SUPABASE_API+'?id=eq.1&select=log',{
+      headers:{
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY
+      }
+    });
+    statusCode=r.status;
+    if(!r.ok) throw new Error('HTTP '+r.status+' — '+r.statusText);
+    const d=await r.json();
+    log=Array.isArray(d[0]?.log)?d[0].log:[];
+  } catch(e){
+    log=[];
+    showDebug('Erreur: '+e.message+'<br>HTTP: '+statusCode+'<br>onLine: '+navigator.onLine);
+    return;
+  }
+  document.getElementById('loading').style.display='none';
+  document.getElementById('app').style.display='block';
   document.getElementById('inp-date').valueAsDate=new Date();
-  ensureV2DomPatch();setAuthor(user,true);setTT('rev');setUiFromSource('company_us',false);renderDash();
+  setAuthor(user,true);setTT('rev');setEntity('us');setCadence('monthly');setPayer('none');
+  renderDash();
 }
 
 async function saveData(){
   setSS('saving');
   try{
-    const r=await fetch(SUPABASE_API+'?id=eq.1',{method:'PATCH',headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Prefer':'return=representation'},body:JSON.stringify({log:log})});
-    const body=await r.json();if(!r.ok||!body.length)throw new Error('HTTP '+r.status+' — rows updated: '+(body.length||0));setSS('saved');
-  }catch(e){setSS('error');showToast('⚠ Save failed: '+e.message,true);}
+    const r=await fetch(SUPABASE_API+'?id=eq.1',{
+      method:'PATCH',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SUPABASE_KEY,
+        'Authorization':'Bearer '+SUPABASE_KEY,
+        'Prefer':'return=representation'
+      },
+      body:JSON.stringify({log:log})
+    });
+    const body=await r.json();
+    console.log('PATCH status:',r.status,'body:',JSON.stringify(body));
+    if(!r.ok||!body.length) throw new Error('HTTP '+r.status+' — rows updated: '+(body.length||0));
+    setSS('saved');
+  }catch(e){
+    setSS('error');
+    showToast('⚠ Save failed: '+e.message,true);
+  }
 }
 
-function setSS(s){const el=document.getElementById('save-status');if(!el)return;el.className='save-status '+s;el.textContent=s==='saving'?tr('saving'):s==='saved'?tr('saved'):tr('errNetwork');if(s==='saved')setTimeout(()=>{el.className='save-status';},3000);}
+function setSS(s){
+  const el=document.getElementById('save-status');
+  el.className='save-status '+s;
+  el.textContent=s==='saving'?L.saving:s==='saved'?L.saved:L.errNetwork;
+  if(s==='saved')setTimeout(()=>{el.className='save-status';},3000);
+}
 
 function compute(){
-  let rev=0,expUS=0,subUS=0,revC=0,expC=0;
-  let loanByMalvin=0,loanByAmauryPersonal=0,loanByFrenchCo=0;
-  let expPaidByMalvin=0,expPaidByAmauryPersonal=0,expPaidByFrenchCo=0;
-  let subPaidByMalvin=0,subPaidByAmauryPersonal=0,subPaidByFrenchCo=0;
-  let dueToMalvinGross=0,dueToAmauryPersonalGross=0,dueToFrenchCoGross=0;
+  let rev=0,expUS=0,expFR=0,subUS=0,subFR=0,loanUS=0,loanFR=0,revC=0,expC=0,subAdvM=0,subAdvA=0;
   log.filter(e=>!e.superseded).forEach(e=>{
-    if(e.type==='rev'){rev+=Number(e.amt||0);revC++;return;}
-    if(e.type==='exp'){const amt=Number(e.amt||0);const src=getPaySource(e);expUS+=amt;expC++;if(src==='malvin_personal'){expPaidByMalvin+=amt;dueToMalvinGross+=amt;}else if(src==='amaury_personal'){expPaidByAmauryPersonal+=amt;dueToAmauryPersonalGross+=amt;}else if(src==='french_co'){expPaidByFrenchCo+=amt;dueToFrenchCoGross+=amt;}return;}
-    if(e.type==='sub'){const m=getMonthlyAmt(e);const src=getPaySource(e);subUS+=m;if(src==='malvin_personal'){subPaidByMalvin+=m;dueToMalvinGross+=m;}else if(src==='amaury_personal'){subPaidByAmauryPersonal+=m;dueToAmauryPersonalGross+=m;}else if(src==='french_co'){subPaidByFrenchCo+=m;dueToFrenchCoGross+=m;}return;}
-    if(e.type==='loan'){const amt=Number(e.amt||0);const src=getPaySource(e);if(src==='malvin_personal'){loanByMalvin+=amt;dueToMalvinGross+=amt;}else if(src==='amaury_personal'){loanByAmauryPersonal+=amt;dueToAmauryPersonalGross+=amt;}else if(src==='french_co'){loanByFrenchCo+=amt;dueToFrenchCoGross+=amt;}}
+    if(e.type==='rev'){rev+=e.amt;revC++;}
+    else if(e.type==='exp'){expC++;e.entity==='us'?expUS+=e.amt:expFR+=e.amt;}
+    else if(e.type==='sub'){
+      const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;
+      if(e.paidBy==='malvin')subAdvM+=m;
+      else if(e.paidBy==='amaury')subAdvA+=m;
+      else e.entity==='us'?subUS+=m:subFR+=m;
+    }
+    else if(e.type==='loan'){e.entity==='us'?loanUS+=e.amt:loanFR+=e.amt;}
   });
-  const netBefore=rev-expUS-subUS;const totalDueGross=dueToMalvinGross+dueToAmauryPersonalGross+dueToFrenchCoGross;
-  const priorityRepay=Math.min(totalDueGross,Math.max(0,netBefore));
-  const repayToMalvin=totalDueGross>0?priorityRepay*(dueToMalvinGross/totalDueGross):0;
-  const repayToAmauryPersonal=totalDueGross>0?priorityRepay*(dueToAmauryPersonalGross/totalDueGross):0;
-  const repayToFrenchCo=totalDueGross>0?priorityRepay*(dueToFrenchCoGross/totalDueGross):0;
-  const outstandingMalvin=Math.max(0,dueToMalvinGross-repayToMalvin);
-  const outstandingAmauryPersonal=Math.max(0,dueToAmauryPersonalGross-repayToAmauryPersonal);
-  const outstandingFrenchCo=Math.max(0,dueToFrenchCoGross-repayToFrenchCo);
-  const dist=Math.max(0,netBefore-priorityRepay);const malvinShare=dist*0.5;const amauryShare=dist*0.5;
-  return{rev,expUS,subUS,netBefore,revC,expC,loanByMalvin,loanByAmauryPersonal,loanByFrenchCo,expPaidByMalvin,expPaidByAmauryPersonal,expPaidByFrenchCo,subPaidByMalvin,subPaidByAmauryPersonal,subPaidByFrenchCo,dueToMalvinGross,dueToAmauryPersonalGross,dueToFrenchCoGross,priorityRepay,repayToMalvin,repayToAmauryPersonal,repayToFrenchCo,outstandingMalvin,outstandingAmauryPersonal,outstandingFrenchCo,totalDueGross,loansOwed:outstandingMalvin+outstandingAmauryPersonal+outstandingFrenchCo,dist,malvinShare,amauryShare,malvinFinal:malvinShare+repayToMalvin,amauryPersonalFinal:amauryShare+repayToAmauryPersonal,frenchCoFinal:repayToFrenchCo,amaurySideFinal:amauryShare+repayToAmauryPersonal+repayToFrenchCo};
+  const advUS=loanUS+subAdvM,advFR=loanFR+subAdvA,totalAdv=advUS+advFR;
+  const netBefore=rev-expUS-subUS;
+  const loanRepay=Math.min(totalAdv,Math.max(0,netBefore));
+  const lrUS=totalAdv>0?loanRepay*(advUS/totalAdv):0;
+  const lrFR=totalAdv>0?loanRepay*(advFR/totalAdv):0;
+  const dist=Math.max(0,netBefore-loanRepay);
+  const amauryRaw=dist*.5+lrFR-expFR-subFR;
+  const amauryDebt=amauryRaw<0?Math.abs(amauryRaw):0;
+  return{rev,expUS,expFR,subUS,subFR,loanUS,loanFR,subAdvM,subAdvA,advUS,advFR,totalAdv,lrUS,lrFR,netBefore,loanRepay,dist,izShare:dist*.5,frShare:dist*.5,malvinFinal:dist*.5+lrUS,amauryFinal:Math.max(0,amauryRaw),amauryDebt,loansOwed:Math.max(0,totalAdv-loanRepay),revC,expC};
 }
 
-function setAuthor(a,silent){
-  author=a;setLanguage(a==='amaury'?'fr':'en');
-  const malvinBtn=document.getElementById('abtn-malvin');const amauryBtn=document.getElementById('abtn-amaury');
-  if(malvinBtn)malvinBtn.className='abtn'+(a==='malvin'?' sm':'');if(amauryBtn)amauryBtn.className='abtn'+(a==='amaury'?' sa':'');
-  if(!silent)showToast(a==='malvin'?tr('toastMalvin'):tr('toastAmaury'));
-}
+const f=n=>'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:2});
+const f2=n=>'$'+Math.abs(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const parisTime=()=>new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit',second:'2-digit',day:'2-digit',month:'2-digit',year:'numeric'}).format(new Date());
+
+function setAuthor(a,silent){author=a;document.getElementById('abtn-malvin').className='abtn'+(a==='malvin'?' sm':'');document.getElementById('abtn-amaury').className='abtn'+(a==='amaury'?' sa':'');if(!silent)showToast(a==='malvin'?'🇺🇸 Malvin':'🇫🇷 Amaury');}
 function switchTab(t,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));document.getElementById('page-'+t).classList.add('active');if(btn)btn.classList.add('active');({dash:renderDash,loans:renderLoans,hist:renderHist,co:renderCo})[t]?.();}
+function setTT(t){txType=t;['rev','exp','loan','sub'].forEach(k=>{document.getElementById('tt-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});document.getElementById('entity-row').style.display=t==='rev'?'none':'block';document.getElementById('cadence-row').style.display=t==='sub'?'block':'none';document.getElementById('payer-row').style.display=t==='sub'?'block':'none';document.getElementById('entity-label').textContent=t==='loan'?'Who is advancing?':t==='sub'?'Who pays the subscription?':'Who pays the expense?';document.getElementById('amt-label').textContent=t==='sub'?'Amount (USD, based on cadence)':'Amount (USD)';document.getElementById('add-btn').className='sbtn '+(t==='loan'?'sv':t==='sub'?'so':'sg');}
+function setEntity(e){txEntity=e;document.getElementById('et-us').className='etbtn'+(e==='us'?' ag':'');document.getElementById('et-fr').className='etbtn'+(e==='fr'?' ap':'');}
+function setCadence(c){subCadence=c;document.getElementById('sc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('sc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
+function setPayer(p){subPayer=p;document.getElementById('pp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('pp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('pp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
 
-function setTT(t){
-  txType=t;
-  ['rev','exp','loan','sub'].forEach(k=>{const el=document.getElementById('tt-'+k);if(!el)return;el.className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});
-  const entityRow=document.getElementById('entity-row');const cadenceRow=document.getElementById('cadence-row');const payerRow=document.getElementById('payer-row');
-  const entityLabel=document.getElementById('entity-label');const payerLabel=document.querySelector('#payer-row .flabel');const amtLabel=document.getElementById('amt-label');
-  if(t==='rev'){if(entityRow)entityRow.style.display='none';if(cadenceRow)cadenceRow.style.display='none';if(payerRow)payerRow.style.display='none';if(amtLabel)amtLabel.textContent=tr('amountLabel');}
-  if(t==='exp'){if(entityRow)entityRow.style.display='block';if(cadenceRow)cadenceRow.style.display='none';if(payerRow)payerRow.style.display='block';if(entityLabel)entityLabel.textContent=tr('labelIfCompanyPaid');if(payerLabel)payerLabel.textContent=tr('labelPaidVia');if(amtLabel)amtLabel.textContent=tr('amountLabel');}
-  if(t==='sub'){if(entityRow)entityRow.style.display='block';if(cadenceRow)cadenceRow.style.display='block';if(payerRow)payerRow.style.display='block';if(entityLabel)entityLabel.textContent=tr('labelIfCompanyPaid');if(payerLabel)payerLabel.textContent=tr('labelPaidVia');if(amtLabel)amtLabel.textContent=tr('amountLabelSub');}
-  if(t==='loan'){if(entityRow)entityRow.style.display='block';if(cadenceRow)cadenceRow.style.display='none';if(payerRow)payerRow.style.display='block';if(entityLabel)entityLabel.textContent=tr('labelFrenchCoAdvance');if(payerLabel)payerLabel.textContent=tr('labelAdvancedBy');if(amtLabel)amtLabel.textContent=tr('amountLabel');}
-  const addBtn=document.getElementById('add-btn');if(addBtn){addBtn.className='sbtn '+(t==='loan'?'sv':t==='sub'?'so':'sg');addBtn.textContent=tr('saveButton');}
-}
-function setEntity(e){txEntity=e;const us=document.getElementById('et-us');const fr=document.getElementById('et-fr');if(us)us.className='etbtn'+(e==='us'?' ag':'');if(fr)fr.className='etbtn'+(e==='fr'?' ap':'');}
-function setCadence(c){subCadence=c;const mo=document.getElementById('sc-monthly');const an=document.getElementById('sc-annual');if(mo)mo.className='sctbtn'+(c==='monthly'?' ao':'');if(an)an.className='sctbtn'+(c==='annual'?' ao':'');}
-function setPayer(p){subPayer=p;const none=document.getElementById('pp-none');const malvin=document.getElementById('pp-malvin');const amaury=document.getElementById('pp-amaury');if(none)none.className='etbtn'+(p==='none'?' ag':'');if(malvin)malvin.className='etbtn'+(p==='malvin'?' ag':'');if(amaury)amaury.className='etbtn'+(p==='amaury'?' ap':'');}
+async function addTx() {
+  const desc = document.getElementById('inp-desc').value.trim();
+  const amt = parseFloat(document.getElementById('inp-amt').value);
+  const date = document.getElementById('inp-date').value;
+  
+  if (!desc || isNaN(amt) || amt <= 0) {
+    showToast(L.fillRequired, true);
+    return;
+  }
 
-async function addTx(){
-  const desc=document.getElementById('inp-desc').value.trim();const amt=parseFloat(document.getElementById('inp-amt').value);const date=document.getElementById('inp-date').value;
-  if(!desc||isNaN(amt)||amt<=0){showToast(tr('fillRequired'),true);return;}
-  const src=txType==='rev'?'company_us':deriveSourceFromUI(txType,txEntity,subPayer);
-  if(txType==='loan'&&!src){showToast(tr('invalidAdvance'),true);return;}
-  const e={id:Date.now(),type:txType,entity:'us',economicEntity:'us',paySource:src,uiEntity:txEntity,paidBy:subPayer,desc,amt,cur:'USD',date,author,timestamp:parisTime(),tsIso:new Date().toISOString()};
-  if(txType==='sub'){e.cadence=subCadence;e.amtMonthly=subCadence==='annual'?+(amt/12).toFixed(2):amt;}
-  if(txType==='loan'){e.advancedBy=src;}
-  log.unshift(e);saveData();
-  fetch(GOOGLE_SHEET_URL,{method:'POST',mode:'no-cors',cache:'no-cache',body:JSON.stringify(e)});
-  document.getElementById('inp-desc').value='';document.getElementById('inp-amt').value='';document.getElementById('inp-date').valueAsDate=new Date();
-  setUiFromSource('company_us',false);setCadence('monthly');
-  showToast(tr('savedCloudSheet'));switchTab('dash',null);if(document.querySelectorAll('.tab')[0])document.querySelectorAll('.tab')[0].classList.add('active');
+  const e = {
+    id: Date.now(),
+    type: txType,
+    entity: txType === 'rev' ? 'shared' : txEntity,
+    desc,
+    amt,
+    cur: 'USD',
+    date,
+    author,
+    timestamp: parisTime(),
+    tsIso: new Date().toISOString()
+  };
+
+  if (txType === 'sub') {
+    e.cadence = subCadence;
+    e.amtMonthly = subCadence === 'annual' ? +(amt / 12).toFixed(2) : amt;
+    e.paidBy = subPayer;
+  }
+
+  // 1. Sauvegarde dans Supabase (Interface immédiate)
+  log.unshift(e);
+  saveData();
+
+  // 2. Envoi vers Google Sheet (Archive en arrière-plan)
+  fetch(GOOGLE_SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    cache: 'no-cache',
+    body: JSON.stringify(e)
+  });
+
+  // Reset de l'interface
+  document.getElementById('inp-desc').value = '';
+  document.getElementById('inp-amt').value = '';
+  document.getElementById('inp-date').valueAsDate = new Date();
+  setPayer('none');
+  showToast('✓ Saved (Cloud & Sheet)');
+  switchTab('dash', null);
+  document.querySelectorAll('.tab')[0].classList.add('active');
 }
 
 function renderDash(){
   const c=compute();
-  document.getElementById('k-rev').textContent=f(c.rev);document.getElementById('k-rev-c').textContent=c.revC+' '+tr('dashEntries');
-  document.getElementById('k-exp').textContent=f(c.expUS+c.subUS);document.getElementById('k-exp-c').textContent=c.expC+' '+tr('dashExpensesSubs');
-  document.getElementById('k-loan').textContent=f(c.loansOwed);document.getElementById('k-net').textContent=f(c.dist);
-  document.getElementById('wf-rev').textContent=f(c.rev);document.getElementById('wf-expu').textContent='−'+f(c.expUS);document.getElementById('wf-subu').textContent='−'+f(c.subUS)+monthlySuffix();
-  document.getElementById('wf-net1').textContent=f(c.netBefore);document.getElementById('wf-loan').textContent='−'+f(c.priorityRepay);document.getElementById('wf-dist').textContent=f(c.dist);
-  document.getElementById('wf-iz').textContent=f(c.malvinFinal);document.getElementById('wf-fr').textContent=f(c.amaurySideFinal);
-  document.getElementById('ph-malvin').textContent=f(c.malvinFinal);document.getElementById('ph-amaury').textContent=f(c.amaurySideFinal);
+  document.getElementById('k-rev').textContent=f(c.rev);
+  document.getElementById('k-rev-c').textContent=c.revC+' entries';
+  document.getElementById('k-exp').textContent=f(c.expUS+c.expFR);
+  document.getElementById('k-exp-c').textContent=c.expC+' expenses';
+  document.getElementById('k-loan').textContent=f(c.loansOwed);
+  document.getElementById('k-net').textContent=f(c.dist);
+  document.getElementById('wf-rev').textContent=f(c.rev);
+  document.getElementById('wf-expu').textContent='−'+f(c.expUS);
+  document.getElementById('wf-subu').textContent='−'+f(c.subUS)+'/mo';
+  document.getElementById('wf-net1').textContent=f(c.netBefore);
+  document.getElementById('wf-loan').textContent='−'+f(c.loanRepay);
+  document.getElementById('wf-dist').textContent=f(c.dist);
+  document.getElementById('wf-iz').textContent=f(c.malvinFinal);
+  document.getElementById('wf-fr').textContent=f(c.amauryFinal);
+  document.getElementById('ph-malvin').textContent=f(c.malvinFinal);
+  document.getElementById('ph-amaury').textContent=c.amauryDebt>0?'−'+f2(c.amauryDebt)+' (doit)':f(c.amauryFinal);
   const db=document.getElementById('amaury-debt-banner');
-  if(db){const hasOutstanding=c.outstandingAmauryPersonal>0||c.outstandingFrenchCo>0||c.outstandingMalvin>0;
-    if(hasOutstanding){db.innerHTML='<div class="debt-banner">💡 <strong>'+tr('debtBannerTitle')+'</strong><br>'+tr('debtMalvin')+': '+f2(c.outstandingMalvin)+' · '+tr('debtAmaury')+': '+f2(c.outstandingAmauryPersonal)+' · '+tr('debtFrench')+': '+f2(c.outstandingFrenchCo)+'</div>';db.style.display='block';}
-    else db.style.display='none';}
-  const subs=log.filter(e=>e.type==='sub'&&!e.superseded);const tot=subs.reduce((s,e)=>s+getMonthlyAmt(e),0);
-  document.getElementById('dash-sub-total').textContent=f2(tot)+monthlySuffix();
-  document.getElementById('dash-sub-list').innerHTML=subs.length?subs.map(e=>{const m=getMonthlyAmt(e);const da=e.cadence==='annual'?f2(e.amt)+annualSuffix():f2(e.amt)+monthlySuffix();const src=sourceLabel(getPaySource(e));return'<div class="subitem"><div class="subil"><span class="subin">'+e.desc+'</span><span class="subim">'+src+' · '+e.date+'</span></div><div class="subir"><span class="subia">'+da+'</span>'+(e.cadence==='annual'?'<span class="subimo">≈'+f2(m)+monthlySuffix()+'</span>':'')+'<span class="subbadge '+(e.cadence==='annual'?'an':'mo')+'">'+( e.cadence==='annual'?tr('annual'):tr('monthly'))+'</span></div></div>';}).join(''):'<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">'+tr('noSubs')+'</div>';
+  if(c.amauryDebt>0){db.innerHTML=`<div class="debt-banner">⚠ <strong>Amaury doit ${f2(c.amauryDebt)} à la société</strong><br>Ses dépenses FR dépassent sa part distribuable.</div>`;db.style.display='block';}
+  else db.style.display='none';
+  const subs=log.filter(e=>e.type==='sub'&&!e.superseded);
+  const tot=subs.reduce((s,e)=>s+(e.amtMonthly!==undefined?e.amtMonthly:e.amt),0);
+  document.getElementById('dash-sub-total').textContent='$'+tot.toFixed(2)+'/mo';
+  document.getElementById('dash-sub-list').innerHTML=subs.length?subs.map(e=>{
+    const m=e.amtMonthly!==undefined?e.amtMonthly:e.amt;
+    const da=e.cadence==='annual'?'$'+e.amt.toFixed(2)+'/yr':'$'+e.amt.toFixed(2)+'/mo';
+    return`<div class="subitem"><div class="subil"><span class="subin">${e.desc}</span><span class="subim">${e.entity==='us'?'🇺🇸 Izinest':'🇫🇷 French Co.'} · ${e.date}</span></div><div class="subir"><span class="subia">${da}</span>${e.cadence==='annual'?`<span class="subimo">≈$${m.toFixed(2)}/mo</span>`:''}<span class="subbadge ${e.cadence==='annual'?'an':'mo'}">${e.cadence==='annual'?L.annual:L.monthly}</span></div></div>`;
+  }).join(''):`<div style="padding:10px 0;font-size:12px;color:var(--dim);text-align:center;">${L.noSubs}</div>`;
 }
 
 function renderLoans(){
   const c=compute();
-  document.getElementById('lu-tot').textContent=f(c.loanByMalvin);document.getElementById('lu-subadv').textContent=f(c.expPaidByMalvin+c.subPaidByMalvin)+monthlySuffix();document.getElementById('lu-totaladv').textContent=f(c.dueToMalvinGross);document.getElementById('lu-rep').textContent=f(c.repayToMalvin);document.getElementById('lu-ow').textContent=f(c.outstandingMalvin);document.getElementById('lu-bar').style.width=(c.dueToMalvinGross>0?Math.min(100,c.repayToMalvin/c.dueToMalvinGross*100):0)+'%';
-  if(document.getElementById('la-tot')){document.getElementById('la-tot').textContent=f(c.loanByAmauryPersonal);document.getElementById('la-subadv').textContent=f(c.expPaidByAmauryPersonal+c.subPaidByAmauryPersonal)+monthlySuffix();document.getElementById('la-totaladv').textContent=f(c.dueToAmauryPersonalGross);document.getElementById('la-rep').textContent=f(c.repayToAmauryPersonal);document.getElementById('la-ow').textContent=f(c.outstandingAmauryPersonal);document.getElementById('la-bar').style.width=(c.dueToAmauryPersonalGross>0?Math.min(100,c.repayToAmauryPersonal/c.dueToAmauryPersonalGross*100):0)+'%';}
-  document.getElementById('lf-tot').textContent=f(c.loanByFrenchCo);document.getElementById('lf-subadv').textContent=f(c.expPaidByFrenchCo+c.subPaidByFrenchCo)+monthlySuffix();document.getElementById('lf-totaladv').textContent=f(c.dueToFrenchCoGross);document.getElementById('lf-rep').textContent=f(c.repayToFrenchCo);document.getElementById('lf-ow').textContent=f(c.outstandingFrenchCo);document.getElementById('lf-bar').style.width=(c.dueToFrenchCoGross>0?Math.min(100,c.repayToFrenchCo/c.dueToFrenchCoGross*100):0)+'%';
-  const dl=document.getElementById('amaury-debt-loans');if(dl){dl.innerHTML='<div class="debt-banner">'+tr('debtMalvin')+': <strong>'+f2(c.outstandingMalvin)+'</strong> · '+tr('debtAmaury')+': <strong>'+f2(c.outstandingAmauryPersonal)+'</strong> · '+tr('debtFrench')+': <strong>'+f2(c.outstandingFrenchCo)+'</strong></div>';dl.style.display='block';}
-  const loans=log.filter(e=>!e.superseded&&(e.type==='loan'||(e.type==='exp'&&getPaySource(e)!=='company_us')));document.getElementById('loan-entries').innerHTML=loans.length?loans.map(itemHTML).join(''):'<div class="empty"><div class="ei">✅</div>'+tr('noLoans')+'</div>';
-  const sp=log.filter(e=>!e.superseded&&e.type==='sub'&&getPaySource(e)!=='company_us');document.getElementById('sub-personal-entries').innerHTML=sp.length?sp.map(itemHTML).join(''):'<div class="empty"><div class="ei">✅</div>'+tr('noPersonalSubs')+'</div>';
+  document.getElementById('lu-tot').textContent=f(c.loanUS);document.getElementById('lu-subadv').textContent=f(c.subAdvM)+'/mo';document.getElementById('lu-totaladv').textContent=f(c.advUS);document.getElementById('lu-rep').textContent=f(c.lrUS);document.getElementById('lu-ow').textContent=f(Math.max(0,c.advUS-c.lrUS));document.getElementById('lu-bar').style.width=(c.advUS>0?Math.min(100,c.lrUS/c.advUS*100):0)+'%';
+  document.getElementById('lf-tot').textContent=f(c.loanFR);document.getElementById('lf-subadv').textContent=f(c.subAdvA)+'/mo';document.getElementById('lf-totaladv').textContent=f(c.advFR);document.getElementById('lf-rep').textContent=f(c.lrFR);document.getElementById('lf-ow').textContent=f(Math.max(0,c.advFR-c.lrFR));document.getElementById('lf-bar').style.width=(c.advFR>0?Math.min(100,c.lrFR/c.advFR*100):0)+'%';
+  const dl=document.getElementById('amaury-debt-loans');
+  if(c.amauryDebt>0){dl.innerHTML=`<div class="debt-banner">⚠ <strong>Amaury doit ${f2(c.amauryDebt)} à la société</strong></div>`;dl.style.display='block';}else dl.style.display='none';
+  const loans=log.filter(e=>e.type==='loan');
+  document.getElementById('loan-entries').innerHTML=loans.length?loans.map(itemHTML).join(''):`<div class="empty"><div class="ei">✅</div>${L.noLoans}</div>`;
+  const sp=log.filter(e=>e.type==='sub'&&e.paidBy&&e.paidBy!=='none');
+  document.getElementById('sub-personal-entries').innerHTML=sp.length?sp.map(itemHTML).join(''):`<div class="empty"><div class="ei">✅</div>${L.noPersonalSubs}</div>`;
 }
 
 function renderHist(){
-  const ft=document.getElementById('fl-type').value;const fa=document.getElementById('fl-auth').value;
+  const ft=document.getElementById('fl-type').value,fa=document.getElementById('fl-auth').value;
   const filtered=log.filter(e=>(ft==='all'||e.type===ft)&&(fa==='all'||e.author===fa));
-  document.getElementById('hist-list').innerHTML=filtered.length?filtered.map(itemHTML).join(''):'<div class="empty"><div class="ei">🔍</div>'+tr('noEntries')+'</div>';
+  document.getElementById('hist-list').innerHTML=filtered.length?filtered.map(itemHTML).join(''):`<div class="empty"><div class="ei">🔍</div>${L.noEntries}</div>`;
 }
 
 function renderCo(){
   const c=compute();
-  document.getElementById('co-us-rev').textContent=f(c.rev);document.getElementById('co-us-exp').textContent=f(c.expUS);document.getElementById('co-us-sub').textContent=f(c.subUS)+monthlySuffix();document.getElementById('co-us-loan').textContent=f(c.dueToMalvinGross);document.getElementById('co-us-subadv').textContent=f(c.outstandingMalvin);document.getElementById('co-us-share').textContent=f(c.malvinShare);document.getElementById('co-us-final').textContent=f(c.malvinFinal);
-  if(document.getElementById('co-ap-exp')){document.getElementById('co-ap-exp').textContent=f(c.expPaidByAmauryPersonal);document.getElementById('co-ap-sub').textContent=f(c.subPaidByAmauryPersonal)+monthlySuffix();document.getElementById('co-ap-loan').textContent=f(c.loanByAmauryPersonal);document.getElementById('co-ap-total').textContent=f(c.outstandingAmauryPersonal);document.getElementById('co-ap-share').textContent=f(c.amauryShare);document.getElementById('co-ap-final').textContent=f(c.amauryPersonalFinal);}
-  document.getElementById('co-fr-exp').textContent=f(c.expPaidByFrenchCo);document.getElementById('co-fr-sub').textContent=f(c.subPaidByFrenchCo)+monthlySuffix();document.getElementById('co-fr-loan').textContent=f(c.loanByFrenchCo);document.getElementById('co-fr-subadv').textContent=f(c.outstandingFrenchCo);document.getElementById('co-fr-share').textContent=f(0);document.getElementById('co-fr-final').textContent=f(c.frenchCoFinal);
+  document.getElementById('co-us-rev').textContent=f(c.rev);document.getElementById('co-us-exp').textContent=f(c.expUS);document.getElementById('co-us-sub').textContent=f(c.subUS)+'/mo';document.getElementById('co-us-loan').textContent=f(c.loanUS);document.getElementById('co-us-subadv').textContent=f(c.subAdvM)+'/mo';document.getElementById('co-us-share').textContent=f(c.izShare);document.getElementById('co-us-final').textContent=f(c.malvinFinal);
+  document.getElementById('co-fr-exp').textContent=f(c.expFR);document.getElementById('co-fr-sub').textContent=f(c.subFR)+'/mo';document.getElementById('co-fr-loan').textContent=f(c.loanFR);document.getElementById('co-fr-subadv').textContent=f(c.subAdvA)+'/mo';document.getElementById('co-fr-share').textContent=f(c.frShare);
+  document.getElementById('co-fr-final').textContent=c.amauryDebt>0?'−'+f2(c.amauryDebt)+' (doit)':f(c.amauryFinal);
 }
 
 function itemHTML(e){
-  const src=getPaySource(e);const isSub=e.type==='sub';
-  const icMap={rev:'inc',exp:src==='company_us'?'expu':'expf',loan:'loan',sub:'sub'};
-  const emMap={rev:'💰',exp:src==='company_us'?'💸':'🤝',loan:'💜',sub:'🔄'};
+  const isSub=e.type==='sub';
+  const icMap={rev:'inc',exp:e.entity==='us'?'expu':'expf',loan:'loan',sub:'sub'};
+  const emMap={rev:'💰',exp:e.entity==='us'?'💸':'🏦',loan:'💜',sub:'🔄'};
   const acl=e.type==='rev'?'g':e.type==='loan'?'v':e.type==='sub'?'o':'p';
-  const apfx=e.type==='rev'?'+':'−';const csfx=isSub?(e.cadence==='annual'?annualSuffix():monthlySuffix()):'';
+  const apfx=e.type==='rev'?'+':'−';
+  const csfx=isSub?(e.cadence==='annual'?'/yr':'/mo'):'';
   let tags='';
-  if(e.type==='rev')tags+='<span class="htag g">'+tr('tagUsRevenue')+'</span>';
-  else if(e.type==='loan')tags+='<span class="htag v">'+tr('tagAdvance')+'</span><span class="htag p">'+sourceShort(src)+'</span>';
-  else if(e.type==='sub')tags+='<span class="htag b">'+tr('tagUsSubscription')+'</span><span class="htag '+(e.cadence==='annual'?'y':'o')+'">'+(e.cadence==='annual'?tr('annual'):tr('monthly'))+'</span><span class="htag p">'+sourceShort(src)+'</span>';
-  else if(e.type==='exp')tags+='<span class="htag b">'+tr('tagUsExpense')+'</span><span class="htag p">'+sourceShort(src)+'</span>';
+  if(e.type==='rev')tags+='<span class="htag g">Revenue</span>';
+  else if(e.type==='loan')tags+=`<span class="htag v">Loan · ${e.entity==='us'?'Izinest':'French Co.'}</span>`;
+  else if(e.type==='sub')tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span><span class="htag ${e.cadence==='annual'?'y':'o'}">${e.cadence==='annual'?L.annual:L.monthly}</span>`;
+  else tags+=`<span class="htag ${e.entity==='us'?'b':'p'}">${e.entity==='us'?'Izinest LLC':'French Co.'}</span>`;
   tags+=e.author==='malvin'?'<span class="htag" style="background:rgba(0,255,136,.1);color:var(--green)">Malvin</span>':'<span class="htag" style="background:rgba(255,34,102,.1);color:var(--pink)">Amaury</span>';
-  if(e.isEdit)tags+='<span class="htag y">'+tr('editedTag')+'</span>';
+  if(isSub&&e.paidBy&&e.paidBy!=='none')tags+=`<span class="htag" style="background:${e.paidBy==='malvin'?'rgba(0,255,136,.1)':'rgba(255,34,102,.1)'};color:${e.paidBy==='malvin'?'var(--green)':'var(--pink)'}">Paid by ${e.paidBy==='malvin'?'👤 Malvin':'👤 Amaury'}</span>`;
+  if(e.isEdit)tags+=`<span class="htag y">${L.editedTag}</span>`;
   let extra='';
-  if(isSub&&e.cadence==='annual')extra+='<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈'+f2(getMonthlyAmt(e))+monthlySuffix()+'</span>';
-  if(e.isEdit)extra+='<div class="edit-audit">✏️ <strong>'+tr('editedTag')+'</strong> · '+tr('wasLabel')+': '+e.prevDesc+' · '+f2(Math.abs(e.prevAmt))+' on '+e.prevDate+'<br>'+tr('reasonLabel')+': <em>'+e.editReason+'</em></div>';
-  if(e.superseded)extra+='<div class="sup-note">'+tr('supersededBy')+'</div>';
-  const editBtn=(!e.superseded)?'<button class="edit-btn" onclick="openEdit('+e.id+')">'+tr('editButton')+'</button>':'';
-  return'<div class="hitem'+(e.superseded?' sup':'')+'"><div class="hicon '+(icMap[e.type]||'inc')+'">'+(emMap[e.type]||'💰')+'</div><div class="hinfo"><div class="hdesc">'+e.desc+'</div><div class="hmeta">'+e.date+' · '+(e.timestamp||'')+' '+tags+'</div>'+extra+editBtn+'</div><div class="hamt '+acl+'">'+apfx+f2(Math.abs(Number(e.amt||0)))+csfx+'</div></div>';
+  if(isSub&&e.cadence==='annual')extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
+  if(e.isEdit)extra+=`<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>`;
+  if(e.superseded)extra+=`<div class="sup-note">${L.supersededBy}</div>`;
+  const editBtn=(!e.superseded)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:''
+
+  return`<div class="hitem${e.superseded?' sup':''}"><div class="hicon ${icMap[e.type]||'inc'}">${emMap[e.type]||'💰'}</div><div class="hinfo"><div class="hdesc">${e.desc}</div><div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>${extra}${editBtn}</div><div class="hamt ${acl}">${apfx}$${Math.abs(e.amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}${csfx}</div></div>`;
 }
 
-function showToast(msg,err){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.background=err?'var(--pink)':'var(--green)';t.style.color='#000';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'var(--pink)':'var(--green)';t.style.color='#000';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
-function openEdit(id){
-  const e=log.find(x=>x.id===id);if(!e)return;editId=id;eTT=e.type;eCad=e.cadence||'monthly';
-  document.getElementById('edit-desc').value=e.desc;document.getElementById('edit-amt').value=e.amt;document.getElementById('edit-date').value=e.date;document.getElementById('edit-reason').value='';
-  editSetTT(eTT);setUiFromSource(getPaySource(e),true);editSetCadence(eCad);document.getElementById('edit-modal').classList.add('open');
-}
+let editId=null,eTT='rev',eEnt='us',eCad='monthly',ePay='none';
+function openEdit(id){const e=log.find(x=>x.id===id);if(!e)return;editId=id;eTT=e.type;eEnt=e.entity==='shared'?'us':e.entity;eCad=e.cadence||'monthly';ePay=e.paidBy||'none';document.getElementById('edit-desc').value=e.desc;document.getElementById('edit-amt').value=e.amt;document.getElementById('edit-date').value=e.date;document.getElementById('edit-reason').value='';editSetTT(eTT);editSetEntity(eEnt);editSetCadence(eCad);editSetPayer(ePay);document.getElementById('edit-modal').classList.add('open');}
 function closeEdit(){document.getElementById('edit-modal').classList.remove('open');editId=null;}
-
-function editSetTT(t){
-  eTT=t;
-  ['rev','exp','loan','sub'].forEach(k=>{const el=document.getElementById('ett-'+k);if(!el)return;el.className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});
-  const entityRow=document.getElementById('edit-entity-row');const cadenceRow=document.getElementById('edit-cadence-row');const payerRow=document.getElementById('edit-payer-row');
-  const entityLabel=document.getElementById('edit-entity-label');const payerLabel=document.querySelector('#edit-payer-row .flabel');const amtLabel=document.getElementById('edit-amt-label');
-  if(t==='rev'){if(entityRow)entityRow.style.display='none';if(cadenceRow)cadenceRow.style.display='none';if(payerRow)payerRow.style.display='none';if(amtLabel)amtLabel.textContent=tr('amountLabel');}
-  if(t==='exp'){if(entityRow)entityRow.style.display='block';if(cadenceRow)cadenceRow.style.display='none';if(payerRow)payerRow.style.display='block';if(entityLabel)entityLabel.textContent=tr('labelIfCompanyPaid');if(payerLabel)payerLabel.textContent=tr('labelPaidVia');if(amtLabel)amtLabel.textContent=tr('amountLabel');}
-  if(t==='sub'){if(entityRow)entityRow.style.display='block';if(cadenceRow)cadenceRow.style.display='block';if(payerRow)payerRow.style.display='block';if(entityLabel)entityLabel.textContent=tr('labelIfCompanyPaid');if(payerLabel)payerLabel.textContent=tr('labelPaidVia');if(amtLabel)amtLabel.textContent=tr('amountLabelSub');}
-  if(t==='loan'){if(entityRow)entityRow.style.display='block';if(cadenceRow)cadenceRow.style.display='none';if(payerRow)payerRow.style.display='block';if(entityLabel)entityLabel.textContent=tr('labelFrenchCoAdvance');if(payerLabel)payerLabel.textContent=tr('labelAdvancedBy');if(amtLabel)amtLabel.textContent=tr('amountLabel');}
-}
-function editSetEntity(e){eEnt=e;const us=document.getElementById('eet-us');const fr=document.getElementById('eet-fr');if(us)us.className='etbtn'+(e==='us'?' ag':'');if(fr)fr.className='etbtn'+(e==='fr'?' ap':'');}
-function editSetCadence(c){eCad=c;const mo=document.getElementById('esc-monthly');const an=document.getElementById('esc-annual');if(mo)mo.className='sctbtn'+(c==='monthly'?' ao':'');if(an)an.className='sctbtn'+(c==='annual'?' ao':'');}
-function editSetPayer(p){ePay=p;const none=document.getElementById('epp-none');const malvin=document.getElementById('epp-malvin');const amaury=document.getElementById('epp-amaury');if(none)none.className='etbtn'+(p==='none'?' ag':'');if(malvin)malvin.className='etbtn'+(p==='malvin'?' ag':'');if(amaury)amaury.className='etbtn'+(p==='amaury'?' ap':'');}
-
+function editSetTT(t){eTT=t;['rev','exp','loan','sub'].forEach(k=>{document.getElementById('ett-'+k).className='ttbtn'+(k===t?(t==='rev'?' ag':t==='exp'?' ap':t==='loan'?' av':' ao'):'');});document.getElementById('edit-entity-row').style.display=t==='rev'?'none':'block';document.getElementById('edit-cadence-row').style.display=t==='sub'?'block':'none';document.getElementById('edit-payer-row').style.display=t==='sub'?'block':'none';document.getElementById('edit-entity-label').textContent=t==='loan'?'Who advanced?':'Who pays?';document.getElementById('edit-amt-label').textContent=t==='sub'?'Amount (USD, based on cadence)':'Amount (USD)';}
+function editSetEntity(e){eEnt=e;document.getElementById('eet-us').className='etbtn'+(e==='us'?' ag':'');document.getElementById('eet-fr').className='etbtn'+(e==='fr'?' ap':'');}
+function editSetCadence(c){eCad=c;document.getElementById('esc-monthly').className='sctbtn'+(c==='monthly'?' ao':'');document.getElementById('esc-annual').className='sctbtn'+(c==='annual'?' ao':'');}
+function editSetPayer(p){ePay=p;document.getElementById('epp-none').className='etbtn'+(p==='none'?' ag':'');document.getElementById('epp-malvin').className='etbtn'+(p==='malvin'?' ag':'');document.getElementById('epp-amaury').className='etbtn'+(p==='amaury'?' ap':'');}
 function saveEdit(){
-  const desc=document.getElementById('edit-desc').value.trim();const amt=parseFloat(document.getElementById('edit-amt').value);const date=document.getElementById('edit-date').value;const reason=document.getElementById('edit-reason').value.trim()||tr('noReason');
-  if(!desc||isNaN(amt)||amt<=0){showToast(tr('editFill'),true);return;}if(editId===null)return;
+  const desc=document.getElementById('edit-desc').value.trim();
+  const amt=parseFloat(document.getElementById('edit-amt').value);
+  const date=document.getElementById('edit-date').value;
+  const reason=document.getElementById('edit-reason').value.trim()||'No reason given';
+  if(!desc||isNaN(amt)||amt<=0){showToast(L.editFill,true);return;}
+  if(editId===null)return;
   const orig=log.find(x=>x.id===editId);if(!orig)return;
-  const src=eTT==='rev'?'company_us':deriveSourceFromUI(eTT,eEnt,ePay);if(eTT==='loan'&&!src){showToast(tr('invalidAdvance'),true);return;}
   orig.superseded=true;orig.supersededBy=Date.now();
-  const newE={id:Date.now(),type:eTT,entity:'us',economicEntity:'us',paySource:src,uiEntity:eEnt,paidBy:ePay,desc,amt,cur:'USD',date,author,timestamp:parisTime(),tsIso:new Date().toISOString(),isEdit:true,editOf:editId,editReason:reason,prevDesc:orig.desc,prevAmt:orig.amt,prevDate:orig.date};
-  if(eTT==='sub'){newE.cadence=eCad;newE.amtMonthly=eCad==='annual'?+(amt/12).toFixed(2):amt;}
-  if(eTT==='loan'){newE.advancedBy=src;}
-  log.unshift(newE);saveData();closeEdit();showToast(tr('editSaved'));renderDash();
+  const newE={id:Date.now(),type:eTT,entity:eTT==='rev'?'shared':eEnt,desc,amt,cur:'USD',date,author,timestamp:parisTime(),tsIso:new Date().toISOString(),isEdit:true,editOf:editId,editReason:reason,prevDesc:orig.desc,prevAmt:orig.amt,prevDate:orig.date};
+  if(eTT==='sub'){newE.cadence=eCad;newE.amtMonthly=eCad==='annual'?+(amt/12).toFixed(2):amt;newE.paidBy=ePay;}
+  log.unshift(newE);
+  saveData();closeEdit();showToast(L.editSaved);renderDash();
 }
 </script>
 
