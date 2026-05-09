@@ -504,7 +504,6 @@ async function saveData(){
       body:JSON.stringify({log:log})
     });
     const body=await r.json();
-    console.log('PATCH status:',r.status,'body:',JSON.stringify(body));
     if(!r.ok||!body.length) throw new Error('HTTP '+r.status+' — rows updated: '+(body.length||0));
     setSS('saved');
   }catch(e){
@@ -520,6 +519,7 @@ function setSS(s){
   if(s==='saved')setTimeout(()=>{el.className='save-status';},3000);
 }
 
+// ── BUGFIX: personal subs counted as advances ONLY, not deducted from company pool ──
 function compute(){
   let rev=0,expUS=0,expFR=0,subUS=0,subFR=0,loanUS=0,loanFR=0,revC=0,expC=0,subAdvM=0,subAdvA=0;
   log.filter(e=>!e.superseded).forEach(e=>{
@@ -559,44 +559,21 @@ async function addTx() {
   const desc = document.getElementById('inp-desc').value.trim();
   const amt = parseFloat(document.getElementById('inp-amt').value);
   const date = document.getElementById('inp-date').value;
-  
-  if (!desc || isNaN(amt) || amt <= 0) {
-    showToast(L.fillRequired, true);
-    return;
-  }
-
+  if (!desc || isNaN(amt) || amt <= 0) { showToast(L.fillRequired, true); return; }
   const e = {
-    id: Date.now(),
-    type: txType,
+    id: Date.now(), type: txType,
     entity: txType === 'rev' ? 'shared' : txEntity,
-    desc,
-    amt,
-    cur: 'USD',
-    date,
-    author,
-    timestamp: parisTime(),
-    tsIso: new Date().toISOString()
+    desc, amt, cur: 'USD', date, author,
+    timestamp: parisTime(), tsIso: new Date().toISOString()
   };
-
   if (txType === 'sub') {
     e.cadence = subCadence;
     e.amtMonthly = subCadence === 'annual' ? +(amt / 12).toFixed(2) : amt;
     e.paidBy = subPayer;
   }
-
-  // 1. Sauvegarde dans Supabase (Interface immédiate)
   log.unshift(e);
   saveData();
-
-  // 2. Envoi vers Google Sheet (Archive en arrière-plan)
-  fetch(GOOGLE_SHEET_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    cache: 'no-cache',
-    body: JSON.stringify(e)
-  });
-
-  // Reset de l'interface
+  fetch(GOOGLE_SHEET_URL, { method:'POST', mode:'no-cors', cache:'no-cache', body:JSON.stringify(e) });
   document.getElementById('inp-desc').value = '';
   document.getElementById('inp-amt').value = '';
   document.getElementById('inp-date').valueAsDate = new Date();
@@ -681,8 +658,7 @@ function itemHTML(e){
   if(isSub&&e.cadence==='annual')extra+=`<span style="font-size:10px;color:var(--dim);display:block;margin-top:2px;font-family:var(--fm)">≈$${(e.amtMonthly||e.amt/12).toFixed(2)}/mo</span>`;
   if(e.isEdit)extra+=`<div class="edit-audit">✏️ <strong>Edit</strong> · was: ${e.prevDesc} · $${Math.abs(e.prevAmt).toFixed(2)} on ${e.prevDate}<br>Reason: <em>${e.editReason}</em></div>`;
   if(e.superseded)extra+=`<div class="sup-note">${L.supersededBy}</div>`;
-  const editBtn=(!e.superseded)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:''
-
+  const editBtn=(!e.superseded)?`<button class="edit-btn" onclick="openEdit(${e.id})">✏️ EDIT</button>`:'';
   return`<div class="hitem${e.superseded?' sup':''}"><div class="hicon ${icMap[e.type]||'inc'}">${emMap[e.type]||'💰'}</div><div class="hinfo"><div class="hdesc">${e.desc}</div><div class="hmeta">${e.date} · ${e.timestamp||''} ${tags}</div>${extra}${editBtn}</div><div class="hamt ${acl}">${apfx}$${Math.abs(e.amt).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}${csfx}</div></div>`;
 }
 
