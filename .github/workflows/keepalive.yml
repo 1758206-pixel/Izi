@@ -1,0 +1,16 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -X GET "https://prkoussesafjmvdzhfrz.supabase.co" \
+          -H "apikey: sb_publishable_MVWI8UTyJewFYAXoryY_bg_GmV9G1Qj" \
+          -H "Authorization: Bearer sb_publishable_MVWI8UTyJewFYAXoryY_bg_GmV9G1Qj"
